@@ -1,0 +1,2573 @@
+/* ==========================================================================
+   LANOS — Main page
+   Design source: Figma "Site LANOS" → Main page (node 2422:2441)
+   ========================================================================== */
+
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #F2F1EF;
+  --ink: #232824;
+  --navy: #0F253D;
+  --navy-2: #294278;
+  --blue: #11498A;
+  --blue-hover: #0D3A6F;
+  --gray: #7D7D7D;
+  --gray-light: #CBCBCB;
+  --gold: #CBAE3C;
+  --gold-2: #C5B209;
+  --border: #E6E6E6;
+  --cream: #F1EDEA;
+  --cream-2: #E9E5E2;
+  --white: #FFFFFF;
+
+  --font-head: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --container-max: 1440px;
+  --pad: 80px;
+
+  --ease: cubic-bezier(.16, .84, .44, 1);
+  --ease-out: cubic-bezier(.22, .61, .36, 1);
+  --dur: .6s;
+
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  width: 100%;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+ul,
+ol,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+address {
+  font-style: normal;
+}
+
+svg {
+  display: block;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+.icon-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: currentColor;
+}
+
+.icon--12 {
+  width: 16px;
+  height: 16px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 999;
+  background: var(--blue);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 0 0 8px 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Page loader ---------- */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--navy);
+  transition: opacity .7s var(--ease), visibility .7s var(--ease);
+}
+
+/* Logo "fills in" left-to-right: a dim translucent-white copy sits
+   underneath, a fully-opaque white copy is wiped in on top of it via an
+   animated clip-path, so the mark reads as loading/painting itself in. */
+.page-loader__logo {
+  position: relative;
+  width: 200px;
+}
+
+.page-loader__logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* logo.png is navy on transparent — force it to pure white so it reads
+     against the navy loader background regardless of source color. */
+  filter: brightness(0) invert(1);
+}
+
+.page-loader__logo-base {
+  opacity: .3;
+}
+
+.page-loader__logo-fill {
+  position: absolute;
+  inset: 0;
+  animation: loaderFill 2.2s ease-in-out infinite;
+}
+
+@keyframes loaderFill {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 1;
+  }
+
+  45% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+
+  80% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+
+  92% {
+    opacity: 0;
+  }
+
+  93% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+
+  100% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 1;
+  }
+}
+
+.page-loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ---------- Typography helpers (shared across blocks) ---------- */
+.eyebrow {
+  font: 500 20px/30px var(--font-body);
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+}
+
+.eyebrow--gold {
+  color: var(--gold);
+}
+
+.eyebrow--gold-dark {
+  color: var(--gold-2);
+}
+
+.eyebrow--gold-alt {
+  color: var(--gold-2);
+}
+
+.section-title {
+  font: 400 48px/64px var(--font-head);
+  color: var(--ink);
+  margin-bottom: 16px;
+  letter-spacing: -.01em;
+}
+
+.section-title--light {
+  color: #fff;
+}
+
+.section-text {
+  font: 400 16px/28px var(--font-body);
+  color: var(--gray);
+  max-width: 56ch;
+  margin-bottom: 32px;
+}
+
+.facilities .section-text,
+.contact .section-text {
+  color: var(--gray-light);
+}
+
+/* ---------- Buttons ---------- */
+/* Button states match the Figma "btn" component set (node 2464:6847) exactly:
+   Type=Normal/White/Line × Action=Default/Hover/Focused/Pressed/Disabled.
+   Only background/border/text/icon colors change between states — no lift,
+   shadow or shine effects, matching the flat source design. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 16px 24px;
+  border-radius: 30px;
+  border: 1px solid transparent;
+  background: var(--blue);
+  color: #fff;
+  font: 500 14px/24px var(--font-body);
+  white-space: nowrap;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.btn__arrow {
+  color: currentColor;
+}
+
+/* Type=Normal — primary filled navy */
+.btn--primary {
+  background: var(--blue);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: #2C5585;
+}
+
+.btn--primary:focus-visible {
+  background: var(--blue);
+  border-color: #0A3466;
+  outline: none;
+}
+
+.btn--primary:active {
+  background: #0A3466;
+}
+
+.btn--primary:disabled,
+.btn--primary[aria-disabled="true"] {
+  background: var(--gray-light);
+  color: #fff;
+  cursor: not-allowed;
+}
+
+/* Type=Line — outline, transparent bg (used on dark sections) */
+.btn--outline {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, .7);
+  border-radius: 999px;
+}
+
+.btn--outline:hover {
+  border-color: var(--bg);
+  color: var(--bg);
+}
+
+.btn--outline:focus-visible {
+  border-color: var(--gray-light);
+  color: #fff;
+  outline: none;
+}
+
+.btn--outline:active {
+  border-color: var(--gray-light);
+  color: var(--gray-light);
+}
+
+.btn--outline:disabled,
+.btn--outline[aria-disabled="true"] {
+  border-color: var(--gray-light);
+  color: var(--gray-light);
+  cursor: not-allowed;
+}
+
+/* Type=White — white filled, navy text (used on dark product cards) */
+.btn--white {
+  background: #fff;
+  color: var(--blue);
+}
+
+.btn--white:hover {
+  background: var(--bg);
+}
+
+.btn--white:focus-visible {
+  background: #fff;
+  border-color: var(--bg);
+  outline: none;
+}
+
+.btn--white:active {
+  background: var(--gray-light);
+}
+
+.btn--white:disabled,
+.btn--white[aria-disabled="true"] {
+  background: var(--gray-light);
+  color: #fff;
+  cursor: not-allowed;
+}
+
+/* ---------- Reveal-on-scroll ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  padding: 20px 0;
+  background: #fff;
+  color: var(--ink);
+  transition: padding .4s var(--ease), box-shadow .4s var(--ease);
+}
+
+.header--scrolled {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  box-shadow: 0 10px 30px -18px rgba(15, 37, 61, .25);
+}
+
+.header__inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* Needs to explicitly out-rank .header__nav (z-index:150, position:fixed):
+   as a fellow child of .header, it's compared against that sibling within
+   .header's own stacking context, where an unset z-index loses to any set
+   one regardless of .header's own z-index — the same reason .header__burger
+   already carries z-index:160. Without this the full-screen mobile overlay
+   paints over the logo. */
+.header__logo {
+  position: relative;
+  z-index: 160;
+}
+
+.header__logo img {
+  height: 47px;
+  width: auto;
+  transition: transform .3s var(--ease-out);
+}
+
+.header__logo:hover img {
+  transform: scale(1.04);
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+/* Row icons/arrows, the CTA, the mobile-only language row and the bottom
+   photo strip only exist for the full-screen mobile nav — invisible (and
+   inert for the desktop flyout menus) above that breakpoint.
+   .header__nav-arrow excludes .header__caret: Registration/Career's chevron
+   does double duty (mobile row arrow + desktop's rotating dropdown caret,
+   same SVG carries both classes) and the caret still needs to show on
+   desktop — only the arrow that has no caret role (the mobile-only lang
+   trigger) should actually disappear there. */
+.header__nav-icon,
+.header__nav-arrow:not(.header__caret),
+.header__nav-cta,
+.header__nav-bg,
+.header__nav-lang-item {
+  display: none;
+}
+
+/* .header__nav-list is the SAME element for both desktop (plain horizontal
+   flyout menu) and mobile (full-screen drill-down) — only the wrappers
+   around it differ. At desktop, the mobile-only top row and every
+   non-main panel (Registration/Career/Language sub-screens) are hidden
+   outright, and the panel wrappers collapse with display:contents so
+   .header__nav-list bubbles back up to being a direct flex child of
+   .header__nav, exactly like before this drill-down system existed —
+   without this, each wrapper's default block display would stack every
+   panel's content visibly, one under another, over the whole page. */
+.header__nav-top,
+.header__nav-panel:not(.header__nav-panel--main) {
+  display: none;
+}
+
+.header__nav-panels,
+.header__nav-panel--main,
+.header__nav-scroll {
+  display: contents;
+}
+
+.header__nav-item {
+  position: relative;
+}
+
+.header__nav-link {
+  font: 500 14px/24px var(--font-body);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  opacity: .92;
+  transition: opacity .25s ease, color .25s ease;
+}
+
+.header__nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  transition: right .35s var(--ease-out);
+}
+
+.header__nav-link:hover,
+.header__nav-item--dropdown:hover .header__nav-link,
+.header__nav-item--dropdown:focus-within .header__nav-link {
+  opacity: 1;
+}
+
+.header__nav-link:hover::after {
+  right: 0;
+}
+
+.header__caret {
+  transition: transform .3s var(--ease-out);
+}
+
+.header__nav-item--dropdown:hover .header__caret,
+.header__nav-item--dropdown:focus-within .header__caret {
+  transform: rotate(180deg);
+}
+
+/* Dropdown submenu (Registration / Career)
+   The gap above the panel is bridged by ::before (transparent, but part of
+   the same hoverable box) so moving the mouse straight down from the trigger
+   never crosses "dead" space with no hoverable element under it. Closing is
+   additionally delayed (transition-delay on the closed state) so a slightly
+   diagonal path still has time to land on the panel before it disappears —
+   without that delay, pointer-events:none applies the instant :hover is
+   lost, which is what made the menu vanish before it could be reached. */
+.header__submenu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translate(-50%, 8px);
+  min-width: 200px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 24px 48px -20px rgba(15, 37, 61, .28), 0 2px 8px rgba(15, 37, 61, .06);
+  padding: 10px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease, visibility 0s linear .35s, pointer-events 0s linear .35s;
+  z-index: 10;
+}
+
+.header__submenu::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: transparent;
+}
+
+.header__submenu::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.header__nav-item--dropdown:hover .header__submenu,
+.header__nav-item--dropdown:focus-within .header__submenu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s linear, pointer-events 0s linear;
+}
+
+.header__submenu li+li {
+  margin-top: 2px;
+}
+
+.header__submenu a {
+  display: block;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font: 500 14px/20px var(--font-body);
+  color: var(--ink);
+  white-space: nowrap;
+  transition: background-color .2s ease, color .2s ease, padding-left .25s var(--ease-out);
+}
+
+.header__submenu a:hover {
+  background: var(--bg);
+  color: var(--blue);
+  padding-left: 18px;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Language switcher */
+.header__lang-wrap {
+  position: relative;
+  padding-right: 32px;
+  margin-right: 8px;
+  border-right: 1px solid var(--border);
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+.header__lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: 500 14px/24px var(--font-body);
+  opacity: .92;
+  transition: opacity .25s ease;
+}
+
+.header__lang-wrap:hover .header__lang,
+.header__lang-wrap:focus-within .header__lang {
+  opacity: 1;
+}
+
+.header__lang-wrap:hover .header__caret,
+.header__lang-wrap:focus-within .header__caret {
+  transform: rotate(180deg);
+}
+
+.header__lang-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translate(-50%, 8px);
+  min-width: 168px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 24px 48px -20px rgba(15, 37, 61, .28), 0 2px 8px rgba(15, 37, 61, .06);
+  padding: 10px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease, visibility 0s linear .35s, pointer-events 0s linear .35s;
+  z-index: 10;
+}
+
+.header__lang-menu::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: transparent;
+}
+
+.header__lang-menu::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.header__lang-wrap:hover .header__lang-menu,
+.header__lang-wrap:focus-within .header__lang-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s linear, pointer-events 0s linear;
+}
+
+.header__lang-menu li+li {
+  margin-top: 2px;
+}
+
+.header__lang-menu button {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font: 600 13px/20px var(--font-body);
+  color: var(--ink);
+  transition: background-color .2s ease, color .2s ease, padding-left .25s var(--ease-out);
+}
+
+.header__lang-menu button span {
+  font: 400 13px/20px var(--font-body);
+  color: var(--gray);
+}
+
+.header__lang-menu button:hover {
+  background: var(--bg);
+  color: var(--blue);
+  padding-left: 18px;
+}
+
+.header__lang-menu li[aria-selected="true"] button {
+  color: var(--blue);
+}
+
+.header__lang-menu li[aria-selected="true"] button::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  margin-left: auto;
+}
+
+.header__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  position: relative;
+  z-index: 160;
+}
+
+.header__burger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform .35s var(--ease), opacity .2s ease;
+}
+
+.header__burger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.header__burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.header__burger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.08);
+  animation: heroZoom 16s ease-out forwards;
+}
+
+@keyframes heroZoom {
+  from {
+    transform: scale(1.08);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+.hero__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(8, 16, 30, .96) 8%, rgba(8, 16, 30, .72) 55%, rgba(8, 16, 30, .15) 100%);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+  width: 100%;
+}
+
+.hero__content {
+  max-width: 833px;
+}
+
+.hero__title {
+  font: 400 80px/96px var(--font-head);
+  color: #fff;
+  margin-bottom: 16px;
+  letter-spacing: -.01em;
+}
+
+.hero__desc {
+  font: 400 16px/28px var(--font-body);
+  color: var(--gray-light);
+  max-width: 833px;
+  margin-bottom: 48px;
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero__scroll {
+  position: absolute;
+  right: var(--pad);
+  bottom: 64px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: #fff;
+}
+
+.hero__scroll-label {
+  writing-mode: vertical-rl;
+  font: 500 12px/28px var(--font-body);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: .85;
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(#fff, transparent);
+  animation: scrollLine 2.2s var(--ease) infinite;
+}
+
+@keyframes scrollLine {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+  }
+
+  40% {
+    transform: scaleY(1);
+    transform-origin: top;
+    opacity: 1;
+  }
+
+  60% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   ABOUT
+   ========================================================================== */
+/* Figma's "about us" group is 42px taller than the gap before the dark
+   facilities bg, and paints above it (later in the layer list) — the photo
+   deliberately overlaps onto the next section instead of stopping short of
+   it. Reproduced with a negative bottom margin + an explicit stacking
+   context so .about (and its photo) paints over .facilities in that 42px
+   band, rather than the old approach of just clipping/cropping it away. */
+.about {
+  position: relative;
+  z-index: 1;
+  padding: 130px 0 0;
+  margin-bottom: -40px;
+  overflow-x: clip;
+}
+
+/* Wraps the headline + grid. Deliberately NOT capped to --container-max
+   itself (that would kill the media/watermark bleed below) — only the
+   headline gets its own centered max-width; .about__grid stays full-bleed
+   width so .about__media/.about__watermark can reach the viewport edge. */
+.about__container {
+  position: relative;
+}
+
+/* Figma node 2422:2501 "image 46": sits 48px below the headline's own top
+   (overlapping its lower half) and is 843px wide against the 1440px frame —
+   i.e. ~58.5% of the container, bleeding almost flush to the right edge. */
+.about__watermark {
+  position: absolute;
+  top: 48px;
+  right: max(0px, calc((100vw - var(--container-max))/2));
+  width: min(58.5%, 843px);
+  opacity: .05;
+  filter: grayscale(1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about__headline {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-max);
+  margin: 0 auto 96px;
+  padding-inline: var(--pad);
+  font: 400 56px/80px var(--font-head);
+  text-align: center;
+  color: var(--ink);
+}
+
+.about__headline-accent {
+  color: var(--navy-2);
+}
+
+.about__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0 96px;
+}
+
+.about__media {
+  min-width: 0;
+  position: relative;
+  padding-left: max(0px, calc((100vw - var(--container-max))/2));
+}
+
+.about__photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 778/633;
+  object-fit: cover;
+  border-radius: 0 16px 16px 0;
+  box-shadow: 0 40px 80px -40px rgba(15, 37, 61, .35);
+}
+
+.about__body {
+  min-width: 0;
+  padding-right: calc(var(--pad) + max(0px, (100vw - var(--container-max))/2));
+}
+
+/* ==========================================================================
+   FACILITIES (dark technology section)
+   ========================================================================== */
+.facilities {
+  background: var(--navy);
+  color: #fff;
+  padding: 130px 0;
+}
+
+.facilities__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.facilities__intro {
+  margin-bottom: 16px;
+  max-width: 832px;
+}
+
+/* Grid tracks default to min-width:auto (content min-content), which lets a
+   wide descendant (e.g. the marquee) blow out the whole grid/page width.
+   Force every direct grid-item wrapper below to be shrinkable. */
+.facilities__side,
+.facilities__card-wrap,
+.products__intro,
+.products__cards,
+.partners__left,
+.partners__right,
+.contact__left,
+.contact-form {
+  min-width: 0;
+}
+
+.facilities__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 525fr) minmax(0, 704fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.facilities__lead {
+  font: 400 16px/28px var(--font-body);
+  color: var(--gray-light);
+  max-width: 525px;
+  margin-bottom: 72px;
+}
+
+.checks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.checks__item {
+  max-width: 100%;
+}
+
+.checks__btn {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  font: 400 24px/36px var(--font-body);
+  color: #fff;
+  opacity: .6;
+  text-align: left;
+  transition: opacity .35s var(--ease-out), border-color .35s var(--ease-out),
+    padding .35s var(--ease-out), color .35s var(--ease-out), transform .35s var(--ease-out);
+}
+
+.checks__label {
+  min-width: 0;
+}
+
+.checks__icon {
+  width: 0;
+  height: 28px;
+  flex: none;
+  opacity: 0;
+  color: #fff;
+  transform: rotate(-45deg) scale(.5);
+  transition: width .35s var(--ease-out), opacity .25s ease, transform .35s var(--ease-out), margin .35s var(--ease-out);
+}
+
+.checks__item:hover .checks__btn,
+.checks__item--active .checks__btn {
+  opacity: 1;
+  color: #E6E6E6;
+  border-color: rgba(255, 255, 255, .6);
+  padding: 8px 24px 8px 8px;
+  transform: translateX(6px);
+}
+
+.checks__item:hover .checks__icon,
+.checks__item--active .checks__icon {
+  width: 28px;
+  opacity: 1;
+  margin-right: 8px;
+  transform: rotate(0deg) scale(1);
+}
+
+.card-cutting {
+  background: var(--bg);
+  color: var(--ink);
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  box-shadow: 123px -36px 200px rgba(255, 255, 255, .06);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out);
+}
+
+.card-cutting__media,
+.card-cutting__body {
+  align-self: stretch;
+}
+
+.card-cutting:hover {
+  transform: translateY(-6px);
+}
+
+.card-cutting__media {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 654/227;
+}
+
+/* Guarantees the white overlay title stays legible no matter which photo
+   is swapped in by the facilities category switcher (some are light). */
+.card-cutting__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, .55) 100%);
+  pointer-events: none;
+}
+
+.card-cutting__media img:first-child {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .8s var(--ease-out), opacity .25s ease;
+}
+
+.card-cutting:hover .card-cutting__media img:first-child {
+  transform: scale(1.06);
+}
+
+.card-cutting__label {
+  position: absolute;
+  z-index: 2;
+  left: 24px;
+  bottom: 20px;
+  margin: 0;
+  font: 400 32px/48px var(--font-head);
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .45);
+  transition: opacity .25s ease, transform .3s var(--ease-out);
+}
+
+.card-cutting__text {
+  font: 400 16px/28px var(--font-body);
+  color: var(--gray);
+  margin-bottom: 16px;
+  transition: opacity .25s ease, transform .3s var(--ease-out);
+}
+
+/* Cross-fade the card content while a new category swaps in (see main.js) */
+.card-cutting.is-switching .card-cutting__media img,
+.card-cutting.is-switching .card-cutting__label,
+.card-cutting.is-switching .card-cutting__text,
+.card-cutting.is-switching .card-cutting__cols {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.card-cutting__cols {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: opacity .25s ease, transform .3s var(--ease-out);
+}
+
+.card-cutting__col {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-cutting__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 18px/32px var(--font-body);
+  color: var(--ink);
+  transition: color .3s ease, gap .3s var(--ease-out);
+}
+
+.card-cutting__link:hover,
+.card-cutting__link:focus-visible {
+  color: var(--navy-2);
+  gap: 10px;
+  outline: none;
+}
+
+.card-cutting__link-arrow {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity .3s ease, transform .3s var(--ease-out);
+}
+
+.card-cutting__link:hover .card-cutting__link-arrow,
+.card-cutting__link:focus-visible .card-cutting__link-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* ==========================================================================
+   OUR PRODUCT
+   ========================================================================== */
+.products {
+  padding: 130px 0;
+}
+
+.products__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+  display: grid;
+  grid-template-columns: 421px 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.products__intro {
+  align-self: center;
+}
+
+/* Horizontal accordion: the active card claims most of the row's width via
+   flex-grow (352:194:194, matching Figma's Hover/Default card weights) and
+   every card animates smoothly between the two states — see main.js for the
+   hover-driven, "last one stays selected" switching logic. */
+.products__cards {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.product-card {
+  position: relative;
+  flex: 194 1 0%;
+  min-width: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 559px;
+  cursor: pointer;
+  background: var(--cream-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 30px 0;
+  transition: flex-grow .6s var(--ease-out), background-color .6s ease,
+    transform .6s var(--ease-out), box-shadow .6s var(--ease-out);
+}
+
+.product-card--active {
+  flex-grow: 352;
+  background: var(--navy-2);
+}
+
+.product-card:hover {
+  box-shadow: 0 30px 60px -30px rgba(15, 37, 61, .35);
+}
+
+.product-card__media {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 190px;
+  transition: max-width .6s var(--ease-out);
+}
+
+.product-card--active .product-card__media {
+  max-width: 220px;
+}
+
+/* Sits behind the product image (explicit z-index, image is z-index:1) and
+   tracks the same peek/center + lift motion as the image above it, so the
+   shadow always reads as "cast by" the photo instead of sitting static. */
+.product-card__shadow {
+  position: absolute;
+  z-index: 0;
+  bottom: 14%;
+  left: 50%;
+  width: 78%;
+  height: 22px;
+  transform: translateX(calc(-50% + 46px));
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, .5), transparent 72%);
+  filter: blur(10px);
+  transition: transform .6s var(--ease-out), opacity .6s var(--ease-out);
+}
+
+.product-card--active .product-card__shadow {
+  transform: translateX(-50%);
+}
+
+.product-card:hover .product-card__shadow {
+  transform: translateX(calc(-50% + 46px)) scale(1.08);
+  opacity: .8;
+}
+
+.product-card--active:hover .product-card__shadow {
+  transform: translateX(-50%) scale(1.08);
+  opacity: .8;
+}
+
+.product-card__media img {
+  position: relative;
+  z-index: 1;
+  max-height: 260px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 30px rgba(0, 0, 0, .22));
+  transition: max-height .6s var(--ease-out), transform .6s var(--ease-out);
+}
+
+.product-card--active .product-card__media img {
+  max-height: 320px;
+  transform: translateX(0);
+}
+
+/* Collapsed cards let their product photo peek off the right edge (clipped
+   by .product-card's overflow:hidden); on activation it slides in to sit
+   centered, growing at the same time — the "выезжает на середину" motion. */
+.product-card:not(.product-card--active) .product-card__media img {
+  transform: translateX(46px);
+}
+
+.product-card:hover .product-card__media img {
+  transform: translateY(-6px) scale(1.03);
+}
+
+.product-card--active:hover .product-card__media img {
+  transform: translateX(0) translateY(-6px) scale(1.03);
+}
+
+.product-card__body {
+  width: 100%;
+  padding: 0 0px 30px;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+}
+
+/* No transform of its own: .product-card__body is bottom-anchored via
+   margin-top:auto, so the title naturally rises as the desc/btn max-height
+   below it grows (see below) — that reflow is now animated smoothly, so
+   title moves in one continuous motion instead of a transitioned transform
+   fighting an instant, untransitioned flex reflow (that combo was the
+   "дёргается" jitter: two motions overlapping, one of them a hard jump). */
+.product-card__title {
+  font: 400 24px/32px var(--font-head);
+  color: var(--ink);
+  transition: color .5s ease;
+}
+
+.product-card--active .product-card__title {
+  color: #fff;
+}
+
+.product-card__desc {
+  font: 500 14px/24px var(--font-body);
+  color: #fff;
+}
+
+/* max-height animates with a real duration (not an instant 0s snap) so the
+   space it reserves grows/shrinks smoothly frame by frame, which is what
+   lets the title's push-up reflow above it move continuously. Crucially,
+   on reveal all three properties (opacity/transform/max-height) share the
+   SAME delay equal to the card's own flex-grow duration: text is normal
+   flow content, so while the card is still changing width the description
+   can wrap onto a different number of lines mid-flight, which snaps its
+   own height independently of our max-height transition — that was the
+   real source of the "дёргается" jitter. Waiting until the card's width
+   has fully settled means the text only ever reflows once, before it
+   starts animating, so nothing jumps afterwards. */
+.product-card__desc,
+.product-card__body .btn {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity .2s ease, transform .22s var(--ease-out), max-height .22s var(--ease-out);
+}
+
+.product-card--active .product-card__desc,
+.product-card--active .product-card__body .btn {
+  opacity: 1;
+  max-height: 120px;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: opacity .4s ease .5s, transform .4s var(--ease-out) .5s, max-height .4s var(--ease-out) .5s;
+}
+
+/* ==========================================================================
+   PARTNERS & CERTIFICATES
+   ========================================================================== */
+.partners {
+  background: var(--cream);
+  padding: 130px 0;
+}
+
+.partners__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+  display: grid;
+  grid-template-columns: 737fr 338fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.partners__text {
+  margin-bottom: 40px;
+}
+
+.partners__logos {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+.partners__logos li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  height: 76px;
+  padding: 16px 20px;
+  transition: transform .35s var(--ease-out), box-shadow .35s var(--ease-out);
+}
+
+.partners__logos li:hover {
+  transform: translateY(-4px);
+}
+
+.partners__logos img {
+  max-height: 100%;
+  width: auto;
+  filter: grayscale(1) opacity(.75);
+  transition: filter .3s ease;
+}
+
+.partners__logos li:hover img {
+  filter: grayscale(0) opacity(1);
+}
+
+.cert-slider__track {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 338/473;
+  box-shadow: 18px 0 100px rgba(255, 255, 255, .11);
+}
+
+.cert-slider__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .6s var(--ease);
+}
+
+.cert-slider__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cert-slider__slide.is-active {
+  opacity: 1;
+}
+
+.cert-slider__dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.cert-slider__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 600px;
+  background: var(--gray-light);
+  transition: width .35s var(--ease-out), background-color .3s ease;
+}
+
+.cert-slider__dot--active {
+  width: 32px;
+  background: var(--blue);
+}
+
+/* ==========================================================================
+   CONTACT
+   ========================================================================== */
+.contact {
+  background: var(--navy);
+  color: #fff;
+  padding: 130px 0;
+}
+
+.contact__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+  display: grid;
+  grid-template-columns: 441fr 704fr;
+  gap: 80px;
+}
+
+.contact__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 64px;
+}
+
+.contact__info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font: 500 20px/30px var(--font-body);
+}
+
+.contact__info-name {
+  font-weight: 600;
+}
+
+.contact__info a {
+  transition: color .25s ease;
+}
+
+.contact__info a:hover {
+  color: var(--gold-2);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.contact-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-form__row {
+  display: flex;
+  gap: 16px;
+}
+
+.contact-form__row .contact-form__field {
+  flex: 1;
+}
+
+.contact-form__field {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  transition: box-shadow .3s ease;
+}
+
+.contact-form__field:focus-within {
+  box-shadow: 0 0 0 2px var(--gold-2);
+}
+
+.contact-form__field input,
+.contact-form__field textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  font: 400 16px/28px var(--font-body);
+  color: var(--ink);
+  background: transparent;
+  resize: vertical;
+}
+
+.contact-form__field input::placeholder,
+.contact-form__field textarea::placeholder {
+  color: var(--ink);
+  opacity: .55;
+}
+
+.contact-form__field--textarea {
+  min-height: 118px;
+}
+
+.contact-form__submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.contact-form__checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font: 500 14px/24px var(--font-body);
+  color: var(--gray-light);
+  cursor: pointer;
+}
+
+.contact-form__checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.contact-form__checkbox-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 2px solid var(--gray);
+  flex: none;
+  position: relative;
+  transition: background-color .25s ease, border-color .25s ease;
+}
+
+.contact-form__checkbox-box::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: var(--gold-2);
+  border-radius: 2px;
+  transform: scale(0);
+  transition: transform .25s var(--ease-out);
+}
+
+.contact-form__checkbox input:checked+.contact-form__checkbox-box {
+  border-color: var(--gold-2);
+}
+
+.contact-form__checkbox input:checked+.contact-form__checkbox-box::after {
+  transform: scale(1);
+}
+
+.contact-form__checkbox input:focus-visible+.contact-form__checkbox-box {
+  outline: 2px solid var(--gold-2);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.footer {
+  background: var(--bg);
+  padding: 40px 0 20px;
+}
+
+.footer__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.footer__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 64px;
+  padding-bottom: 64px;
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 265px;
+  flex: none;
+}
+
+.footer__logo {
+  height: 55px;
+  width: auto;
+}
+
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font: 500 14px/24px var(--font-body);
+  color: var(--ink);
+}
+
+.footer__contact a {
+  transition: color .25s ease;
+}
+
+.footer__contact a:hover {
+  color: var(--blue);
+}
+
+.footer__nav {
+  display: flex;
+  gap: 64px;
+  flex: 1;
+  justify-content: space-evenly;
+  max-width: 704px;
+}
+
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer__col a {
+  font: 500 14px/24px var(--font-body);
+  color: var(--ink);
+  position: relative;
+  width: fit-content;
+}
+
+.footer__col a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: var(--blue);
+  transition: right .3s var(--ease-out);
+}
+
+.footer__col a:hover {
+  color: var(--blue);
+}
+
+.footer__col a:hover::after {
+  right: 0;
+}
+
+.footer__social {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: none;
+}
+
+.footer__social a {
+  display: flex;
+  transition: transform .3s var(--ease-out);
+}
+
+.footer__social a:hover {
+  transform: translateY(-3px);
+}
+
+/* Monochrome at rest, each icon's real brand color (Instagram's true
+   gradient included, since it's baked into the SVG itself) revealed on
+   hover — filter-based rather than currentColor so the gradient survives. */
+.footer__social img {
+  filter: grayscale(1) opacity(.7);
+  transition: filter .35s ease;
+}
+
+.footer__social a:hover img {
+  filter: grayscale(0) opacity(1);
+}
+
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font: 500 14px/24px var(--font-body);
+  color: var(--gray);
+}
+
+.footer__legal {
+  display: flex;
+  gap: 32px;
+}
+
+.footer__legal a {
+  transition: color .25s ease;
+}
+
+.footer__legal a:hover {
+  color: var(--blue);
+}
+
+/* ==========================================================================
+   Marquee (partner logos infinite scroll on small screens)
+   ========================================================================== */
+.partners__logos-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.partners__logos[data-marquee-active] {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  animation: marquee 34s linear infinite;
+}
+
+.partners__logos[data-marquee-active] li {
+  flex: none;
+  width: 146px;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (min-width:1400px) {
+  .about__photo {
+    border-radius: 16px;
+    min-height: 633px;
+    widith: 100%;
+  }
+
+}
+
+/* ---- ≤1500px : tighten outer rhythm ---- */
+@media (max-width:1500px) {
+  :root {
+    --pad: 56px;
+  }
+
+  .hero__title {
+    font-size: 68px;
+    line-height: 80px;
+  }
+
+  .about__headline {
+    font-size: 48px;
+    line-height: 66px;
+  }
+
+  .section-title {
+    font-size: 42px;
+    line-height: 56px;
+  }
+
+  .products__cards {
+    gap: 20px;
+  }
+}
+
+/* ---- ≤1200px : collapse nav, simplify grids ---- */
+@media (max-width:1200px) {
+
+  /* Full-screen takeover, not an off-canvas drawer. It carries its own top
+     row (logo + close) so that row slides in/out together with everything
+     else — the persistent .header bar's own logo/burger just get hidden
+     while it's open (.header--nav-open below) rather than trying to
+     recolor in place, since descendants always paint above their own
+     ancestor's background anyway (this nav is nested in .header__inner,
+     same as before) — no z-index tug-of-war needed once the originals are
+     out of the way. */
+  .header__nav {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--navy);
+    transform: translateX(100%);
+    transition: transform .5s var(--ease);
+  }
+
+  .header__nav[data-open="true"] {
+    transform: translateX(0);
+  }
+
+  .header__nav-top {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px var(--pad);
+    position: relative;
+    z-index: 1;
+  }
+
+  .header__nav-logo img {
+    height: 40px;
+    width: auto;
+    filter: brightness(0) invert(1);
+  }
+
+  .header__nav-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(255, 255, 255, .08);
+    transition: background-color .25s ease, transform .2s ease;
+  }
+
+  .header__nav-close .icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .header__nav-close:hover {
+    background: rgba(255, 255, 255, .16);
+  }
+
+  .header__nav-close:active {
+    transform: scale(.92);
+  }
+
+  /* Drill-down "screens": exactly one .is-active at a time. The main list
+     defaults to visible (no class needed at rest); opening a sub-screen
+     adds .is-back to main (slides it out left) and .is-active to the
+     target (slides it in from the right); "back" reverses both. */
+  .header__nav-panels {
+    display: flex;
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* Specificity has to match/beat the base ":not(.header__nav-panel--main)"
+     hide rule and the plain ".header__nav-panel--main" display:contents
+     rule (both live outside this media query, for desktop) — scoping to
+     ".header__nav" ties their specificity and wins on source order. */
+  .header__nav .header__nav-panel {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform .45s var(--ease);
+  }
+
+  .header__nav-panel.is-active {
+    transform: translateX(0);
+  }
+
+  .header__nav-panel--main {
+    transform: translateX(0);
+  }
+
+  .header__nav-panel--main.is-back {
+    transform: translateX(-100%);
+  }
+
+  .header__nav-scroll {
+    display: block;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 8px 24px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header__nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+  }
+
+  .header__nav-list>li {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, .12);
+  }
+
+  .header__nav-list>li:last-child {
+    border-bottom: none;
+  }
+
+  .header__nav-lang-item {
+    display: block;
+  }
+
+  .header__nav-link {
+    width: 100%;
+    font-size: 17px;
+    color: #fff;
+    padding: 13px 2px;
+    gap: 14px;
+  }
+
+  .header__nav-link::after {
+    display: none;
+  }
+
+  .header__nav-icon {
+    display: block;
+    width: 22px;
+    height: 22px;
+    flex: none;
+    color: rgba(255, 255, 255, .75);
+  }
+
+  .header__nav-label {
+    flex: 1;
+    text-align: left;
+  }
+
+  .header__nav-arrow {
+    display: block;
+    flex: none;
+    width: 12px;
+    height: 12px;
+    color: rgba(255, 255, 255, .45);
+    transform: rotate(-90deg);
+  }
+
+  .header__burger {
+    display: flex;
+  }
+
+  /* Desktop's lang switcher + Contact Us button move inside the overlay
+     (as .header__nav-cta and the "EN" list row) below this breakpoint, so
+     the persistent top bar stays down to just the logo + burger. */
+  .header__actions {
+    display: none;
+  }
+
+  /* CTA sits below the list, full width, with breathing room above it. */
+  .header__nav-cta {
+    display: flex;
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  /* The desktop hover-flyout submenu markup is still there (for the
+     desktop CSS above this breakpoint) but unused on mobile — Registration
+     /Career now drill into their own .header__nav-panel instead. */
+  .header__nav-item--dropdown .header__submenu {
+    display: none;
+  }
+
+  /* Sub-screens: a back row, a title, then a plain full-width link list —
+     visually consistent with the main list's rows but without icons. */
+  .header__nav-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    align-self: flex-start;
+    flex: none;
+    margin: 4px 24px 8px;
+    padding: 10px 4px;
+    color: rgba(255, 255, 255, .7);
+    font: 500 14px/20px var(--font-body);
+    transition: color .2s ease;
+  }
+
+  .header__nav-back:hover {
+    color: #fff;
+  }
+
+  .header__nav-back .icon {
+    width: 12px;
+    height: 12px;
+    transform: rotate(90deg);
+  }
+
+  .header__nav-panel-title {
+    flex: none;
+    margin: 4px 24px 8px;
+    font: 400 28px/36px var(--font-head);
+    color: #fff;
+  }
+
+  .header__nav-sublist {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 0 24px 24px;
+  }
+
+  .header__nav-sublist li {
+    border-bottom: 1px solid rgba(255, 255, 255, .12);
+  }
+
+  .header__nav-sublist li:last-child {
+    border-bottom: none;
+  }
+
+  .header__nav-sublist a,
+  .header__nav-sublist button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 16px 2px;
+    color: #fff;
+    font: 400 16px/24px var(--font-body);
+    text-align: left;
+    transition: color .2s ease;
+  }
+
+  .header__nav-sublist button span {
+    margin-left: 8px;
+    color: rgba(255, 255, 255, .5);
+    font-size: 14px;
+  }
+
+  .header__nav-sublist li[aria-selected="true"] button {
+    color: var(--gold);
+  }
+
+  /* Decorative photo strip pinned to the bottom of the main panel, outside
+     the scrollable area — mobile-bg.png is a tall cutout with a soft
+     transparent top edge; a taller strip than a first pass keeps more of
+     that fade visible instead of cropping straight into the welder. */
+  .header__nav-bg {
+    display: block;
+    position: absolute;
+    flex: none;
+    height: 100vh;
+    overflow: hidden;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+  }
+
+  .header__nav-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 85%;
+    opacity: 0.2;
+  }
+
+  .header__nav-tagline {
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    margin: 0;
+    font: 400 26px/34px var(--font-head);
+    color: #fff;
+  }
+
+  /* The persistent header's own logo/burger are hidden while the overlay
+     is open (it carries its own logo + close button now) — visibility,
+     not display, so nothing shifts and the burger stays in the a11y tree
+     at the same position for when it's toggled back. */
+  .header--nav-open .header__logo,
+  .header--nav-open .header__burger {
+    visibility: hidden;
+  }
+
+  .about__grid,
+  .facilities__grid,
+  .products__container,
+  .partners__container,
+  .contact__container {
+    grid-template-columns: 1fr;
+  }
+
+  .about__body {
+    padding-right: 0;
+    padding-inline: var(--pad);
+    margin-top: 48px;
+  }
+
+  .about__media {
+    padding-left: 0;
+  }
+
+  .about__watermark {
+    display: none;
+  }
+
+  .about__photo {
+    border-radius: 16px;
+  }
+
+  .facilities__card-wrap {
+    min-width: 0;
+    margin-top: 16px;
+  }
+
+  .product-card {
+    min-height: 420px;
+  }
+
+  /* width:100% is load-bearing: a grid item with margin-inline:auto but no
+     explicit width falls back to shrink-to-fit sizing instead of stretching
+     (auto margins on a grid item cancel the default "stretch" alignment) —
+     without it, this column collapsed to the certificate's tiny intrinsic
+     content size instead of the intended 320px, capped-width card. */
+  .partners__right {
+    order: -1;
+    width: 100%;
+    max-width: 320px;
+    margin-inline: auto;
+  }
+
+  .partners__logos {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .contact__left {
+    gap: 40px;
+  }
+}
+
+/* ---- ≤1024px : tablet ---- */
+@media (max-width:1024px) {
+  :root {
+    --pad: 40px;
+  }
+
+  .hero {
+    min-height: 92vh;
+  }
+
+  .hero__title {
+    font-size: 56px;
+    line-height: 66px;
+  }
+
+  .section-title {
+    font-size: 36px;
+    line-height: 46px;
+  }
+
+  .about {
+    padding: 110px 0;
+  }
+
+  .facilities,
+  .products,
+  .partners,
+  .contact {
+    padding: 110px 0;
+  }
+
+  .facilities__grid {
+    gap: 48px;
+  }
+
+  .card-cutting__cols {
+    flex-wrap: wrap;
+  }
+
+  .footer__top {
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+
+  .footer__nav {
+    max-width: none;
+    flex: 1 1 100%;
+    justify-content: flex-start;
+    gap: 64px;
+    order: 3;
+  }
+}
+
+/* ---- ≤768px : mobile landscape / large phones ---- */
+@media (max-width:768px) {
+  :root {
+    --pad: 24px;
+  }
+
+  .header {
+    padding: 16px 0;
+  }
+
+  .hero {
+    min-height: 100svh;
+  }
+
+  .hero__title {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  .hero__desc {
+    font-size: 15px;
+    line-height: 26px;
+    margin-bottom: 32px;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+  }
+
+  .hero__scroll {
+    display: none;
+  }
+
+  .about {
+    padding: 80px 0;
+  }
+
+  .about__headline {
+    font-size: 34px;
+    line-height: 44px;
+    margin-bottom: 56px;
+  }
+
+  .section-title {
+    font-size: 30px;
+    line-height: 40px;
+  }
+
+  .facilities,
+  .products,
+  .partners,
+  .contact {
+    padding: 80px 0;
+  }
+
+  .checks__btn {
+    font-size: 19px;
+    line-height: 28px;
+  }
+
+  /* Below 768px there isn't room for a 3-up horizontal accordion, so the
+     same hover/selected logic (see main.js) drives a vertical one instead:
+     flex-grow can't distribute height without a bounded container here, so
+     each state gets an explicit min-height to transition between. */
+  .products__cards {
+    flex-direction: column;
+  }
+
+  .product-card {
+    flex-grow: 0;
+    transition: min-height .6s var(--ease-out), background-color .6s ease,
+      box-shadow .6s var(--ease-out);
+  }
+
+  .product-card--active {
+    min-height: 460px;
+    padding-top: 24px;
+  }
+
+  /* Collapsed cards become a compact horizontal row (small thumbnail +
+     name) instead of hiding the photo outright — Hatches/Storage stay
+     recognisable while collapsed rather than just a bare label. */
+  .product-card:not(.product-card--active) {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    min-height: 88px;
+    padding: 12px 20px;
+  }
+
+  .product-card:not(.product-card--active) .product-card__media {
+    display: flex;
+    flex: none;
+    width: 60px;
+    max-width: 60px;
+  }
+
+  .product-card:not(.product-card--active) .product-card__media img {
+    max-height: 52px;
+    transform: none;
+  }
+
+  .product-card:not(.product-card--active) .product-card__shadow {
+    display: none;
+  }
+
+  .product-card:not(.product-card--active) .product-card__body {
+    flex: 1;
+    width: auto;
+    padding: 0;
+  }
+
+  .product-card__body {
+    margin-top: 0;
+  }
+
+  .partners__logos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .contact-form__row {
+    flex-direction: column;
+  }
+
+  .contact-form__submit {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .contact-form__submit .btn {
+    width: 100%;
+  }
+
+  .footer__top {
+    flex-direction: column;
+    gap: 40px;
+    padding-bottom: 40px;
+  }
+
+  .footer__nav {
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .footer__social {
+    order: -1;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---- ≤576px : mobile ---- */
+@media (max-width:576px) {
+  :root {
+    --pad: 20px;
+  }
+
+  .eyebrow {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .hero__title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .section-title {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .about__headline {
+    font-size: 26px;
+    line-height: 36px;
+  }
+
+  .card-cutting__label {
+    font-size: 26px;
+    line-height: 36px;
+  }
+
+  .card-cutting {
+    padding: 16px;
+    border-radius: 24px;
+  }
+
+  .card-cutting__cols {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .partners__logos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cert-slider__track {
+    aspect-ratio: 4/5;
+  }
+
+  .card-cutting__col {
+    gap: 5px;
+  }
+
+  .card-cutting__cols {
+    gap: 5px;
+  }
+
+  .about,
+  .facilities,
+  .products,
+  .partners,
+  .contact {
+    padding: 50px 0;
+  }
+
+  .about__headline {
+    margin-bottom: 30px;
+  }
+
+  .about__body {
+    margin-top: 30px;
+  }
+
+  .about {
+    margin-bottom: 0;
+  }
+
+  .facilities__lead {
+    margin-bottom: 30px;
+  }
+
+  .facilities__grid {
+    gap: 30px;
+  }
+
+  .facilities__card-wrap {
+    margin-top: 0px;
+  }
+
+  .products__container {
+    gap: 30px;
+  }
+
+  .contact__left {
+    gap: 20px;
+  }
+
+  .contact__container {
+    gap: 30px;
+  }
+
+  .footer__brand {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .footer__social {
+    margin: 0 auto;
+  }
+
+  .footer__nav {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .footer__top {
+    gap: 30px;
+  }
+
+  .footer__bottom {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LANOS — Engineered access solutions for marine industry</title>
+<meta name="description" content="Lanos supplies all types of vessels with a complete range of IMO-compliant, hinged, external and internal bulkhead doors and hatches made of steel, aluminium or composite materials.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Inline icon sprite: currentColor-driven, reused everywhere -->
+<svg class="icon-sprite" aria-hidden="true">
+  <symbol id="icon-arrow" viewBox="0 0 20 20" fill="none">
+    <path d="M5 15L15 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6.875 5H15V13.125" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-chevron" viewBox="0 0 16 16" fill="none">
+    <path d="M3 6L8.00081 10.58L13 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <!-- Mobile nav row icons -->
+  <symbol id="icon-user" viewBox="0 0 20 20" fill="none">
+    <circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-news" viewBox="0 0 20 20" fill="none">
+    <path d="M5 3.5h7l3 3v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-12a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M12 3.5v3h3" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M7 10.5h6M7 13h6M7 15.5h3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-clipboard" viewBox="0 0 20 20" fill="none">
+    <rect x="4.5" y="4" width="11" height="13" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M7.5 4V3.3A1.3 1.3 0 0 1 8.8 2h2.4a1.3 1.3 0 0 1 1.3 1.3V4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M7.5 9.5h5M7.5 12.5h5M7.5 15.5h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-briefcase" viewBox="0 0 20 20" fill="none">
+    <rect x="3" y="7" width="14" height="9.5" rx="1.6" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M7.3 7V5.6A1.6 1.6 0 0 1 8.9 4h2.2a1.6 1.6 0 0 1 1.6 1.6V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M3 11.5h14" stroke="currentColor" stroke-width="1.4"/>
+  </symbol>
+  <symbol id="icon-pin" viewBox="0 0 20 20" fill="none">
+    <path d="M10 17.5s5.5-4.7 5.5-9a5.5 5.5 0 1 0-11 0c0 4.3 5.5 9 5.5 9Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <circle cx="10" cy="8.4" r="2" stroke="currentColor" stroke-width="1.4"/>
+  </symbol>
+  <symbol id="icon-shield" viewBox="0 0 20 20" fill="none">
+    <path d="M10 2.5 16 4.7v4.6c0 4.2-2.7 7-6 8.2-3.3-1.2-6-4-6-8.2V4.7L10 2.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M7.3 10 9.2 11.9 13 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-globe" viewBox="0 0 20 20" fill="none">
+    <circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M2.5 10h15" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M10 2.5c2.2 2 3.5 5 3.5 7.5s-1.3 5.5-3.5 7.5c-2.2-2-3.5-5-3.5-7.5S7.8 4.5 10 2.5Z" stroke="currentColor" stroke-width="1.4"/>
+  </symbol>
+  <symbol id="icon-close" viewBox="0 0 20 20" fill="none">
+    <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="page-loader" aria-hidden="true">
+  <div class="page-loader__logo">
+    <img class="page-loader__logo-base" src="assets/img/logo.png" alt="">
+    <img class="page-loader__logo-fill" src="assets/img/logo.png" alt="">
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="header" data-header>
+  <div class="header__inner">
+    <a href="#" class="header__logo" aria-label="Lanos — home">
+      <img src="assets/img/logo.png" alt="Lanos" width="120" height="47">
+    </a>
+
+    <nav class="header__nav" data-nav>
+      <!-- Lives inside the sliding panel itself (not the persistent .header
+           bar) so it enters/exits together with the rest of the menu. -->
+      <div class="header__nav-top">
+        <a href="#" class="header__nav-logo" aria-label="Lanos — home">
+          <img src="assets/img/logo.png" alt="Lanos">
+        </a>
+        <button class="header__nav-close" type="button" data-nav-close aria-label="Close menu">
+          <svg class="icon"><use href="#icon-close"/></svg>
+        </button>
+      </div>
+
+      <!-- Persistent across every panel (main + all sub-screens), not just
+           the main list — placed before .header__nav-panels in the DOM so
+           it paints behind it (same stacking context, z-index:auto: DOM
+           order decides), keeping the menu rows clickable on top of it. -->
+      <div class="header__nav-bg">
+        <img src="assets/img/mobile-bg.png" alt="" role="presentation">
+        <p class="header__nav-tagline">Steel. Precision. Trust.</p>
+      </div>
+
+      <!-- Drill-down "screens": one active panel at a time, sliding
+           left/right via JS-toggled classes — see main.js. -->
+      <div class="header__nav-panels" data-panels>
+        <div class="header__nav-panel header__nav-panel--main is-active" data-panel="main">
+          <div class="header__nav-scroll">
+            <ul class="header__nav-list">
+              <li>
+                <a class="header__nav-link" href="#about">
+                  <svg class="icon header__nav-icon"><use href="#icon-user"/></svg>
+                  <span class="header__nav-label">About us</span>
+                </a>
+              </li>
+              <li>
+                <a class="header__nav-link" href="#">
+                  <svg class="icon header__nav-icon"><use href="#icon-news"/></svg>
+                  <span class="header__nav-label">News</span>
+                </a>
+              </li>
+              <li class="header__nav-item header__nav-item--dropdown">
+                <button class="header__nav-link header__nav-trigger" type="button" aria-expanded="false" data-panel-open="registration">
+                  <svg class="icon header__nav-icon"><use href="#icon-clipboard"/></svg>
+                  <span class="header__nav-label">Registration</span>
+                  <svg class="icon icon--12 header__caret header__nav-arrow"><use href="#icon-chevron"/></svg>
+                </button>
+                <ul class="header__submenu">
+                  <li><a href="#">New registration</a></li>
+                  <li><a href="#">My page</a></li>
+                  <li><a href="#">Agent registration</a></li>
+                </ul>
+              </li>
+              <li class="header__nav-item header__nav-item--dropdown">
+                <button class="header__nav-link header__nav-trigger" type="button" aria-expanded="false" data-panel-open="career">
+                  <svg class="icon header__nav-icon"><use href="#icon-briefcase"/></svg>
+                  <span class="header__nav-label">Career</span>
+                  <svg class="icon icon--12 header__caret header__nav-arrow"><use href="#icon-chevron"/></svg>
+                </button>
+                <ul class="header__submenu">
+                  <li><a href="#">Open positions</a></li>
+                  <li><a href="#">Life at Lanos</a></li>
+                  <li><a href="#">Internships</a></li>
+                </ul>
+              </li>
+              <li>
+                <a class="header__nav-link" href="#">
+                  <svg class="icon header__nav-icon"><use href="#icon-pin"/></svg>
+                  <span class="header__nav-label">Exhibitions</span>
+                </a>
+              </li>
+              <li>
+                <a class="header__nav-link" href="#">
+                  <svg class="icon header__nav-icon"><use href="#icon-shield"/></svg>
+                  <span class="header__nav-label">Transparency Act</span>
+                </a>
+              </li>
+              <li class="header__nav-lang-item">
+                <button class="header__nav-link" type="button" data-panel-open="lang">
+                  <svg class="icon header__nav-icon"><use href="#icon-globe"/></svg>
+                  <span class="header__nav-label" data-lang-current>EN</span>
+                  <svg class="icon icon--12 header__nav-arrow"><use href="#icon-chevron"/></svg>
+                </button>
+              </li>
+            </ul>
+
+            <a class="btn btn--primary header__nav-cta" href="#contact">
+              <span class="btn__label">Contact us</span>
+              <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="header__nav-panel" data-panel="registration">
+          <button class="header__nav-back" type="button" data-panel-back>
+            <svg class="icon icon--12"><use href="#icon-chevron"/></svg>
+            <span>Back</span>
+          </button>
+          <h3 class="header__nav-panel-title">Registration</h3>
+          <ul class="header__nav-sublist">
+            <li><a href="#">New registration</a></li>
+            <li><a href="#">My page</a></li>
+            <li><a href="#">Agent registration</a></li>
+          </ul>
+        </div>
+
+        <div class="header__nav-panel" data-panel="career">
+          <button class="header__nav-back" type="button" data-panel-back>
+            <svg class="icon icon--12"><use href="#icon-chevron"/></svg>
+            <span>Back</span>
+          </button>
+          <h3 class="header__nav-panel-title">Career</h3>
+          <ul class="header__nav-sublist">
+            <li><a href="#">Open positions</a></li>
+            <li><a href="#">Life at Lanos</a></li>
+            <li><a href="#">Internships</a></li>
+          </ul>
+        </div>
+
+        <div class="header__nav-panel" data-panel="lang">
+          <button class="header__nav-back" type="button" data-panel-back>
+            <svg class="icon icon--12"><use href="#icon-chevron"/></svg>
+            <span>Back</span>
+          </button>
+          <h3 class="header__nav-panel-title">Language</h3>
+          <ul class="header__nav-sublist" role="listbox">
+            <li role="option" aria-selected="true"><button type="button" data-lang="EN">EN <span>English</span></button></li>
+            <li role="option" aria-selected="false"><button type="button" data-lang="NO">NO <span>Norsk</span></button></li>
+            <li role="option" aria-selected="false"><button type="button" data-lang="DE">DE <span>Deutsch</span></button></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="header__actions">
+      <div class="header__lang-wrap">
+        <button class="header__lang" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span data-lang-current>EN</span> <svg class="icon icon--12 header__caret"><use href="#icon-chevron"/></svg>
+        </button>
+        <ul class="header__lang-menu" role="listbox">
+          <li role="option" aria-selected="true"><button type="button" data-lang="EN">EN <span>English</span></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="NO">NO <span>Norsk</span></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="DE">DE <span>Deutsch</span></button></li>
+        </ul>
+      </div>
+      <a class="btn btn--primary" href="#contact">
+        <span class="btn__label">Contact Us</span>
+        <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+      </a>
+    </div>
+
+    <button class="header__burger" type="button" data-burger aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="hero__bg" data-parallax>
+      <img class="hero__bg-img" src="assets/img/hero-bg.jpg" alt="" role="presentation">
+      <div class="hero__gradient"></div>
+    </div>
+
+    <div class="hero__inner">
+      <div class="hero__content reveal">
+        <p class="eyebrow eyebrow--gold">Engeneered access</p>
+        <h1 class="hero__title">Steel and aluminum welded products</h1>
+        <p class="hero__desc">Lanos supplies all types of vessels with a complete range of IMO-compliant, hinged, external and internal bulkhead doors and hatches made of steel, aluminium or composite materials.</p>
+
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#products">
+            <span class="btn__label">Explore products</span>
+            <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+          </a>
+          <a class="btn btn--outline" href="#about">
+            <span class="btn__label">View solutions</span>
+            <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <a class="hero__scroll" href="#about" aria-label="Scroll down">
+      <span class="hero__scroll-label">Scroll down</span>
+      <span class="hero__scroll-line"></span>
+    </a>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="about__container">
+      <img class="about__watermark" src="assets/img/logo.png" alt="" role="presentation" aria-hidden="true">
+      <h2 class="about__headline reveal"><span class="about__headline-accent">Protecting people</span> and values - <br/>through generations</h2>
+
+      <div class="about__grid">
+        <div class="about__media reveal">
+          <img class="about__photo" src="assets/img/about-photo.jpg" alt="Lanos welded steel doors and hatches on board a vessel" loading="lazy">
+        </div>
+
+        <div class="about__body reveal">
+          <p class="eyebrow eyebrow--gold">About us</p>
+          <h3 class="section-title">The start of our adventure</h3>
+          <p class="section-text">Our company was founded back in 1954, a time where dramatic shipwrecks and accidents resulting in loss of life was a fairly regular occurrence in towns and villages up and down the coast. Such tragic experiences awakened an interest in developing products that could improve safety at sea.</p>
+          <a class="btn btn--primary" href="#">
+            <span class="btn__label">Read more</span>
+            <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FACILITIES / TECHNOLOGY ============ -->
+  <section class="facilities" id="facilities">
+    <div class="facilities__container">
+      <div class="facilities__intro reveal">
+        <p class="eyebrow eyebrow--gold">Our servise</p>
+        <h2 class="section-title section-title--light">Technology facilities in company</h2>
+      </div>
+
+      <div class="facilities__grid">
+        <div class="facilities__side reveal">
+          <p class="facilities__lead">Our company was founded back in 1954, a time where dramatic shipwrecks and accidents resulting in loss of life was a fairly regular occurrence in towns and villages up and down the coast.</p>
+
+          <ul class="checks" data-facilities-nav>
+            <li class="checks__item" data-category="checks">
+              <button class="checks__btn" type="button">
+                <svg class="icon checks__icon"><use href="#icon-arrow"/></svg>
+                <span class="checks__label">Checks</span>
+              </button>
+            </li>
+            <li class="checks__item checks__item--active" data-category="cutting">
+              <button class="checks__btn" type="button">
+                <svg class="icon checks__icon"><use href="#icon-arrow"/></svg>
+                <span class="checks__label">Cutting</span>
+              </button>
+            </li>
+            <li class="checks__item" data-category="mechanical">
+              <button class="checks__btn" type="button">
+                <svg class="icon checks__icon"><use href="#icon-arrow"/></svg>
+                <span class="checks__label">Mechanical processing</span>
+              </button>
+            </li>
+            <li class="checks__item" data-category="plastic">
+              <button class="checks__btn" type="button">
+                <svg class="icon checks__icon"><use href="#icon-arrow"/></svg>
+                <span class="checks__label">Plastic deformation</span>
+              </button>
+            </li>
+            <li class="checks__item" data-category="surface">
+              <button class="checks__btn" type="button">
+                <svg class="icon checks__icon"><use href="#icon-arrow"/></svg>
+                <span class="checks__label">Surface treatment</span>
+              </button>
+            </li>
+            <li class="checks__item" data-category="welding">
+              <button class="checks__btn" type="button">
+                <svg class="icon checks__icon"><use href="#icon-arrow"/></svg>
+                <span class="checks__label">Welding</span>
+              </button>
+            </li>
+            <li class="checks__item" data-category="other">
+              <button class="checks__btn" type="button">
+                <svg class="icon checks__icon"><use href="#icon-arrow"/></svg>
+                <span class="checks__label">Other technologies</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="facilities__card-wrap reveal">
+          <article class="card-cutting" data-facilities-card>
+            <div class="card-cutting__media">
+              <img data-card-image src="assets/img/cutting-process.jpg" alt="CNC laser cutting process at Lanos production facility" loading="lazy">
+              <h3 class="card-cutting__label" data-category-title>Cutting</h3>
+            </div>
+            <div class="card-cutting__body">
+              <p class="card-cutting__text" data-card-desc>Our company was founded back in 1954, a time where dramatic shipwrecks and accidents resulting in loss of life:</p>
+              <div class="card-cutting__cols" data-card-links>
+                <ul class="card-cutting__col" data-col="0">
+                  <li><a class="card-cutting__link" href="#products">Cutting with scissors<svg class="icon card-cutting__link-arrow"><use href="#icon-arrow"/></svg></a></li>
+                  <li><a class="card-cutting__link" href="#products">CNC Laser cutting<svg class="icon card-cutting__link-arrow"><use href="#icon-arrow"/></svg></a></li>
+                </ul>
+                <ul class="card-cutting__col" data-col="1">
+                  <li><a class="card-cutting__link" href="#products">Sawing<svg class="icon card-cutting__link-arrow"><use href="#icon-arrow"/></svg></a></li>
+                  <li><a class="card-cutting__link" href="#products">Water jet cutting<svg class="icon card-cutting__link-arrow"><use href="#icon-arrow"/></svg></a></li>
+                </ul>
+              </div>
+            </div>
+            <a class="btn btn--primary" href="#products">
+              <span class="btn__label" data-card-btn-label>Explore products</span>
+              <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+            </a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OUR PRODUCT ============ -->
+  <section class="products" id="products">
+    <div class="products__container">
+      <div class="products__intro reveal">
+        <p class="eyebrow eyebrow--gold-dark">Our product</p>
+        <h2 class="section-title">Custom Production</h2>
+        <p class="section-text">Our network of agents ensures that we are represented in most shipbuilding markets worldwide and our service team is at hand to assist you whenever necessary. Feel free to contact our head office or an agent near you.</p>
+        <a class="btn btn--primary" href="#">
+          <span class="btn__label">Read more</span>
+          <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+        </a>
+      </div>
+
+      <div class="products__cards" data-product-cards>
+        <article class="product-card product-card--active" data-product-card data-product="doors">
+          <div class="product-card__media">
+            <span class="product-card__shadow"></span>
+            <img src="assets/img/door.png" alt="Lanos steel doors for marine vessels" loading="lazy">
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Doors</h3>
+            <p class="product-card__desc">Secure and durable doors for all areas</p>
+            <a class="btn btn--white" href="#">
+              <span class="btn__label">Explore products</span>
+              <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card" data-product-card data-product="hatches">
+          <div class="product-card__media">
+            <span class="product-card__shadow"></span>
+            <img src="assets/img/hatche.png" alt="Lanos hatches for marine vessels" loading="lazy">
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Hatches</h3>
+            <p class="product-card__desc">Weathertight hatches built to last</p>
+            <a class="btn btn--white" href="#">
+              <span class="btn__label">Explore products</span>
+              <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card" data-product-card data-product="storage">
+          <div class="product-card__media">
+            <span class="product-card__shadow"></span>
+            <img src="assets/img/storage.png" alt="Lanos storage solutions for marine vessels" loading="lazy">
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Storage</h3>
+            <p class="product-card__desc">Durable steel storage for every space</p>
+            <a class="btn btn--white" href="#">
+              <span class="btn__label">Explore products</span>
+              <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PARTNERS & CERTIFICATES ============ -->
+  <section class="partners" id="partners">
+    <div class="partners__container">
+      <div class="partners__left reveal">
+        <div class="partners__text">
+          <p class="eyebrow eyebrow--gold-dark">Our partners</p>
+          <h2 class="section-title">Our partners and Sertificats</h2>
+          <p class="section-text">Our network of agents ensures that we are represented in most shipbuilding markets worldwide and our service team is at hand to assist you whenever necessary. Feel free to contact our head office or an agent near you.</p>
+        </div>
+
+        <div class="partners__logos-viewport">
+          <ul class="partners__logos" data-marquee>
+            <li><img src="assets/img/reggeborgh.png" alt="Reggeborgh" loading="lazy"></li>
+            <li><img src="assets/img/thales-logo.png" alt="Thales" loading="lazy"></li>
+            <li><img src="assets/img/thales-logo.png" alt="Thales" loading="lazy"></li>
+            <li><img src="assets/img/reggeborgh.png" alt="Reggeborgh" loading="lazy"></li>
+            <li><img src="assets/img/thales-logo.png" alt="Thales" loading="lazy"></li>
+            <li><img src="assets/img/reggeborgh.png" alt="Reggeborgh" loading="lazy"></li>
+            <li><img src="assets/img/reggeborgh.png" alt="Reggeborgh" loading="lazy"></li>
+            <li><img src="assets/img/thales-logo.png" alt="Thales" loading="lazy"></li>
+            <li><img src="assets/img/thales-logo.png" alt="Thales" loading="lazy"></li>
+            <li><img src="assets/img/reggeborgh.png" alt="Reggeborgh" loading="lazy"></li>
+            <li><img src="assets/img/thales-logo.png" alt="Thales" loading="lazy"></li>
+            <li><img src="assets/img/thales-logo.png" alt="Thales" loading="lazy"></li>
+            <li><img src="assets/img/reggeborgh.png" alt="Reggeborgh" loading="lazy"></li>
+            <li><img src="assets/img/thales-logo.png" alt="Thales" loading="lazy"></li>
+            <li><img src="assets/img/reggeborgh.png" alt="Reggeborgh" loading="lazy"></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="partners__right reveal">
+        <div class="cert-slider" data-slider>
+          <div class="cert-slider__track">
+            <figure class="cert-slider__slide"><img src="assets/img/certificate.jpg" draggable="false" alt="Lanos ISO certificate" loading="lazy"></figure>
+            <figure class="cert-slider__slide"><img src="assets/img/certificate.jpg" draggable="false" alt="Lanos quality certificate" loading="lazy"></figure>
+            <figure class="cert-slider__slide"><img src="assets/img/certificate.jpg" draggable="false" alt="Lanos compliance certificate" loading="lazy"></figure>
+          </div>
+          <div class="cert-slider__dots" data-slider-dots>
+            <button class="cert-slider__dot cert-slider__dot--active" type="button" aria-label="Slide 1"></button>
+            <button class="cert-slider__dot" type="button" aria-label="Slide 2"></button>
+            <button class="cert-slider__dot" type="button" aria-label="Slide 3"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="contact" id="contact">
+    <div class="contact__container">
+      <div class="contact__left reveal">
+        <div class="contact__title">
+          <p class="eyebrow eyebrow--gold-alt">Contact</p>
+          <h2 class="section-title section-title--light">Start a partnership with Lanos Group</h2>
+        </div>
+        <address class="contact__info">
+          <p class="contact__info-name">Libra-Lanos</p>
+          <p>Raffelneset 12 N-6060 Hareid, Norway</p>
+          <p><a href="tel:+4770095400">+47 70 09 54 00</a></p>
+          <p><a href="mailto:office@libra.no">office@libra.no</a></p>
+        </address>
+      </div>
+
+      <form class="contact-form reveal" data-contact-form>
+        <div class="contact-form__fields">
+          <div class="contact-form__field">
+            <input type="text" id="cf-name" placeholder="Your Name" required>
+          </div>
+          <div class="contact-form__field">
+            <input type="text" id="cf-company" placeholder="Company name">
+          </div>
+          <div class="contact-form__row">
+            <div class="contact-form__field">
+              <input type="tel" id="cf-phone" placeholder="Phone number">
+            </div>
+            <div class="contact-form__field">
+              <input type="email" id="cf-email" placeholder="Email" required>
+            </div>
+          </div>
+          <div class="contact-form__field contact-form__field--textarea">
+            <textarea id="cf-message" placeholder="Message" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="contact-form__submit">
+          <label class="contact-form__checkbox">
+            <input type="checkbox" required>
+            <span class="contact-form__checkbox-box"></span>
+            I agree to the processing of personal data.
+          </label>
+          <button class="btn btn--primary" type="submit">
+            <span class="btn__label">Become a partner</span>
+            <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer__container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img class="footer__logo" src="assets/img/logo.png" alt="Lanos" width="138" height="55">
+        <address class="footer__contact">
+          <p>Raffelneset 12 N-6060 Hareid, Norway</p>
+          <p><a href="tel:+4770095400">+47 70 09 54 00</a></p>
+          <p><a href="mailto:office@libra.no">office@libra.no</a></p>
+        </address>
+      </div>
+
+      <nav class="footer__nav">
+        <ul class="footer__col">
+          <li><a href="#products">Doors</a></li>
+          <li><a href="#products">Hatches</a></li>
+          <li><a href="#products">Storage</a></li>
+          <li><a href="#">Spare parts</a></li>
+          <li><a href="#">My page</a></li>
+        </ul>
+        <ul class="footer__col">
+          <li><a href="#about">About us</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Career</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Exhibitions</a></li>
+          <li><a href="#">Registration</a></li>
+          <li><a href="#">Transparency Act</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </nav>
+
+      <ul class="footer__social">
+        <li><a href="#" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt="" width="20" height="20"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt="" width="20" height="20"></a></li>
+        <li><a href="#" aria-label="LinkedIn"><img src="assets/icons/linkedin.svg" alt="" width="20" height="20"></a></li>
+      </ul>
+    </div>
+
+    <div class="footer__bottom">
+      <p>Copyright 2026. © All Rights Reserved</p>
+      <ul class="footer__legal">
+        <li><a href="#">Privacy Notice</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
