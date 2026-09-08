@@ -1,0 +1,392 @@
+/* ==========================================================================
+   PRODUCTION AND CAPABILITIES — page-specific styles
+   Design source: Figma "Site LANOS" → Production and capabilities (node 2458:2903)
+   Loaded after style.css: reuses its tokens, header/footer, buttons, eyebrow/
+   section-title typography and the .facilities/.checks/.card-cutting
+   components as-is — only genuinely new layout lives here.
+   ========================================================================== */
+
+/* ---------- Breadcrumb bar ----------
+   Its own section (not part of the sticky .header, which stays identical
+   to the home page's) — scrolls away with the rest of the page instead of
+   staying pinned. */
+.breadcrumb-bar {
+  background: var(--cream);
+}
+
+.breadcrumb-bar__path {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 20px var(--pad);
+  font: 500 14px/24px var(--font-body);
+  color: var(--ink);
+  color: var(--blue);
+}
+
+.breadcrumb-bar__path a {
+  transition: color .2s ease;
+  color: var(--ink);
+}
+
+.breadcrumb-bar__path a:hover {
+  color: var(--blue);
+}
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+.production-hero {
+  background: var(--cream);
+  padding: 100px 0;
+  overflow-x: clip;
+}
+
+.production-hero__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+  display: grid;
+  grid-template-columns: minmax(0, 640fr) minmax(0, 686fr);
+  gap: 64px;
+  align-items: center;
+}
+
+.production-hero__content {
+  max-width: 640px;
+}
+
+.production-hero__title {
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.production-hero__desc {
+  color: var(--gray);
+  max-width: 640px;
+  margin-bottom: 32px;
+}
+
+.production-hero__media {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  align-self: stretch;
+  min-height: 420px;
+}
+
+.production-hero__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Production capabilities (facilities-style reuse) ------------- */
+/* Only genuinely page-specific tweaks: this list is 3 items, not 7, so the
+   generous gap tuned for the longer list is trimmed; the card here has no
+   overlay title, so the media scrim that exists purely to keep that title
+   legible is switched off. */
+.production-facilities .facilities__lead {
+  margin-bottom: 40px;
+}
+
+.production-facilities .card-cutting__media::after {
+  display: none;
+}
+
+/* ==========================================================================
+   PRODUCTION CAPABILITIES — light 3-up card grid (own buttons, cream cards)
+   ========================================================================== */
+.capabilities-grid-section {
+  padding: 130px 0;
+}
+
+.capabilities-grid-section__container,
+.capabilities-duo__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.capabilities-grid-section__intro,
+.capabilities-duo__intro {
+  max-width: 960px;
+  margin-inline: auto;
+  margin-bottom: 64px;
+  text-align: center;
+}
+
+.capabilities-grid-section__intro .eyebrow,
+.capabilities-duo__intro .eyebrow {
+  justify-content: center;
+}
+
+.capabilities-grid-section__desc {
+  max-width: none;
+  margin-bottom: 0;
+}
+
+.capabilities-grid-section__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.capability-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  background: var(--cream-2);
+  border-radius: 16px;
+  transition: transform .5s var(--ease-out);
+}
+
+.capability-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.capability-card:hover {
+  transform: translateY(-6px);
+}
+
+.capability-card__media {
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 363/200;
+}
+
+.capability-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .8s var(--ease-out);
+}
+
+.capability-card:hover .capability-card__media img {
+  transform: scale(1.06);
+}
+
+.capability-card__title {
+  font: 400 24px/36px var(--font-body);
+  color: var(--ink);
+}
+
+.capability-card__desc {
+  font: 400 16px/28px var(--font-body);
+  color: var(--gray);
+  flex: 1;
+}
+
+.capability-card .btn {
+  width: 100%;
+}
+
+/* ==========================================================================
+   PRODUCTION HIGHLIGHTS — light 2-up cards (reuses .card-cutting, cream-2 bg)
+   ========================================================================== */
+.capabilities-duo {
+  padding: 130px 0;
+}
+
+.capabilities-duo__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.capabilities-duo__card {
+  background: var(--cream-2);
+}
+
+.capabilities-duo__card .card-cutting__media::after {
+  display: none;
+}
+
+/* ==========================================================================
+   TECHNOLOGY / MANUFACTURING CAPABILITIES
+   ========================================================================== */
+.tech {
+  background: var(--navy);
+  padding: 130px 0;
+}
+
+.tech__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.tech__intro {
+  max-width: 960px;
+  margin-inline: auto;
+  margin-bottom: 64px;
+  text-align: center;
+}
+
+.tech__intro .eyebrow {
+  justify-content: center;
+}
+
+.tech__desc {
+  max-width: none;
+  margin-bottom: 0;
+  color: var(--gray-light);
+}
+
+.tech__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.tech-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  background: #142C4C;
+  border: 1px solid #1E3E64;
+  border-radius: 16px;
+  transition: transform .5s var(--ease-out), border-color .3s ease;
+}
+
+.tech-card:hover {
+  transform: translateY(-6px);
+  border-color: #2C5585;
+}
+
+.tech-card__media {
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 363/200;
+}
+
+.tech-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .8s var(--ease-out);
+}
+
+.tech-card:hover .tech-card__media img {
+  transform: scale(1.06);
+}
+
+.tech-card__title {
+  font: 400 24px/36px var(--font-body);
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.tech-card__desc {
+  font: 400 16px/28px var(--font-body);
+  color: var(--gray-light);
+}
+
+/* ==========================================================================
+   RESPONSIVE — same breakpoint set as the rest of the site
+   ========================================================================== */
+@media (max-width:1500px) {
+  .tech-card__title {
+    font-size: 22px;
+    line-height: 32px;
+  }
+}
+
+@media (max-width:1200px) {
+  .production-hero__container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .production-hero__content,
+  .production-hero__desc {
+    max-width: none;
+  }
+
+  .production-hero__media {
+    min-height: 360px;
+  }
+
+  .production-facilities .facilities__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tech__grid,
+  .capabilities-grid-section__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width:1024px) {
+  .tech,
+  .capabilities-grid-section,
+  .capabilities-duo {
+    padding: 110px 0;
+  }
+
+  .production-hero {
+    padding: 48px 0 0;
+  }
+
+  .capabilities-duo__grid {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width:768px) {
+  .breadcrumb-bar__path {
+    padding-bottom: 14px;
+    font-size: 13px;
+  }
+
+  .production-hero__media {
+    min-height: 280px;
+  }
+
+  .tech,
+  .capabilities-grid-section,
+  .capabilities-duo {
+    padding: 80px 0;
+  }
+
+  .tech__intro,
+  .capabilities-grid-section__intro,
+  .capabilities-duo__intro {
+    margin-bottom: 40px;
+  }
+
+  .tech__grid,
+  .capabilities-grid-section__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width:576px) {
+  .production-hero__media {
+    min-height: 220px;
+    border-radius: 12px;
+  }
+
+  .tech-card,
+  .capability-card {
+    padding: 20px;
+  }
+
+  .tech-card__title,
+  .capability-card__title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+      .tech, .capabilities-grid-section, .capabilities-duo {
+        padding: 50px 0;
+    }
+}

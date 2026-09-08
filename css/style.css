@@ -409,13 +409,26 @@ body {
   padding: 20px 0;
   background: #fff;
   color: var(--ink);
-  transition: padding .4s var(--ease), box-shadow .4s var(--ease);
+  transition: padding .4s var(--ease), box-shadow .4s var(--ease), background-color .4s var(--ease);
 }
 
 .header--scrolled {
   padding-top: 14px;
   padding-bottom: 14px;
   box-shadow: 0 10px 30px -18px rgba(15, 37, 61, .25);
+}
+
+/* Subpages (any page whose hero/top section sits on --cream rather than
+   white) start the header in that same cream so it blends into the hero
+   instead of a visible seam — then it eases to white once the user scrolls
+   and .header--scrolled kicks in, matching the home page's header exactly
+   at that point. */
+.header--subpage {
+  background: var(--cream);
+}
+
+.header--subpage.header--scrolled {
+  background: #fff;
 }
 
 .header__inner {
@@ -2570,4 +2583,11 @@ body {
     justify-content: center;
     align-items: center;
   }
+
+  .footer__logo {
+    height: 45px;
+    width: fit-content;
+    max-width: initial;
+    margin: 0 auto;
+}
 }

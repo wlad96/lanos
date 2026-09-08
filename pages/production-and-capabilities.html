@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production and Capabilities — LANOS</title>
+<meta name="description" content="Advanced manufacturing capabilities at Lanos: CNC laser cutting, robotic welding and marine-grade surface treatment for steel and aluminium vessel components.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/production.css">
+</head>
+<body>
+
+<!-- Inline icon sprite: currentColor-driven, reused everywhere -->
+<svg class="icon-sprite" aria-hidden="true">
+  <symbol id="icon-arrow" viewBox="0 0 20 20" fill="none">
+    <path d="M5 15L15 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6.875 5H15V13.125" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-chevron" viewBox="0 0 16 16" fill="none">
+    <path d="M3 6L8.00081 10.58L13 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <!-- Mobile nav row icons -->
+  <symbol id="icon-user" viewBox="0 0 20 20" fill="none">
+    <circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-news" viewBox="0 0 20 20" fill="none">
+    <path d="M5 3.5h7l3 3v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-12a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M12 3.5v3h3" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M7 10.5h6M7 13h6M7 15.5h3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-clipboard" viewBox="0 0 20 20" fill="none">
+    <rect x="4.5" y="4" width="11" height="13" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M7.5 4V3.3A1.3 1.3 0 0 1 8.8 2h2.4a1.3 1.3 0 0 1 1.3 1.3V4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M7.5 9.5h5M7.5 12.5h5M7.5 15.5h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-briefcase" viewBox="0 0 20 20" fill="none">
+    <rect x="3" y="7" width="14" height="9.5" rx="1.6" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M7.3 7V5.6A1.6 1.6 0 0 1 8.9 4h2.2a1.6 1.6 0 0 1 1.6 1.6V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M3 11.5h14" stroke="currentColor" stroke-width="1.4"/>
+  </symbol>
+  <symbol id="icon-pin" viewBox="0 0 20 20" fill="none">
+    <path d="M10 17.5s5.5-4.7 5.5-9a5.5 5.5 0 1 0-11 0c0 4.3 5.5 9 5.5 9Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <circle cx="10" cy="8.4" r="2" stroke="currentColor" stroke-width="1.4"/>
+  </symbol>
+  <symbol id="icon-shield" viewBox="0 0 20 20" fill="none">
+    <path d="M10 2.5 16 4.7v4.6c0 4.2-2.7 7-6 8.2-3.3-1.2-6-4-6-8.2V4.7L10 2.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M7.3 10 9.2 11.9 13 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-globe" viewBox="0 0 20 20" fill="none">
+    <circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M2.5 10h15" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M10 2.5c2.2 2 3.5 5 3.5 7.5s-1.3 5.5-3.5 7.5c-2.2-2-3.5-5-3.5-7.5S7.8 4.5 10 2.5Z" stroke="currentColor" stroke-width="1.4"/>
+  </symbol>
+  <symbol id="icon-close" viewBox="0 0 20 20" fill="none">
+    <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="page-loader" aria-hidden="true">
+  <div class="page-loader__logo">
+    <img class="page-loader__logo-base" src="../assets/img/logo.png" alt="">
+    <img class="page-loader__logo-fill" src="../assets/img/logo.png" alt="">
+  </div>
+</div>
+
+<!-- ============ HEADER (duplicated 1:1 from index.html, only paths/anchors adjusted for the /pages/ location) ============ -->
+<header class="header header--subpage" data-header>
+  <div class="header__inner">
+    <a href="../index.html" class="header__logo" aria-label="Lanos — home">
+      <img src="../assets/img/logo.png" alt="Lanos" width="120" height="47">
+    </a>
+
+    <nav class="header__nav" data-nav>
+      <div class="header__nav-top">
+        <a href="../index.html" class="header__nav-logo" aria-label="Lanos — home">
+          <img src="../assets/img/logo.png" alt="Lanos">
+        </a>
+        <button class="header__nav-close" type="button" data-nav-close aria-label="Close menu">
+          <svg class="icon"><use href="#icon-close"/></svg>
+        </button>
+      </div>
+
+      <div class="header__nav-bg">
+        <img src="../assets/img/mobile-bg.png" alt="" role="presentation">
+        <p class="header__nav-tagline">Steel. Precision. Trust.</p>
+      </div>
+
+      <div class="header__nav-panels" data-panels>
+        <div class="header__nav-panel header__nav-panel--main is-active" data-panel="main">
+          <div class="header__nav-scroll">
+            <ul class="header__nav-list">
+              <li>
+                <a class="header__nav-link" href="../index.html#about">
+                  <svg class="icon header__nav-icon"><use href="#icon-user"/></svg>
+                  <span class="header__nav-label">About us</span>
+                </a>
+              </li>
+              <li>
+                <a class="header__nav-link" href="../index.html">
+                  <svg class="icon header__nav-icon"><use href="#icon-news"/></svg>
+                  <span class="header__nav-label">News</span>
+                </a>
+              </li>
+              <li class="header__nav-item header__nav-item--dropdown">
+                <button class="header__nav-link header__nav-trigger" type="button" aria-expanded="false" data-panel-open="registration">
+                  <svg class="icon header__nav-icon"><use href="#icon-clipboard"/></svg>
+                  <span class="header__nav-label">Registration</span>
+                  <svg class="icon icon--12 header__caret header__nav-arrow"><use href="#icon-chevron"/></svg>
+                </button>
+                <ul class="header__submenu">
+                  <li><a href="#">New registration</a></li>
+                  <li><a href="#">My page</a></li>
+                  <li><a href="#">Agent registration</a></li>
+                </ul>
+              </li>
+              <li class="header__nav-item header__nav-item--dropdown">
+                <button class="header__nav-link header__nav-trigger" type="button" aria-expanded="false" data-panel-open="career">
+                  <svg class="icon header__nav-icon"><use href="#icon-briefcase"/></svg>
+                  <span class="header__nav-label">Career</span>
+                  <svg class="icon icon--12 header__caret header__nav-arrow"><use href="#icon-chevron"/></svg>
+                </button>
+                <ul class="header__submenu">
+                  <li><a href="#">Open positions</a></li>
+                  <li><a href="#">Life at Lanos</a></li>
+                  <li><a href="#">Internships</a></li>
+                </ul>
+              </li>
+              <li>
+                <a class="header__nav-link" href="#">
+                  <svg class="icon header__nav-icon"><use href="#icon-pin"/></svg>
+                  <span class="header__nav-label">Exhibitions</span>
+                </a>
+              </li>
+              <li>
+                <a class="header__nav-link" href="#">
+                  <svg class="icon header__nav-icon"><use href="#icon-shield"/></svg>
+                  <span class="header__nav-label">Transparency Act</span>
+                </a>
+              </li>
+              <li class="header__nav-lang-item">
+                <button class="header__nav-link" type="button" data-panel-open="lang">
+                  <svg class="icon header__nav-icon"><use href="#icon-globe"/></svg>
+                  <span class="header__nav-label" data-lang-current>EN</span>
+                  <svg class="icon icon--12 header__nav-arrow"><use href="#icon-chevron"/></svg>
+                </button>
+              </li>
+            </ul>
+
+            <a class="btn btn--primary header__nav-cta" href="../index.html#contact">
+              <span class="btn__label">Contact us</span>
+              <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="header__nav-panel" data-panel="registration">
+          <button class="header__nav-back" type="button" data-panel-back>
+            <svg class="icon icon--12"><use href="#icon-chevron"/></svg>
+            <span>Back</span>
+          </button>
+          <h3 class="header__nav-panel-title">Registration</h3>
+          <ul class="header__nav-sublist">
+            <li><a href="#">New registration</a></li>
+            <li><a href="#">My page</a></li>
+            <li><a href="#">Agent registration</a></li>
+          </ul>
+        </div>
+
+        <div class="header__nav-panel" data-panel="career">
+          <button class="header__nav-back" type="button" data-panel-back>
+            <svg class="icon icon--12"><use href="#icon-chevron"/></svg>
+            <span>Back</span>
+          </button>
+          <h3 class="header__nav-panel-title">Career</h3>
+          <ul class="header__nav-sublist">
+            <li><a href="#">Open positions</a></li>
+            <li><a href="#">Life at Lanos</a></li>
+            <li><a href="#">Internships</a></li>
+          </ul>
+        </div>
+
+        <div class="header__nav-panel" data-panel="lang">
+          <button class="header__nav-back" type="button" data-panel-back>
+            <svg class="icon icon--12"><use href="#icon-chevron"/></svg>
+            <span>Back</span>
+          </button>
+          <h3 class="header__nav-panel-title">Language</h3>
+          <ul class="header__nav-sublist" role="listbox">
+            <li role="option" aria-selected="true"><button type="button" data-lang="EN">EN <span>English</span></button></li>
+            <li role="option" aria-selected="false"><button type="button" data-lang="NO">NO <span>Norsk</span></button></li>
+            <li role="option" aria-selected="false"><button type="button" data-lang="DE">DE <span>Deutsch</span></button></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="header__actions">
+      <div class="header__lang-wrap">
+        <button class="header__lang" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span data-lang-current>EN</span> <svg class="icon icon--12 header__caret"><use href="#icon-chevron"/></svg>
+        </button>
+        <ul class="header__lang-menu" role="listbox">
+          <li role="option" aria-selected="true"><button type="button" data-lang="EN">EN <span>English</span></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="NO">NO <span>Norsk</span></button></li>
+          <li role="option" aria-selected="false"><button type="button" data-lang="DE">DE <span>Deutsch</span></button></li>
+        </ul>
+      </div>
+      <a class="btn btn--primary" href="../index.html#contact">
+        <span class="btn__label">Contact Us</span>
+        <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+      </a>
+    </div>
+
+    <button class="header__burger" type="button" data-burger aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Breadcrumb: its own section (scrolls away with the page, not part of
+       the sticky header), matching the subpage content Figma designed for
+       this row while keeping the header component identical to the home
+       page's. -->
+  <div class="breadcrumb-bar">
+    <p class="breadcrumb-bar__path"><a href="../index.html">Home</a> / Production and capabilities</p>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section class="production-hero">
+    <div class="production-hero__container">
+      <div class="production-hero__content reveal">
+        <h1 class="hero__title production-hero__title">Production and capabilities</h1>
+        <p class="hero__desc production-hero__desc">Our network of agents ensures that we are represented in most shipbuilding markets worldwide and our service team is at hand to assist you whenever necessary. Feel free to contact our head office or an agent near you.</p>
+        <a class="btn btn--primary" href="../index.html#products">
+          <span class="btn__label">Read more</span>
+          <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+        </a>
+      </div>
+
+      <div class="production-hero__media reveal">
+        <img src="../assets/img/production-hero.jpg" alt="Precision measurement instrument used for quality inspection at a Lanos production facility" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTION CAPABILITIES — light card grid, with buttons ============ -->
+  <section class="capabilities-grid-section">
+    <div class="capabilities-grid-section__container">
+      <div class="capabilities-grid-section__intro reveal">
+        <p class="eyebrow eyebrow--gold-dark">Production</p>
+        <h2 class="section-title">Production capabilities of the company</h2>
+        <p class="section-text capabilities-grid-section__desc">Our network of agents ensures that we are represented in most shipbuilding markets worldwide and our service team is at hand to assist you whenever necessary. Feel free to contact our head office or an agent near you.</p>
+      </div>
+
+      <div class="capabilities-grid-section__grid">
+        <article class="capability-card reveal">
+          <div class="capability-card__media">
+            <img src="../assets/img/tech-cnc-laser.jpg" alt="CNC laser cutting sparks on steel plate at a Lanos production facility" loading="lazy">
+          </div>
+          <div class="capability-card__body">
+            <h3 class="capability-card__title">CNC Laser Cutting</h3>
+            <p class="capability-card__desc">Ultra-precise multi-axis laser cutting machines guarantee strict tolerances and flawless edge prep before assembly.</p>
+          </div>
+          <a class="btn btn--primary" href="../index.html#products">
+            <span class="btn__label">Read more</span>
+            <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+          </a>
+        </article>
+
+        <article class="capability-card reveal">
+          <div class="capability-card__media">
+            <img src="../assets/img/tech-welding-light.jpg" alt="Welder joining a steel structural frame at a Lanos production facility" loading="lazy">
+          </div>
+          <div class="capability-card__body">
+            <h3 class="capability-card__title">Robotic Welding</h3>
+            <p class="capability-card__desc">Automated MIG/TIG stations deliver perfectly uniform, certified watertight and pressure-resistant welds across structural joints.</p>
+          </div>
+          <a class="btn btn--primary" href="../index.html#products">
+            <span class="btn__label">Read more</span>
+            <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+          </a>
+        </article>
+
+        <article class="capability-card reveal">
+          <div class="capability-card__media">
+            <img src="../assets/img/tech-surface-light.jpg" alt="Precision CNC machining of a steel gear component" loading="lazy">
+          </div>
+          <div class="capability-card__body">
+            <h3 class="capability-card__title">Surface Treatment</h3>
+            <p class="capability-card__desc">Hot-dip galvanizing and professional marine epoxy coating shield steel and aluminum against aggressive saline oxidation.</p>
+          </div>
+          <a class="btn btn--primary" href="../index.html#products">
+            <span class="btn__label">Read more</span>
+            <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTION CAPABILITIES (reuses the .facilities / .checks / .card-cutting components 1:1) ============ -->
+  <section class="facilities production-facilities" id="capabilities">
+    <div class="facilities__container">
+      <div class="facilities__grid production-facilities__grid">
+        <div class="facilities__side reveal">
+          <p class="eyebrow eyebrow--gold-dark">Production</p>
+          <h2 class="section-title section-title--light">Production capabilities of the company</h2>
+          <p class="facilities__lead">Our network of agents ensures that we are represented in most shipbuilding markets worldwide and our service team is at hand to assist you whenever necessary. Feel free to contact our head office or an agent near you.</p>
+
+          <ul class="checks" data-facilities-nav>
+            <li class="checks__item" data-category="doors"
+                data-image="../assets/img/production-facility-card.jpg"
+                data-alt="Weathertight steel door on a Lanos-built vessel"
+                data-desc="Weathertight steel and aluminium doors engineered to IMO standards for reliable access in the harshest marine conditions.">
+              <button class="checks__btn" type="button">
+                <svg class="icon checks__icon"><use href="#icon-arrow"/></svg>
+                <span class="checks__label">Doors</span>
+              </button>
+            </li>
+            <li class="checks__item checks__item--active" data-category="hatches"
+                data-image="../assets/img/production-facility-card.jpg"
+                data-alt="Weathertight hatch and door hardware on a Lanos-built vessel at sunset"
+                data-desc="Our company was founded back in 1954, a time where dramatic shipwrecks and accidents resulting in loss of life:">
+              <button class="checks__btn" type="button">
+                <svg class="icon checks__icon"><use href="#icon-arrow"/></svg>
+                <span class="checks__label">Hatches</span>
+              </button>
+            </li>
+            <li class="checks__item" data-category="storage"
+                data-image="../assets/img/production-facility-card.jpg"
+                data-alt="Corrosion-resistant steel storage unit on a Lanos-built vessel"
+                data-desc="Durable, corrosion-resistant storage solutions built to withstand constant exposure to salt water and heavy use.">
+              <button class="checks__btn" type="button">
+                <svg class="icon checks__icon"><use href="#icon-arrow"/></svg>
+                <span class="checks__label">Storage</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="facilities__card-wrap reveal">
+          <article class="card-cutting" data-facilities-card>
+            <div class="card-cutting__media">
+              <img data-card-image src="../assets/img/production-facility-card.jpg" alt="Weathertight hatch and door hardware on a Lanos-built vessel at sunset" loading="lazy">
+            </div>
+            <div class="card-cutting__body">
+              <p class="card-cutting__text" data-card-desc>Our company was founded back in 1954, a time where dramatic shipwrecks and accidents resulting in loss of life:</p>
+            </div>
+            <a class="btn btn--primary" href="../index.html#products">
+              <span class="btn__label">Explore products</span>
+              <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+            </a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTION HIGHLIGHTS — light, 2-up cards (reuses .card-cutting) ============ -->
+  <section class="capabilities-duo">
+    <div class="capabilities-duo__container">
+      <div class="capabilities-duo__intro reveal">
+        <p class="eyebrow eyebrow--gold-dark">Production</p>
+        <h2 class="section-title">Production capabilities of the company</h2>
+        <p class="section-text capabilities-grid-section__desc">Our network of agents ensures that we are represented in most shipbuilding markets worldwide and our service team is at hand to assist you whenever necessary. Feel free to contact our head office or an agent near you.</p>
+      </div>
+
+      <div class="capabilities-duo__grid">
+        <article class="card-cutting capabilities-duo__card reveal">
+          <div class="card-cutting__media">
+            <img src="../assets/img/production-facility-card.jpg" alt="Weathertight hatch and door hardware on a Lanos-built vessel at sunset" loading="lazy">
+          </div>
+          <div class="card-cutting__body">
+            <p class="card-cutting__text">Our company was founded back in 1954, a time where dramatic shipwrecks and accidents resulting in loss of life:</p>
+          </div>
+          <a class="btn btn--primary" href="../index.html#products">
+            <span class="btn__label">Explore products</span>
+            <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+          </a>
+        </article>
+
+        <article class="card-cutting capabilities-duo__card reveal">
+          <div class="card-cutting__media">
+            <img src="../assets/img/production-facility-card.jpg" alt="Weathertight hatch and door hardware on a Lanos-built vessel at sunset" loading="lazy">
+          </div>
+          <div class="card-cutting__body">
+            <p class="card-cutting__text">Our company was founded back in 1954, a time where dramatic shipwrecks and accidents resulting in loss of life:</p>
+          </div>
+          <a class="btn btn--primary" href="../index.html#products">
+            <span class="btn__label">Explore products</span>
+            <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TECHNOLOGY / MANUFACTURING CAPABILITIES ============ -->
+  <section class="tech">
+    <div class="tech__container">
+      <div class="tech__intro reveal">
+        <p class="eyebrow eyebrow--gold">Technology</p>
+        <h2 class="section-title section-title--light">Advanced manufacturing capabilities</h2>
+        <p class="section-text tech__desc">Through state-of-the-art robotic infrastructure and certified metallurgical processes, we ensure absolute dimensional accuracy and marine-grade integrity for every single component.</p>
+      </div>
+
+      <div class="tech__grid">
+        <article class="tech-card reveal">
+          <div class="tech-card__media">
+            <img src="../assets/img/tech-cnc-laser.jpg" alt="CNC laser cutting sparks on steel plate at a Lanos production facility" loading="lazy">
+          </div>
+          <div class="tech-card__body">
+            <h3 class="tech-card__title">CNC Laser Cutting</h3>
+            <p class="tech-card__desc">Ultra-precise multi-axis laser cutting machines guarantee strict tolerances and flawless edge prep before assembly.</p>
+          </div>
+        </article>
+
+        <article class="tech-card reveal">
+          <div class="tech-card__media">
+            <img src="../assets/img/tech-robotic-welding.jpg" alt="Robotic welding arm joining a steel structural frame" loading="lazy">
+          </div>
+          <div class="tech-card__body">
+            <h3 class="tech-card__title">Robotic Welding</h3>
+            <p class="tech-card__desc">Automated MIG/TIG stations deliver perfectly uniform, certified watertight and pressure-resistant welds across structural joints.</p>
+          </div>
+        </article>
+
+        <article class="tech-card reveal">
+          <div class="tech-card__media">
+            <img src="../assets/img/tech-surface-treatment.jpg" alt="Steel panels lowered into a surface treatment bath" loading="lazy">
+          </div>
+          <div class="tech-card__body">
+            <h3 class="tech-card__title">Surface Treatment</h3>
+            <p class="tech-card__desc">Hot-dip galvanizing and professional marine epoxy coating shield steel and aluminum against aggressive saline oxidation.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER (duplicated 1:1 from index.html, only paths/anchors adjusted for the /pages/ location) ============ -->
+<footer class="footer">
+  <div class="footer__container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img class="footer__logo" src="../assets/img/logo.png" alt="Lanos" width="138" height="55">
+        <address class="footer__contact">
+          <p>Raffelneset 12 N-6060 Hareid, Norway</p>
+          <p><a href="tel:+4770095400">+47 70 09 54 00</a></p>
+          <p><a href="mailto:office@libra.no">office@libra.no</a></p>
+        </address>
+      </div>
+
+      <nav class="footer__nav">
+        <ul class="footer__col">
+          <li><a href="../index.html#products">Doors</a></li>
+          <li><a href="../index.html#products">Hatches</a></li>
+          <li><a href="../index.html#products">Storage</a></li>
+          <li><a href="#">Spare parts</a></li>
+          <li><a href="#">My page</a></li>
+        </ul>
+        <ul class="footer__col">
+          <li><a href="../index.html#about">About us</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Career</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a href="#">Exhibitions</a></li>
+          <li><a href="#">Registration</a></li>
+          <li><a href="#">Transparency Act</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </nav>
+
+      <ul class="footer__social">
+        <li><a href="#" aria-label="Facebook"><img src="../assets/icons/facebook.svg" alt="" width="20" height="20"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="../assets/icons/instagram.svg" alt="" width="20" height="20"></a></li>
+        <li><a href="#" aria-label="LinkedIn"><img src="../assets/icons/linkedin.svg" alt="" width="20" height="20"></a></li>
+      </ul>
+    </div>
+
+    <div class="footer__bottom">
+      <p>Copyright 2026. © All Rights Reserved</p>
+      <ul class="footer__legal">
+        <li><a href="#">Privacy Notice</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js" defer></script>
+</body>
+</html>

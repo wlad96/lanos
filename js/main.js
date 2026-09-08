@@ -232,15 +232,24 @@
     };
 
     const applyData = (item) => {
-      const data = FACILITIES_DATA[item.dataset.category];
-      if (!data) return;
+      // FACILITIES_DATA (rich: images + link columns + button) covers the
+      // home page's categories; any other page using this same component
+      // (e.g. Production and capabilities' Doors/Hatches/Storage) just
+      // needs data-image/data-alt/data-desc on the <li> itself — no JS
+      // changes required to wire up a new, simpler instance of it.
+      const data = FACILITIES_DATA[item.dataset.category] || {
+        image: item.dataset.image,
+        alt: item.dataset.alt,
+        desc: item.dataset.desc,
+      };
+      if (!data.image && !data.desc) return;
       const label = item.querySelector('.checks__label');
       if (label && titleEl) titleEl.textContent = label.textContent;
-      if (imageEl) { imageEl.src = data.image; imageEl.alt = data.alt; }
-      if (descEl) descEl.textContent = data.desc;
-      colEls.forEach((ul, i) => data.links[i] && renderLinkColumn(ul, data.links[i]));
-      if (btnLabelEl) btnLabelEl.textContent = data.btn.label;
-      if (btnEl) btnEl.href = data.btn.href;
+      if (imageEl && data.image) { imageEl.src = data.image; imageEl.alt = data.alt || ''; }
+      if (descEl && data.desc) descEl.textContent = data.desc;
+      if (data.links) colEls.forEach((ul, i) => data.links[i] && renderLinkColumn(ul, data.links[i]));
+      if (btnLabelEl && data.btn) btnLabelEl.textContent = data.btn.label;
+      if (btnEl && data.btn) btnEl.href = data.btn.href;
     };
 
     const setActive = (item) => {
