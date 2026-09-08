@@ -128,6 +128,38 @@
     revealEls.forEach(el => el.classList.add('is-visible'));
   }
 
+  /* ---------- Count-up numbers on scroll into view ---------- */
+  const countEls = document.querySelectorAll('[data-count-to]');
+  if (countEls.length) {
+    const formatCount = (n, plain) => plain || n < 1000 ? String(n) : n.toLocaleString('en-US').replace(/,/g, ' ');
+    const runCount = el => {
+      const target = parseInt(el.dataset.countTo, 10);
+      const plain = el.dataset.countPlain === 'true';
+      const duration = 1600;
+      const start = performance.now();
+      const tick = now => {
+        const p = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = formatCount(Math.round(target * eased), plain);
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    if ('IntersectionObserver' in window) {
+      const countIo = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            runCount(entry.target);
+            countIo.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      countEls.forEach(el => countIo.observe(el));
+    } else {
+      countEls.forEach(el => { el.textContent = formatCount(parseInt(el.dataset.countTo, 10), el.dataset.countPlain === 'true'); });
+    }
+  }
+
   /* ---------- Facilities: hover-driven category switcher ----------
      Each category's `links` columns are plain [{ label, href }] arrays so
      this block can later be swapped for a CMS feed (e.g. two columns of

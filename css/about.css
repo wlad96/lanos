@@ -1,0 +1,474 @@
+/* ==========================================================================
+   ABOUT US — page-specific styles
+   Design source: Figma "Site LANOS" → About us (node 2450:2965)
+   Loaded after style.css + production.css: reuses tokens, header/footer,
+   buttons, eyebrow/section-title, .about__headline, .tech, .contact/
+   .contact-form, .partners__logos and the breadcrumb-bar/production-hero
+   layout 1:1 — only genuinely new components live here.
+   ========================================================================== */
+
+/* ---------- Hero: same two-column layout as the production page's hero,
+   just its own copy — .production-hero already covers all the layout/
+   responsive rules, this only swaps the background tone. ---------- */
+.about-hero {
+  background: var(--cream);
+  /* Own stacking context above .about-stats, so the watermark bleeding up
+     from that section paints behind this hero's photo, not on top of it. */
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   HEADLINE + STATS
+   ========================================================================== */
+.about-stats {
+  position: relative;
+  padding: 130px 0;
+  overflow-x: clip;
+}
+
+.about-stats__container {
+  position: relative;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+/* Same watermark technique as the home page's .about__watermark (faint,
+   grayscale, bleeding toward the edge) — positioned for this section's own
+   proportions rather than forcing the home page's headline-relative math. */
+.about-stats__watermark {
+  position: absolute;
+  top: -260px;
+  right: max(0px, calc((100vw - var(--container-max))/2));
+  width: min(47%, 681px);
+  opacity: .05;
+  filter: grayscale(1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.about-stats .about__headline {
+  max-width: none;
+  margin: 0 0 40px;
+  padding-inline: 0;
+  text-align: left;
+}
+
+.about-stats__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.about-stats__card {
+  /* Grid items default to min-width:auto, so their track can't shrink past
+     the item's own content — without this, the four-digit/three-digit
+     numbers force uneven 1fr columns instead of a true equal split. */
+  min-width: 0;
+  padding: 40px;
+  background: var(--cream-2);
+  border-radius: 16px;
+}
+
+.about-stats__number {
+  font: 400 40px/1.2 var(--font-head);
+  color: var(--navy-2);
+  margin-bottom: 24px;
+  min-height: 144px;
+}
+
+.about-stats__number-value {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  font-size: 80px;
+}
+
+.about-stats__number--sm {
+  font-size: 80px;
+}
+
+.about-stats__text {
+  font: 400 16px/28px var(--font-body);
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   VIDEO
+   ========================================================================== */
+.about-video {
+  padding: 0 0 130px;
+}
+
+.about-video__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.about-video__frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1280/720;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.about-video__frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ==========================================================================
+   OUR TEAM
+   ========================================================================== */
+.team {
+  padding: 130px 0;
+}
+
+.team__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.team__intro {
+  max-width: 960px;
+  margin-inline: auto;
+  margin-bottom: 64px;
+  text-align: center;
+}
+
+.team__intro .eyebrow {
+  justify-content: center;
+}
+
+.team__desc {
+  max-width: none;
+  margin-bottom: 0;
+}
+
+.team__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* Cutout PNGs (transparent background) sit on the tile's own flat colour —
+   cream at rest, navy on hover — so the colour swap reads as a real
+   background change behind the person, not a photo crossfade. The card
+   itself lifts slightly on hover for a bit of premium polish. */
+.team-card {
+  transition: transform .4s var(--ease-out);
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+}
+
+.team-card__media {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 305/370;
+  background: var(--cream-2);
+  margin-bottom: 16px;
+  transition: background-color .5s var(--ease-out);
+}
+
+.team-card__media img {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 84%;
+  height: auto;
+  transform: translateX(-50%);
+  transition: transform .5s var(--ease-out);
+}
+
+.team-card__role {
+  font: 400 16px/28px var(--font-body);
+  color: var(--gray);
+  text-align: center;
+}
+
+.team-card__name {
+  font: 400 24px/32px var(--font-head);
+  color: var(--ink);
+  text-align: center;
+}
+
+/* Hover (and the one card shown "selected" by default in Figma, matching
+   the reference) turns the tile navy — role/name stay put, they sit on the
+   page background outside the tile, not inside it. */
+.team-card:hover .team-card__media,
+.team-card--active .team-card__media {
+  background: var(--navy-2);
+}
+
+.team-card:hover .team-card__media img,
+.team-card--active .team-card__media img {
+  transform: translateX(-50%) scale(1.05);
+}
+
+/* ==========================================================================
+   OUR PARTNERS
+   ========================================================================== */
+.about-partners {
+  padding: 130px 0;
+  background: var(--cream);
+}
+
+.about-partners__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.about-partners__intro {
+  max-width: 960px;
+  margin-inline: auto;
+  margin-bottom: 64px;
+  text-align: center;
+}
+
+.about-partners__intro .eyebrow {
+  justify-content: center;
+}
+
+.about-partners__desc {
+  max-width: none;
+  margin-bottom: 0;
+}
+
+.about-partners__grid {
+  grid-template-columns: repeat(8, 1fr);
+  margin-bottom: 40px;
+}
+
+.about-partners__spotlight {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.spotlight-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 628/569;
+}
+
+.spotlight-card__bg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .8s var(--ease-out);
+}
+
+.spotlight-card:hover .spotlight-card__bg {
+  transform: scale(1.05);
+}
+
+.spotlight-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #08101E -2.25%, rgba(8, 16, 30, 0.7) 99.99%, rgba(8, 16, 30, 0) 100%);
+  opacity: 0.5;
+}
+
+.spotlight-card__body {
+  position: absolute;
+  z-index: 1;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.spotlight-card__logo {
+  width: 120px;
+  height: auto;
+}
+
+.spotlight-card__text {
+  font: 400 16px/28px var(--font-body);
+  color: var(--border);
+}
+
+.spotlight-card .btn {
+  align-self: flex-start;
+}
+
+/* ==========================================================================
+   RESPONSIVE — same breakpoint set as the rest of the site
+   ========================================================================== */
+@media (max-width:1200px) {
+  .about-stats__watermark {
+    display: none;
+  }
+
+  .about-stats__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .team__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about-partners__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .about-partners__spotlight {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width:1024px) {
+  .about-stats {
+    padding-bottom: 110px;
+  }
+
+  .about-video {
+    padding-bottom: 110px;
+  }
+
+  .team,
+  .about-partners {
+    padding: 110px 0;
+  }
+
+  .about-stats__number {
+    font-size: 72px;
+  }
+}
+
+@media (max-width:768px) {
+  .about-stats__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-stats {
+    padding-bottom: 80px;
+  }
+
+  .about-video {
+    padding-bottom: 80px;
+  }
+
+  .team,
+  .about-partners {
+    padding: 80px 0;
+  }
+
+  .team__intro,
+  .about-partners__intro {
+    margin-bottom: 40px;
+  }
+
+  .team__grid {
+    grid-template-columns: 1fr;
+    max-width: 340px;
+    margin-inline: auto;
+  }
+
+  .about-partners__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width:576px) {
+  .about-stats__card {
+    padding: 28px;
+  }
+
+  .about-stats__number {
+    font-size: 56px;
+    margin-bottom: 12px;
+  }
+
+  .about-video__play {
+    width: 56px;
+    height: 46px;
+  }
+
+  .about-video__play .icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .about-partners__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* A fixed aspect-ratio card can't fit this much text once it wraps to
+     6+ lines at phone widths — the logo and the tail of the paragraph get
+     clipped by the card's own overflow:hidden. Let the card grow with its
+     content instead, with the photo absolutely filling whatever height
+     that ends up being. */
+  .spotlight-card {
+    aspect-ratio: auto;
+    min-height: 460px;
+  }
+
+  .spotlight-card__bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .spotlight-card__body {
+    left: 24px;
+    right: 24px;
+    bottom: 24px;
+    gap: 16px;
+  }
+
+  .spotlight-card__logo {
+    width: 96px;
+  }
+
+  .spotlight-card__text {
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  .about-stats {
+    padding: 50px 0;
+  }
+
+  .about__headline br {
+    display: none;
+  }
+
+  .about-stats__number {
+    font-size: 36px;
+    min-height: initial;
+  }
+
+  .about-stats__number-value {
+    font-size: 50px;
+  }
+
+  .about-video {
+    padding-bottom: 50px;
+  }
+
+  .team,
+  .about-partners {
+    padding: 50px 0;
+  }
+
+  .spotlight-card::after {
+    opacity: 0.9;
+  }
+}
