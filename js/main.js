@@ -355,6 +355,12 @@
       let startX = 0;
       let deltaX = 0;
 
+      /* Deliberately no setPointerCapture here: capturing the pointer on
+         the track redirects the resulting pointerup/click to the track
+         itself instead of whatever was actually under the finger/cursor.
+         Listening on window while dragging tracks the pointer just as
+         reliably (even once it leaves the track's bounds) without
+         hijacking clicks on the slides underneath. */
       const onPointerDown = (e) => {
         if (e.pointerType === 'mouse' && e.button !== 0) return;
         dragging = true;
@@ -362,7 +368,9 @@
         deltaX = 0;
         track.classList.add('is-dragging');
         clearInterval(timer);
-        track.setPointerCapture(e.pointerId);
+        window.addEventListener('pointermove', onPointerMove);
+        window.addEventListener('pointerup', endDrag);
+        window.addEventListener('pointercancel', endDrag);
       };
 
       const onPointerMove = (e) => {
@@ -374,6 +382,9 @@
       const endDrag = () => {
         if (!dragging) return;
         dragging = false;
+        window.removeEventListener('pointermove', onPointerMove);
+        window.removeEventListener('pointerup', endDrag);
+        window.removeEventListener('pointercancel', endDrag);
         track.classList.remove('is-dragging');
         track.style.transform = '';
         if (deltaX <= -SWIPE_THRESHOLD) goTo(current + 1);
@@ -383,9 +394,6 @@
       };
 
       track.addEventListener('pointerdown', onPointerDown);
-      track.addEventListener('pointermove', onPointerMove);
-      track.addEventListener('pointerup', endDrag);
-      track.addEventListener('pointercancel', endDrag);
     }
   }
 
@@ -433,6 +441,151 @@
         label.textContent = original;
         btn.style.pointerEvents = '';
       }, 3000);
+    });
+  }
+
+  /* ---------- Certificates page: year tabs + 4-up paginated slider ---------- */
+  const certGridSlider = document.querySelector('[data-cert-slider]');
+  if (certGridSlider) {
+    const gridTrack = certGridSlider.querySelector('.cert-grid-slider__track');
+    const gridViewport = certGridSlider.querySelector('.cert-grid-slider__viewport');
+    const gridPages = certGridSlider.querySelectorAll('.cert-grid-slider__page');
+    const gridDots = certGridSlider.querySelectorAll('.cert-grid-slider__dot');
+    const gridCards = certGridSlider.querySelectorAll('.cert-card');
+    const gridProgressFill = certGridSlider.querySelector('[data-cert-slider-progress-fill]');
+    let gridPage = 0;
+
+    const setGridProgress = (idx) => {
+      if (!gridProgressFill || !gridCards.length) return;
+      const pct = gridCards.length > 1 ? (idx / (gridCards.length - 1)) * 100 : 100;
+      gridProgressFill.style.width = `${Math.max(4, pct)}%`;
+    };
+
+    const goToGridPage = (index) => {
+      gridPage = (index + gridPages.length) % gridPages.length;
+      gridTrack.style.transform = `translateX(-${gridPage * 100}%)`;
+      gridDots.forEach((d, i) => d.classList.toggle('cert-grid-slider__dot--active', i === gridPage));
+      /* Only meaningful for the mobile one-card-per-screen layout (desktop
+         keeps the viewport's overflow hidden, so this is a no-op there) —
+         switching tabs should land back on the first certificate. */
+      if (gridViewport) gridViewport.scrollLeft = 0;
+      setGridProgress(0);
+    };
+
+    /* Mobile progress strip: the ≤576px layout hands scrolling to the
+       browser's native horizontal snap instead of the page/dot system
+       above, so the fill tracks scroll position directly instead of
+       gridPage. Harmless elsewhere — the viewport never scrolls there. */
+    if (gridViewport && gridProgressFill && gridCards.length > 1) {
+      const cardStep = () => gridCards[1].offsetLeft - gridCards[0].offsetLeft;
+      gridViewport.addEventListener('scroll', () => {
+        const step = cardStep();
+        if (!step) return;
+        const idx = Math.min(gridCards.length - 1, Math.round(gridViewport.scrollLeft / step));
+        setGridProgress(idx);
+      }, { passive: true });
+    }
+
+    gridDots.forEach((dot, i) => dot.addEventListener('click', () => goToGridPage(i)));
+
+    const certTabs = document.querySelector('[data-cert-tabs]');
+    if (certTabs) {
+      const tabs = certTabs.querySelectorAll('.cert-tabs__item');
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          tabs.forEach((t) => {
+            t.classList.remove('cert-tabs__item--active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('cert-tabs__item--active');
+          tab.setAttribute('aria-selected', 'true');
+          goToGridPage(0);
+        });
+      });
+    }
+
+    /* Swipe/drag: same resistance-drag technique as the home page's
+       cert-slider, adapted to snap between grouped pages instead of
+       crossfading single slides. */
+    const SWIPE_THRESHOLD = 50;
+    const RESISTANCE = 0.35;
+    let dragging = false;
+    let startX = 0;
+    let deltaX = 0;
+
+    /* Deliberately no setPointerCapture: capturing the pointer on the
+       track would redirect the resulting pointerup/click to the track
+       itself instead of the card actually tapped, silently swallowing
+       every click-to-open-lightbox interaction. Window-level listeners
+       during the drag track the pointer just as reliably without that
+       side effect. */
+    const onGridPointerDown = (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      dragging = true;
+      startX = e.clientX;
+      deltaX = 0;
+      gridTrack.classList.add('is-dragging');
+      window.addEventListener('pointermove', onGridPointerMove);
+      window.addEventListener('pointerup', endGridDrag);
+      window.addEventListener('pointercancel', endGridDrag);
+    };
+    const onGridPointerMove = (e) => {
+      if (!dragging) return;
+      deltaX = e.clientX - startX;
+      gridTrack.style.transform = `translateX(calc(-${gridPage * 100}% + ${deltaX * RESISTANCE}px))`;
+    };
+    const endGridDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      window.removeEventListener('pointermove', onGridPointerMove);
+      window.removeEventListener('pointerup', endGridDrag);
+      window.removeEventListener('pointercancel', endGridDrag);
+      gridTrack.classList.remove('is-dragging');
+      if (deltaX <= -SWIPE_THRESHOLD) goToGridPage(gridPage + 1);
+      else if (deltaX >= SWIPE_THRESHOLD) goToGridPage(gridPage - 1);
+      else goToGridPage(gridPage);
+      deltaX = 0;
+    };
+
+    gridTrack.addEventListener('pointerdown', onGridPointerDown);
+
+    goToGridPage(0);
+  }
+
+  /* ---------- Lightbox: click a certificate to view it full-size ---------- */
+  const lightbox = document.querySelector('[data-lightbox]');
+  if (lightbox) {
+    const lbImg = lightbox.querySelector('.lightbox__img');
+    const triggers = Array.from(document.querySelectorAll('[data-lightbox-trigger]'));
+    let lbIndex = 0;
+
+    const openLightbox = (i) => {
+      lbIndex = (i + triggers.length) % triggers.length;
+      const img = triggers[lbIndex].querySelector('img');
+      lbImg.src = triggers[lbIndex].dataset.full || img.src;
+      lbImg.alt = img.alt;
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('no-scroll');
+    };
+    const closeLightbox = () => {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('no-scroll');
+    };
+
+    triggers.forEach((trigger, i) => trigger.addEventListener('click', () => openLightbox(i)));
+    lightbox.querySelectorAll('[data-lightbox-close]').forEach((el) => el.addEventListener('click', closeLightbox));
+    const prevBtn = lightbox.querySelector('[data-lightbox-prev]');
+    const nextBtn = lightbox.querySelector('[data-lightbox-next]');
+    if (prevBtn) prevBtn.addEventListener('click', () => openLightbox(lbIndex - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => openLightbox(lbIndex + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') openLightbox(lbIndex + 1);
+      if (e.key === 'ArrowLeft') openLightbox(lbIndex - 1);
     });
   }
 

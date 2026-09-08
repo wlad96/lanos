@@ -1703,7 +1703,7 @@ body {
 
 .footer__logo {
   height: 55px;
-  width: auto;
+  width: fit-content;
 }
 
 .footer__contact {

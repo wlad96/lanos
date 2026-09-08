@@ -1,0 +1,532 @@
+/* ==========================================================================
+   CERTIFICATES — page-specific styles
+   Design source: Figma "Site LANOS" → Sertificats (node 2449:2645)
+   Loaded after style.css + production.css: reuses tokens, header/footer,
+   buttons, eyebrow/section-title typography, .hero__title/.hero__desc and
+   the breadcrumb-bar 1:1 — only genuinely new components live here.
+   ========================================================================== */
+
+.cert-hero {
+  padding: 40px 0;
+  background: var(--cream);
+}
+
+.cert-hero__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.cert-hero__title {
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.cert-hero__desc {
+  color: var(--gray);
+  max-width: 998px;
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   GALLERY — year tabs + 4-up paginated slider
+   ========================================================================== */
+.cert-gallery {
+  padding-bottom: 130px;
+  background: var(--cream);
+}
+
+.cert-gallery__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.cert-tabs {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.cert-tabs__item {
+  font: 400 24px/32px var(--font-head);
+  color: var(--gray);
+  transition: color .3s ease, font-size .3s var(--ease-out);
+}
+
+.cert-tabs__item:hover {
+  color: var(--ink);
+}
+
+.cert-tabs__item--active {
+  font-size: 32px;
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.cert-grid-slider__viewport {
+  overflow: hidden;
+}
+
+.cert-grid-slider__track {
+  display: flex;
+  transition: transform .5s var(--ease-out);
+}
+
+.cert-grid-slider__track.is-dragging {
+  transition: none;
+}
+
+.cert-grid-slider__page {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.cert-card {
+  /* Grid items default to min-width:auto — an <img> child's intrinsic
+     pixel size counts toward that even at width:100%, so without this the
+     card refuses to shrink below the certificate photo's native width. */
+  min-width: 0;
+  position: relative;
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 301/421;
+  cursor: zoom-in;
+}
+
+.cert-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s var(--ease-out);
+  pointer-events: none;
+}
+
+.cert-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 37, 61, 0);
+  transition: background-color .3s ease;
+}
+
+.cert-card:hover::after {
+  background: rgba(15, 37, 61, .15);
+}
+
+.cert-card:hover img {
+  transform: scale(1.04);
+}
+
+.cert-card__zoom {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--navy);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .3s ease, transform .3s var(--ease-out);
+}
+
+.cert-card__zoom .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.cert-card:hover .cert-card__zoom {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cert-grid-slider__dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.cert-grid-slider__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 600px;
+  background: var(--gray-light);
+  transition: width .35s var(--ease-out), background-color .3s ease;
+}
+
+.cert-grid-slider__dot--active {
+  width: 32px;
+  background: var(--blue);
+}
+
+/* Progress strip for the mobile one-at-a-time swipe view — hidden by
+   default, switched on in the ≤576px block below where the dots (which
+   don't map to a single certificate any more) are hidden instead. */
+.cert-grid-slider__progress {
+  display: none;
+  height: 4px;
+  margin-top: 20px;
+  border-radius: 600px;
+  background: var(--gray-light);
+  overflow: hidden;
+}
+
+.cert-grid-slider__progress-fill {
+  width: 5%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--blue);
+  transition: width .25s var(--ease-out);
+}
+
+/* ==========================================================================
+   TECHNOLOGY (icon list + single certificate photo)
+   ========================================================================== */
+.cert-tech {
+  background: var(--navy);
+  padding: 130px 0;
+}
+
+.cert-tech__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+  display: grid;
+  grid-template-columns: minmax(0, 692fr) minmax(0, 363fr);
+  gap: 80px;
+  align-items: center;
+}
+
+.cert-tech .section-text {
+  color: var(--gray-light);
+  max-width: none;
+  margin-bottom: 40px;
+}
+
+.cert-tech__list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cert-tech__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.cert-tech__icon {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cert-tech__icon .icon {
+  width: 20px;
+  height: 20px;
+}
+
+.cert-tech__icon--gold {
+  background: #FFF3D4;
+  color: var(--gold);
+}
+
+.cert-tech__icon--blue {
+  background: #E2EBF5;
+  color: var(--navy);
+}
+
+.cert-tech__icon--green {
+  background: #E1F2E8;
+  color: #5B6B46;
+}
+
+.cert-tech__item-title {
+  font: 400 24px/36px var(--font-body);
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.cert-tech__item-desc {
+  font: 400 16px/28px var(--font-body);
+  color: var(--gray-light);
+}
+
+.cert-tech__media {
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 363/507;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, .35);
+}
+
+.cert-tech__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   LIGHTBOX — click a certificate to view it full-size
+   ========================================================================== */
+body.no-scroll {
+  overflow: hidden;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .35s ease, visibility 0s linear .35s;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .35s ease;
+}
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 16, 30, .9);
+}
+
+.lightbox__figure {
+  position: relative;
+  z-index: 1;
+  max-width: min(90vw, 560px);
+  max-height: 88vh;
+  margin: 0;
+  transform: scale(.94);
+  transition: transform .35s var(--ease-out);
+}
+
+.lightbox.is-open .lightbox__figure {
+  transform: scale(1);
+}
+
+.lightbox__img {
+  display: block;
+  width: 100%;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
+  transition: background-color .2s ease, transform .2s ease;
+}
+
+.lightbox__close:hover {
+  background: rgba(255, 255, 255, .2);
+  transform: rotate(90deg);
+}
+
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
+  transform: translateY(-50%);
+  transition: background-color .2s ease, transform .2s ease;
+}
+
+.lightbox__nav:hover {
+  background: rgba(255, 255, 255, .2);
+}
+
+.lightbox__nav .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.lightbox__nav--prev {
+  left: 24px;
+}
+
+.lightbox__nav--prev .icon {
+  transform: rotate(90deg);
+}
+
+.lightbox__nav--next {
+  right: 24px;
+}
+
+.lightbox__nav--next .icon {
+  transform: rotate(-90deg);
+}
+
+/* ==========================================================================
+   RESPONSIVE — same breakpoint set as the rest of the site
+   ========================================================================== */
+@media (max-width:1200px) {
+  .cert-grid-slider__page {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .cert-tech__container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .cert-tech__media {
+    max-width: 420px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width:1024px) {
+  .cert-hero {
+    padding: 48px 0 40px;
+  }
+
+  .cert-gallery {
+    padding-bottom: 110px;
+  }
+
+  .cert-tech {
+    padding: 110px 0;
+  }
+}
+
+@media (max-width:768px) {
+  .cert-tabs {
+    gap: 12px 16px;
+    margin-bottom: 40px;
+  }
+
+  .cert-tabs__item {
+    font-size: 18px;
+  }
+
+  .cert-tabs__item--active {
+    font-size: 24px;
+  }
+
+  .cert-gallery {
+    padding-bottom: 80px;
+  }
+
+  .cert-tech {
+    padding: 80px 0;
+  }
+
+  .lightbox__nav {
+    width: 40px;
+    height: 40px;
+  }
+
+  .lightbox__nav--prev {
+    left: 12px;
+  }
+
+  .lightbox__nav--next {
+    right: 12px;
+  }
+
+  .lightbox__close {
+    top: 12px;
+    right: 12px;
+  }
+}
+
+@media (max-width:576px) {
+  /* 4 stacked certificates per swipe-page (scroll down AND swipe sideways
+     to see everything) reads as broken on a phone. Flatten the page
+     grouping with display:contents and hand scrolling to the browser's
+     own horizontal snap — one certificate per screen, the next one
+     peeking in at the edge so it's obvious there's more to swipe to. */
+  .cert-grid-slider__viewport {
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-inline: -24px;
+    padding: 4px 24px 12px;
+  }
+
+  .cert-grid-slider__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cert-grid-slider__track {
+    display: flex;
+    gap: 16px;
+    transform: none !important;
+  }
+
+  .cert-grid-slider__page {
+    display: contents;
+  }
+
+  .cert-card {
+    flex: 0 0 80%;
+    scroll-snap-align: center;
+  }
+
+  .cert-grid-slider__dots {
+    display: none;
+  }
+
+  .cert-grid-slider__progress {
+    display: block;
+  }
+
+  .cert-hero {
+    padding: 40px 0 32px;
+  }
+
+  .cert-gallery {
+    padding-bottom: 50px;
+  }
+
+  .cert-tech {
+    padding: 50px 0;
+  }
+}
