@@ -490,14 +490,14 @@
 
     const certTabs = document.querySelector('[data-cert-tabs]');
     if (certTabs) {
-      const tabs = certTabs.querySelectorAll('.cert-tabs__item');
+      const tabs = certTabs.querySelectorAll('.pill-tabs__item');
       tabs.forEach((tab) => {
         tab.addEventListener('click', () => {
           tabs.forEach((t) => {
-            t.classList.remove('cert-tabs__item--active');
+            t.classList.remove('pill-tabs__item--active');
             t.setAttribute('aria-selected', 'false');
           });
-          tab.classList.add('cert-tabs__item--active');
+          tab.classList.add('pill-tabs__item--active');
           tab.setAttribute('aria-selected', 'true');
           goToGridPage(0);
         });
@@ -552,14 +552,131 @@
     goToGridPage(0);
   }
 
-  /* ---------- Lightbox: click a certificate to view it full-size ---------- */
+  /* ---------- Gallery: category tabs + "load more until it runs out" ----------
+     Each category has its own photo pool (real production photography,
+     reused across a couple of categories where the shots genuinely fit
+     more than one — that mirrors how a real stock library gets used, not
+     a bug). "View more" reveals the next batch of 8 and hides itself once
+     a category's pool is exhausted, rather than looping forever. */
+  const galleryGrid = document.querySelector('[data-gallery-grid]');
+  if (galleryGrid) {
+    const GALLERY_PAGE_SIZE = 8;
+    const GALLERY_DATA = {
+      premises: [
+        { src: '../assets/img/production-facility-card.jpg', alt: 'Lanos production hall, wide view' },
+        { src: '../assets/img/production-hero.jpg', alt: 'Production floor at the Lanos facility' },
+        { src: '../assets/img/hero-bg.jpg', alt: 'Steel fabrication hall interior' },
+        { src: '../assets/img/about-photo.jpg', alt: 'Inside the Lanos production premises' },
+        { src: '../assets/img/spotlight-jets-bg.jpg', alt: 'Partner facility premises' },
+        { src: '../assets/img/about-hero.jpg', alt: 'Weathertight door mechanism on the production floor' },
+        { src: '../assets/img/gallery-checks.jpg', alt: 'Quality control station on the shop floor' },
+        { src: '../assets/img/gallery-other-tech.jpg', alt: 'Coordinate measuring machine on the shop floor' },
+      ],
+      equipment: [
+        { src: '../assets/img/tech-cnc-laser.jpg', alt: 'CNC laser cutting equipment' },
+        { src: '../assets/img/tech-robotic-welding.jpg', alt: 'Robotic welding arm in operation' },
+        { src: '../assets/img/gallery-mechanical.jpg', alt: 'CNC milling with coolant spray' },
+        { src: '../assets/img/gallery-welding.jpg', alt: 'Robotic arm welding a steel component' },
+        { src: '../assets/img/gallery-surface.jpg', alt: 'Robotic surface coating equipment' },
+        { src: '../assets/img/tech-surface-treatment.jpg', alt: 'Surface treatment equipment' },
+        { src: '../assets/img/cutting-process.jpg', alt: 'Steel plate cutting equipment' },
+        { src: '../assets/img/gallery-plastic.jpg', alt: 'Steel rolling and forming equipment' },
+        { src: '../assets/img/tech-surface-light.jpg', alt: 'Surface treatment station' },
+        { src: '../assets/img/tech-welding-light.jpg', alt: 'Welding station' },
+        { src: '../assets/img/gallery-cutting-alt.jpg', alt: 'Precision measurement equipment' },
+        { src: '../assets/img/about-video-bg.jpg', alt: 'Engineer reviewing a CAD model of a component' },
+      ],
+      infrastructure: [
+        { src: '../assets/img/hero-bg.jpg', alt: 'Lanos facility infrastructure' },
+        { src: '../assets/img/production-facility-card.jpg', alt: 'Production hall infrastructure' },
+        { src: '../assets/img/spotlight-jets-bg.jpg', alt: 'Partner company infrastructure' },
+        { src: '../assets/img/about-photo.jpg', alt: 'Facility infrastructure at Lanos' },
+        { src: '../assets/img/about-video-bg.jpg', alt: 'Engineering workstation infrastructure' },
+        { src: '../assets/img/gallery-checks.jpg', alt: 'Quality control infrastructure' },
+        { src: '../assets/img/production-hero.jpg', alt: 'Production infrastructure at Lanos' },
+        { src: '../assets/img/about-hero.jpg', alt: 'Door mechanism infrastructure detail' },
+      ],
+      'new-equipment': [
+        { src: '../assets/img/gallery-plastic.jpg', alt: 'New steel rolling and forming line' },
+        { src: '../assets/img/gallery-surface.jpg', alt: 'New robotic surface coating cell' },
+        { src: '../assets/img/gallery-welding.jpg', alt: 'New robotic welding cell' },
+        { src: '../assets/img/tech-robotic-welding.jpg', alt: 'Newly installed robotic welding arm' },
+        { src: '../assets/img/tech-cnc-laser.jpg', alt: 'Newly installed CNC laser cutter' },
+        { src: '../assets/img/gallery-mechanical.jpg', alt: 'New CNC milling equipment' },
+        { src: '../assets/img/gallery-cutting-alt.jpg', alt: 'New precision measurement equipment' },
+        { src: '../assets/img/cutting-process.jpg', alt: 'New steel cutting equipment' },
+        { src: '../assets/img/gallery-other-tech.jpg', alt: 'New coordinate measuring machine' },
+        { src: '../assets/img/gallery-checks.jpg', alt: 'New quality control station' },
+        { src: '../assets/img/tech-surface-light.jpg', alt: 'New surface treatment station' },
+        { src: '../assets/img/tech-welding-light.jpg', alt: 'New welding station' },
+      ],
+    };
+
+    const galleryTabsWrap = document.querySelector('[data-gallery-tabs]');
+    const galleryMoreBtn = document.querySelector('[data-gallery-more]');
+    let galleryCategory = galleryTabsWrap
+      ? galleryTabsWrap.querySelector('.pill-tabs__item--active')?.dataset.category
+      : Object.keys(GALLERY_DATA)[0];
+    let galleryShown = 0;
+
+    const renderGalleryBatch = () => {
+      const pool = GALLERY_DATA[galleryCategory] || [];
+      const next = pool.slice(galleryShown, galleryShown + GALLERY_PAGE_SIZE);
+      next.forEach((item) => {
+        const tile = document.createElement('button');
+        tile.className = 'gallery-grid__item';
+        tile.type = 'button';
+        tile.setAttribute('data-lightbox-trigger', '');
+        tile.innerHTML = `<img src="${item.src}" alt="${item.alt}" loading="lazy">
+          <span class="gallery-grid__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>`;
+        galleryGrid.appendChild(tile);
+      });
+      galleryShown += next.length;
+      if (galleryMoreBtn) galleryMoreBtn.hidden = galleryShown >= pool.length;
+    };
+
+    const resetGallery = () => {
+      galleryGrid.innerHTML = '';
+      galleryShown = 0;
+      renderGalleryBatch();
+    };
+
+    if (galleryTabsWrap) {
+      const galleryTabs = galleryTabsWrap.querySelectorAll('.pill-tabs__item');
+      galleryTabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          galleryTabs.forEach((t) => {
+            t.classList.remove('pill-tabs__item--active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('pill-tabs__item--active');
+          tab.setAttribute('aria-selected', 'true');
+          galleryCategory = tab.dataset.category;
+          resetGallery();
+        });
+      });
+    }
+
+    if (galleryMoreBtn) galleryMoreBtn.addEventListener('click', renderGalleryBatch);
+
+    resetGallery();
+  }
+
+  /* ---------- Lightbox: click any photo to view it full-size ----------
+     Triggers are looked up fresh on every open/next/prev instead of once
+     at init, so photos appended later (Gallery's "View more", a category
+     switch) work without any extra wiring — a plain click listener on
+     document, delegated via closest(), picks up new triggers for free. */
   const lightbox = document.querySelector('[data-lightbox]');
   if (lightbox) {
     const lbImg = lightbox.querySelector('.lightbox__img');
-    const triggers = Array.from(document.querySelectorAll('[data-lightbox-trigger]'));
     let lbIndex = 0;
 
+    const getTriggers = () => Array.from(document.querySelectorAll('[data-lightbox-trigger]'));
+
     const openLightbox = (i) => {
+      const triggers = getTriggers();
+      if (!triggers.length) return;
       lbIndex = (i + triggers.length) % triggers.length;
       const img = triggers[lbIndex].querySelector('img');
       lbImg.src = triggers[lbIndex].dataset.full || img.src;
@@ -574,7 +691,11 @@
       document.body.classList.remove('no-scroll');
     };
 
-    triggers.forEach((trigger, i) => trigger.addEventListener('click', () => openLightbox(i)));
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('[data-lightbox-trigger]');
+      if (!trigger) return;
+      openLightbox(getTriggers().indexOf(trigger));
+    });
     lightbox.querySelectorAll('[data-lightbox-close]').forEach((el) => el.addEventListener('click', closeLightbox));
     const prevBtn = lightbox.querySelector('[data-lightbox-prev]');
     const nextBtn = lightbox.querySelector('[data-lightbox-next]');

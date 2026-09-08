@@ -1,0 +1,167 @@
+/* ==========================================================================
+   GALLERY — page-specific styles
+   Design source: Figma "Site LANOS" → Gallery (node 2455:2567)
+   Loaded after style.css + production.css: reuses tokens, header/footer,
+   buttons, .page-hero, .pill-tabs, .lightbox and the breadcrumb-bar 1:1 —
+   only the bento photo grid + load-more wiring live here.
+   ========================================================================== */
+.gallery-section {
+  padding-bottom: 130px;
+}
+
+.gallery-section__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+/* 6-column grid so a repeating 3-2-3 rhythm (every 8 photos = one
+   "View more" batch) can be expressed as simple column spans: three
+   square-ish tiles, two wide tiles, three square-ish tiles again. */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+}
+
+.gallery-grid__item {
+  position: relative;
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: zoom-in;
+  grid-column: span 2;
+  aspect-ratio: 1/0.92;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: galleryItemIn .6s var(--ease-out) forwards;
+}
+
+.gallery-grid__item:nth-child(8n+4),
+.gallery-grid__item:nth-child(8n+5) {
+  grid-column: span 3;
+  aspect-ratio: 1.72/1;
+}
+
+@keyframes galleryItemIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gallery-grid__item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s var(--ease-out);
+  pointer-events: none;
+}
+
+.gallery-grid__item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 37, 61, 0);
+  transition: background-color .3s ease;
+}
+
+.gallery-grid__item:hover::after {
+  background: rgba(15, 37, 61, .15);
+}
+
+.gallery-grid__item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-grid__zoom {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--navy);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .3s ease, transform .3s var(--ease-out);
+}
+
+.gallery-grid__zoom .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.gallery-grid__item:hover .gallery-grid__zoom {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-section__more {
+  display: flex;
+  justify-content: center;
+  margin-top: 64px;
+}
+
+/* ==========================================================================
+   RESPONSIVE — same breakpoint set as the rest of the site
+   ========================================================================== */
+@media (max-width:1200px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .gallery-grid__item,
+  .gallery-grid__item:nth-child(8n+4),
+  .gallery-grid__item:nth-child(8n+5) {
+    grid-column: span 2;
+    aspect-ratio: 1/0.92;
+  }
+}
+
+@media (max-width:1024px) {
+  .gallery-section {
+    padding-bottom: 110px;
+  }
+
+  .gallery-section__more {
+    margin-top: 48px;
+  }
+}
+
+@media (max-width:768px) {
+  .gallery-section {
+    padding-bottom: 80px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width:576px) {
+  .gallery-section {
+    padding-bottom: 50px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .gallery-grid__item,
+  .gallery-grid__item:nth-child(8n+4),
+  .gallery-grid__item:nth-child(8n+5) {
+    aspect-ratio: 4/3;
+  }
+
+  .gallery-section__more {
+    margin-top: 40px;
+  }
+}

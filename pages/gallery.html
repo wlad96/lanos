@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sertificats — LANOS</title>
-<meta name="description" content="Lanos quality and welding certificates — Kiwa-certified metalworking and manufacture of welded products for the marine industry, 2001 to present.">
+<title>Gallery — LANOS</title>
+<meta name="description" content="A look inside Lanos' production floor — premises, equipment, infrastructure and the latest machinery behind our marine steel doors, hatches and storage.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/production.css">
-<link rel="stylesheet" href="../css/certificates.css">
+<link rel="stylesheet" href="../css/gallery.css">
 </head>
 <body>
 
@@ -58,10 +58,6 @@
   </symbol>
   <symbol id="icon-close" viewBox="0 0 20 20" fill="none">
     <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-  </symbol>
-  <symbol id="icon-lightbulb" viewBox="0 0 20 20" fill="none">
-    <path d="M10 2.5a5.5 5.5 0 0 0-3 10.1c.5.4.8 1 .8 1.6v.3h4.4v-.3c0-.6.3-1.2.8-1.6A5.5 5.5 0 0 0 10 2.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-    <path d="M8.2 17.5h3.6M8.7 15.3h2.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
   </symbol>
   <symbol id="icon-zoom" viewBox="0 0 20 20" fill="none">
     <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.4"/>
@@ -235,186 +231,35 @@
 
 <main id="main">
 
-  <!-- Breadcrumb: its own section (scrolls away with the page, not part of
-       the sticky header), matching the subpage content Figma designed for
-       this row while keeping the header component identical to the home
-       page's. -->
   <div class="breadcrumb-bar">
-    <p class="breadcrumb-bar__path"><a href="../index.html">Home</a> / Sertificats</p>
+    <p class="breadcrumb-bar__path"><a href="../index.html">Home</a> / Gallery</p>
   </div>
 
-  <!-- ============ HERO (title + description, no photo on this page) ============ -->
+  <!-- ============ HERO (reuses .page-hero from style.css, same as Sertificats) ============ -->
   <section class="page-hero">
     <div class="page-hero__container">
-      <h1 class="hero__title page-hero__title reveal">Sertificats</h1>
-      <p class="hero__desc page-hero__desc reveal">Our network of agents ensures that we are represented in most shipbuilding markets worldwide and our service team is at hand to assist you whenever necessary. Feel free to contact our head office or an agent near you.</p>
+      <h1 class="hero__title page-hero__title reveal">Gallery</h1>
+      <p class="hero__desc page-hero__desc reveal">Our network of agents ensures that we are represented in most shipbuilding markets worldwide and our service team is at hand to assist you whenever necessary</p>
     </div>
   </section>
 
-  <!-- ============ GALLERY: year tabs + 4-up paginated slider ============ -->
-  <section class="cert-gallery">
-    <div class="cert-gallery__container">
-      <div class="pill-tabs reveal" data-cert-tabs role="tablist" aria-label="Certificate year range">
-        <button class="pill-tabs__item" type="button" role="tab" aria-selected="false">2001-2005</button>
-        <button class="pill-tabs__item pill-tabs__item--active" type="button" role="tab" aria-selected="true">2005-2010</button>
-        <button class="pill-tabs__item" type="button" role="tab" aria-selected="false">2010-2015</button>
-        <button class="pill-tabs__item" type="button" role="tab" aria-selected="false">2015-2020</button>
-        <button class="pill-tabs__item" type="button" role="tab" aria-selected="false">2020-2026</button>
+  <!-- ============ PHOTO GRID: category tabs + bento grid + load more ============ -->
+  <section class="gallery-section">
+    <div class="gallery-section__container">
+      <div class="pill-tabs reveal" data-gallery-tabs role="tablist" aria-label="Gallery category">
+        <button class="pill-tabs__item pill-tabs__item--active" type="button" role="tab" aria-selected="true" data-category="premises">Production premises</button>
+        <button class="pill-tabs__item" type="button" role="tab" aria-selected="false" data-category="equipment">Equipment</button>
+        <button class="pill-tabs__item" type="button" role="tab" aria-selected="false" data-category="infrastructure">Company's infrastructure</button>
+        <button class="pill-tabs__item" type="button" role="tab" aria-selected="false" data-category="new-equipment">New equipment</button>
       </div>
 
-      <div class="cert-grid-slider reveal" data-cert-slider>
-        <div class="cert-grid-slider__viewport">
-          <div class="cert-grid-slider__track">
+      <div class="gallery-grid" data-gallery-grid></div>
 
-            <div class="cert-grid-slider__page">
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 1" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 2" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 3" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 4" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-            </div>
-
-            <div class="cert-grid-slider__page">
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 5" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 6" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 7" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 8" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-            </div>
-
-            <div class="cert-grid-slider__page">
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 9" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 10" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 11" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 12" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-            </div>
-
-            <div class="cert-grid-slider__page">
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 13" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 14" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 15" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 16" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-            </div>
-
-            <div class="cert-grid-slider__page">
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 17" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 18" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 19" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-              <button class="cert-card" type="button" data-lightbox-trigger>
-                <img src="../assets/img/certificate.jpg" alt="Lanos Kiwa welding quality certificate, page 20" loading="lazy">
-                <span class="cert-card__zoom" aria-hidden="true"><svg class="icon"><use href="#icon-zoom"/></svg></span>
-              </button>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="cert-grid-slider__dots" data-cert-slider-dots>
-          <button class="cert-grid-slider__dot cert-grid-slider__dot--active" type="button" aria-label="Page 1"></button>
-          <button class="cert-grid-slider__dot" type="button" aria-label="Page 2"></button>
-          <button class="cert-grid-slider__dot" type="button" aria-label="Page 3"></button>
-          <button class="cert-grid-slider__dot" type="button" aria-label="Page 4"></button>
-          <button class="cert-grid-slider__dot" type="button" aria-label="Page 5"></button>
-        </div>
-
-        <div class="cert-grid-slider__progress" data-cert-slider-progress aria-hidden="true">
-          <div class="cert-grid-slider__progress-fill" data-cert-slider-progress-fill></div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ============ TECHNOLOGY (icon list + single certificate photo) ============ -->
-  <section class="cert-tech">
-    <div class="cert-tech__container">
-      <div class="cert-tech__content reveal">
-        <p class="eyebrow eyebrow--gold">Technology</p>
-        <h2 class="section-title section-title--light">Advanced manufacturing capabilities</h2>
-        <p class="section-text">Through state-of-the-art robotic infrastructure and certified metallurgical processes, we ensure absolute dimensional accuracy and marine-grade integrity for every single component.</p>
-
-        <ul class="cert-tech__list">
-          <li class="cert-tech__item">
-            <span class="cert-tech__icon cert-tech__icon--gold"><svg class="icon"><use href="#icon-shield"/></svg></span>
-            <div>
-              <p class="cert-tech__item-title">Safety First</p>
-              <p class="cert-tech__item-desc">Every hatch and door undergoes pressure tests and hydrostatic integrity validations far beyond minimum class regulations.</p>
-            </div>
-          </li>
-          <li class="cert-tech__item">
-            <span class="cert-tech__icon cert-tech__icon--blue"><svg class="icon"><use href="#icon-lightbulb"/></svg></span>
-            <div>
-              <p class="cert-tech__item-title">Innovation</p>
-              <p class="cert-tech__item-desc">We invest relentlessly in advanced alloy technologies and hybrid composite materials for lighter, stronger installations.</p>
-            </div>
-          </li>
-          <li class="cert-tech__item">
-            <span class="cert-tech__icon cert-tech__icon--green"><svg class="icon"><use href="#icon-globe"/></svg></span>
-            <div>
-              <p class="cert-tech__item-title">Sustainability</p>
-              <p class="cert-tech__item-desc">Our factory runs entirely on clean hydroelectricity and leverages up to 80% recycled aluminum in our marine doors.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="cert-tech__media reveal">
-        <img src="../assets/img/certificate.jpg" alt="Lanos ISO 3834-2:2021 welding quality certificate" loading="lazy">
+      <div class="gallery-section__more">
+        <button class="btn btn--primary" type="button" data-gallery-more hidden>
+          <span class="btn__label">View more</span>
+          <svg class="icon btn__arrow"><use href="#icon-arrow"/></svg>
+        </button>
       </div>
     </div>
   </section>
@@ -471,16 +316,16 @@
   </div>
 </footer>
 
-<!-- ============ LIGHTBOX: click a certificate card to view it full-size ============ -->
+<!-- ============ LIGHTBOX: click a photo to view it full-size ============ -->
 <div class="lightbox" data-lightbox aria-hidden="true">
   <div class="lightbox__backdrop" data-lightbox-close></div>
   <button class="lightbox__close" type="button" data-lightbox-close aria-label="Close">
     <svg class="icon"><use href="#icon-close"/></svg>
   </button>
-  <button class="lightbox__nav lightbox__nav--prev" type="button" data-lightbox-prev aria-label="Previous certificate">
+  <button class="lightbox__nav lightbox__nav--prev" type="button" data-lightbox-prev aria-label="Previous photo">
     <svg class="icon"><use href="#icon-chevron"/></svg>
   </button>
-  <button class="lightbox__nav lightbox__nav--next" type="button" data-lightbox-next aria-label="Next certificate">
+  <button class="lightbox__nav lightbox__nav--next" type="button" data-lightbox-next aria-label="Next photo">
     <svg class="icon"><use href="#icon-chevron"/></svg>
   </button>
   <figure class="lightbox__figure">
