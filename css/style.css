@@ -402,7 +402,7 @@ body {
 }
 
 .header--subpage.header--scrolled {
-  background: #fff;
+  background: #fff!important;
 }
 
 .header__inner {
@@ -1876,6 +1876,10 @@ body.no-scroll {
 
 .lightbox__nav--next .icon {
   transform: rotate(-90deg);
+}
+
+body.cream .header {
+  background: var(--cream);
 }
 
 @media (min-width:1400px) {

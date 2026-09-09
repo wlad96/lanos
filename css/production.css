@@ -260,6 +260,10 @@
   color: var(--gray-light);
 }
 
+body.cream .breadcrumb-bar {
+  background: var(--cream);
+}
+
 @media (max-width:1500px) {
   .tech-card__title {
     font-size: 22px;
