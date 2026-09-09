@@ -432,7 +432,7 @@ body {
    and .header--scrolled kicks in, matching the home page's header exactly
    at that point. */
 .header--subpage {
-  background: var(--cream);
+  background: transparent;
 }
 
 .header--subpage.header--scrolled {
@@ -1861,7 +1861,7 @@ body {
    ========================================================================== */
 .page-hero {
   padding: 40px 0;
-  background: var(--cream);
+  background: transparent;
 }
 
 .page-hero__container {
@@ -2816,5 +2816,5 @@ body.no-scroll {
     width: fit-content;
     max-width: initial;
     margin: 0 auto;
-}
+  }
 }

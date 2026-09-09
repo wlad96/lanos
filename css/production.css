@@ -11,7 +11,7 @@
    to the home page's) — scrolls away with the rest of the page instead of
    staying pinned. */
 .breadcrumb-bar {
-  background: var(--cream);
+  background: transparent;
 }
 
 .breadcrumb-bar__path {
@@ -36,7 +36,7 @@
    HERO
    ========================================================================== */
 .production-hero {
-  background: var(--cream);
+  /* background: var(--cream); */
   padding: 100px 0;
   overflow-x: clip;
 }

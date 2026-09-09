@@ -9,7 +9,6 @@
    ========================================================================== */
 .partner-cta {
   position: relative;
-  overflow: hidden;
   padding: 0 0 130px;
 }
 
@@ -55,7 +54,7 @@
 }
 
 .locations__intro {
-  max-width: 760px;
+  max-width: 960px;
   margin-inline: auto;
   margin-bottom: 64px;
   text-align: center;
@@ -115,7 +114,7 @@
   color: var(--gray);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(6px);
+  transform: translateY(6px) scale(.96);
   transition: opacity .25s ease, transform .25s var(--ease-out), visibility 0s linear .25s;
   pointer-events: none;
 }
@@ -123,14 +122,40 @@
 .location-card.is-visible {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   transition: opacity .25s ease, transform .25s var(--ease-out);
+  pointer-events: auto;
+}
+
+.location-card__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--gray);
+  transition: background-color .2s ease, color .2s ease;
+}
+
+.location-card__close .icon {
+  width: 12px;
+  height: 12px;
+}
+
+.location-card__close:hover {
+  background: var(--cream-2);
+  color: var(--ink);
 }
 
 .location-card__name {
   font: 600 16px/24px var(--font-head);
   color: var(--ink);
   margin-bottom: 4px;
+  padding-right: 16px;
 }
 
 .location-card a {
@@ -140,6 +165,10 @@
 
 .location-card a:hover {
   color: var(--blue);
+}
+
+.page-hero__title {
+  margin-bottom: 0!important;
 }
 
 /* ==========================================================================

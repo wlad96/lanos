@@ -720,18 +720,15 @@
   if (worldMap) {
     const pins = worldMap.querySelectorAll('[data-pin]');
     const card = worldMap.querySelector('[data-location-card]');
+    const closeBtn = card.querySelector('[data-location-close]');
     const defaultPin = worldMap.querySelector('[data-pin-active]');
-    let activePin = defaultPin;
+    let activePin = null;
 
-    const showCardNear = (pin) => {
-      activePin = pin;
-      pins.forEach((p) => p.classList.toggle('world-map__pin--active', p === pin));
+    const positionCardNear = (pin) => {
       const mapRect = worldMap.getBoundingClientRect();
       const pinRect = pin.getBoundingClientRect();
       const tipX = pinRect.left + pinRect.width / 2 - mapRect.left;
       const tipY = pinRect.top - mapRect.top;
-
-      card.classList.add('is-visible');
       const cardWidth = card.offsetWidth;
       const cardHeight = card.offsetHeight;
 
@@ -746,31 +743,53 @@
       card.style.top = `${top}px`;
     };
 
+    const openCard = (pin) => {
+      activePin = pin;
+      pins.forEach((p) => p.classList.toggle('world-map__pin--active', p === pin));
+      positionCardNear(pin);
+      card.classList.add('is-visible');
+    };
+
+    const closeCard = () => {
+      activePin = null;
+      pins.forEach((p) => p.classList.remove('world-map__pin--active'));
+      card.classList.remove('is-visible');
+    };
+
+    /* Click-only, not hover: tapping a pin opens its card, tapping the
+       same pin again or anywhere outside the map closes it — the usual
+       popover contract, so it behaves the same on touch as on desktop. */
     pins.forEach((pin) => {
-      pin.addEventListener('mouseenter', () => showCardNear(pin));
-      pin.addEventListener('focus', () => showCardNear(pin));
       pin.addEventListener('click', (e) => {
         e.preventDefault();
-        showCardNear(pin);
+        e.stopPropagation();
+        if (activePin === pin) closeCard();
+        else openCard(pin);
       });
     });
 
+    if (closeBtn) closeBtn.addEventListener('click', closeCard);
+    card.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', () => { if (activePin) closeCard(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && activePin) closeCard();
+    });
+
     if (defaultPin) {
-      worldMap.addEventListener('mouseleave', () => showCardNear(defaultPin));
       /* Wait a tick so layout (and any reveal-triggered sizing) has
          settled before measuring the card for its initial placement. */
-      requestAnimationFrame(() => showCardNear(defaultPin));
-
-      /* The card's position is computed in pixels off the map's current
-         layout, so a viewport resize (or orientation change) needs a
-         recompute for whichever pin is currently active or it drifts out
-         of alignment with its pin. */
-      let resizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => showCardNear(activePin), 150);
-      });
+      requestAnimationFrame(() => openCard(defaultPin));
     }
+
+    /* The card's position is computed in pixels off the map's current
+       layout, so a viewport resize (or orientation change) needs a
+       recompute for whichever pin is currently active or it drifts out
+       of alignment with its pin. */
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { if (activePin) positionCardNear(activePin); }, 150);
+    });
   }
 
   /* ---------- Hero background parallax ---------- */
