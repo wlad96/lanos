@@ -11,9 +11,8 @@
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/production.css">
 </head>
-<body>
+<body class="cream">
 
-<!-- Inline icon sprite: currentColor-driven, reused everywhere -->
 <svg class="icon-sprite" aria-hidden="true">
   <symbol id="icon-arrow" viewBox="0 0 20 20" fill="none">
     <path d="M5 15L15 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
@@ -22,7 +21,6 @@
   <symbol id="icon-chevron" viewBox="0 0 16 16" fill="none">
     <path d="M3 6L8.00081 10.58L13 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
-  <!-- Mobile nav row icons -->
   <symbol id="icon-user" viewBox="0 0 20 20" fill="none">
     <circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
     <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
@@ -69,7 +67,6 @@
   </div>
 </div>
 
-<!-- ============ HEADER (duplicated 1:1 from index.html, only paths/anchors adjusted for the /pages/ location) ============ -->
 <header class="header header--subpage" data-header>
   <div class="header__inner">
     <a href="../index.html" class="header__logo" aria-label="Lanos — home">
@@ -225,15 +222,10 @@
 
 <main id="main">
 
-  <!-- Breadcrumb: its own section (scrolls away with the page, not part of
-       the sticky header), matching the subpage content Figma designed for
-       this row while keeping the header component identical to the home
-       page's. -->
   <div class="breadcrumb-bar">
     <p class="breadcrumb-bar__path"><a href="../index.html">Home</a> / Production and capabilities</p>
   </div>
 
-  <!-- ============ HERO ============ -->
   <section class="production-hero">
     <div class="production-hero__container">
       <div class="production-hero__content reveal">
@@ -251,7 +243,6 @@
     </div>
   </section>
 
-  <!-- ============ PRODUCTION CAPABILITIES — light card grid, with buttons ============ -->
   <section class="capabilities-grid-section">
     <div class="capabilities-grid-section__container">
       <div class="capabilities-grid-section__intro reveal">
@@ -306,7 +297,6 @@
     </div>
   </section>
 
-  <!-- ============ PRODUCTION CAPABILITIES (reuses the .facilities / .checks / .card-cutting components 1:1) ============ -->
   <section class="facilities production-facilities" id="capabilities">
     <div class="facilities__container">
       <div class="facilities__grid production-facilities__grid">
@@ -364,7 +354,6 @@
     </div>
   </section>
 
-  <!-- ============ PRODUCTION HIGHLIGHTS — light, 2-up cards (reuses .card-cutting) ============ -->
   <section class="capabilities-duo">
     <div class="capabilities-duo__container">
       <div class="capabilities-duo__intro reveal">
@@ -403,7 +392,6 @@
     </div>
   </section>
 
-  <!-- ============ TECHNOLOGY / MANUFACTURING CAPABILITIES ============ -->
   <section class="tech">
     <div class="tech__container">
       <div class="tech__intro reveal">
@@ -448,7 +436,6 @@
 
 </main>
 
-<!-- ============ FOOTER (duplicated 1:1 from index.html, only paths/anchors adjusted for the /pages/ location) ============ -->
 <footer class="footer">
   <div class="footer__container">
     <div class="footer__top">

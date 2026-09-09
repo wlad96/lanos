@@ -12,7 +12,6 @@
 </head>
 <body>
 
-<!-- Inline icon sprite: currentColor-driven, reused everywhere -->
 <svg class="icon-sprite" aria-hidden="true">
   <symbol id="icon-arrow" viewBox="0 0 20 20" fill="none">
     <path d="M5 15L15 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
@@ -21,7 +20,6 @@
   <symbol id="icon-chevron" viewBox="0 0 16 16" fill="none">
     <path d="M3 6L8.00081 10.58L13 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
-  <!-- Mobile nav row icons -->
   <symbol id="icon-user" viewBox="0 0 20 20" fill="none">
     <circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
     <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
@@ -68,7 +66,6 @@
   </div>
 </div>
 
-<!-- ============ HEADER ============ -->
 <header class="header" data-header>
   <div class="header__inner">
     <a href="#" class="header__logo" aria-label="Lanos — home">
@@ -76,8 +73,6 @@
     </a>
 
     <nav class="header__nav" data-nav>
-      <!-- Lives inside the sliding panel itself (not the persistent .header
-           bar) so it enters/exits together with the rest of the menu. -->
       <div class="header__nav-top">
         <a href="#" class="header__nav-logo" aria-label="Lanos — home">
           <img src="assets/img/logo.png" alt="Lanos">
@@ -87,17 +82,11 @@
         </button>
       </div>
 
-      <!-- Persistent across every panel (main + all sub-screens), not just
-           the main list — placed before .header__nav-panels in the DOM so
-           it paints behind it (same stacking context, z-index:auto: DOM
-           order decides), keeping the menu rows clickable on top of it. -->
       <div class="header__nav-bg">
         <img src="assets/img/mobile-bg.png" alt="" role="presentation">
         <p class="header__nav-tagline">Steel. Precision. Trust.</p>
       </div>
 
-      <!-- Drill-down "screens": one active panel at a time, sliding
-           left/right via JS-toggled classes — see main.js. -->
       <div class="header__nav-panels" data-panels>
         <div class="header__nav-panel header__nav-panel--main is-active" data-panel="main">
           <div class="header__nav-scroll">
@@ -232,7 +221,6 @@
 
 <main id="main">
 
-  <!-- ============ HERO ============ -->
   <section class="hero" id="hero">
     <div class="hero__bg" data-parallax>
       <img class="hero__bg-img" src="assets/img/hero-bg.jpg" alt="" role="presentation">
@@ -264,7 +252,6 @@
     </a>
   </section>
 
-  <!-- ============ ABOUT ============ -->
   <section class="about" id="about">
     <div class="about__container">
       <img class="about__watermark" src="assets/img/logo.png" alt="" role="presentation" aria-hidden="true">
@@ -288,7 +275,6 @@
     </div>
   </section>
 
-  <!-- ============ FACILITIES / TECHNOLOGY ============ -->
   <section class="facilities" id="facilities">
     <div class="facilities__container">
       <div class="facilities__intro reveal">
@@ -375,7 +361,6 @@
     </div>
   </section>
 
-  <!-- ============ OUR PRODUCT ============ -->
   <section class="products" id="products">
     <div class="products__container">
       <div class="products__intro reveal">
@@ -437,7 +422,6 @@
     </div>
   </section>
 
-  <!-- ============ PARTNERS & CERTIFICATES ============ -->
   <section class="partners" id="partners">
     <div class="partners__container">
       <div class="partners__left reveal">
@@ -485,7 +469,6 @@
     </div>
   </section>
 
-  <!-- ============ CONTACT ============ -->
   <section class="contact" id="contact">
     <div class="contact__container">
       <div class="contact__left reveal">
@@ -539,7 +522,6 @@
 
 </main>
 
-<!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="footer__container">
     <div class="footer__top">

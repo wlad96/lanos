@@ -14,7 +14,6 @@
 </head>
 <body>
 
-<!-- Inline icon sprite: currentColor-driven, reused everywhere -->
 <svg class="icon-sprite" aria-hidden="true">
   <symbol id="icon-arrow" viewBox="0 0 20 20" fill="none">
     <path d="M5 15L15 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
@@ -23,7 +22,6 @@
   <symbol id="icon-chevron" viewBox="0 0 16 16" fill="none">
     <path d="M3 6L8.00081 10.58L13 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
-  <!-- Mobile nav row icons -->
   <symbol id="icon-user" viewBox="0 0 20 20" fill="none">
     <circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.4"/>
     <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
@@ -79,7 +77,6 @@
   </div>
 </div>
 
-<!-- ============ HEADER (duplicated 1:1 from index.html, only paths/anchors adjusted for the /pages/ location) ============ -->
 <header class="header header--subpage" data-header>
   <div class="header__inner">
     <a href="../index.html" class="header__logo" aria-label="Lanos — home">
@@ -235,15 +232,10 @@
 
 <main id="main">
 
-  <!-- Breadcrumb: its own section (scrolls away with the page, not part of
-       the sticky header), matching the subpage content Figma designed for
-       this row while keeping the header component identical to the home
-       page's. -->
   <div class="breadcrumb-bar">
     <p class="breadcrumb-bar__path"><a href="../index.html">Home</a> / Sertificats</p>
   </div>
 
-  <!-- ============ HERO (title + description, no photo on this page) ============ -->
   <section class="page-hero">
     <div class="page-hero__container">
       <h1 class="hero__title page-hero__title reveal">Sertificats</h1>
@@ -251,7 +243,6 @@
     </div>
   </section>
 
-  <!-- ============ GALLERY: year tabs + 4-up paginated slider ============ -->
   <section class="cert-gallery">
     <div class="cert-gallery__container">
       <div class="pill-tabs reveal" data-cert-tabs role="tablist" aria-label="Certificate year range">
@@ -380,7 +371,6 @@
     </div>
   </section>
 
-  <!-- ============ TECHNOLOGY (icon list + single certificate photo) ============ -->
   <section class="cert-tech">
     <div class="cert-tech__container">
       <div class="cert-tech__content reveal">
@@ -421,7 +411,6 @@
 
 </main>
 
-<!-- ============ FOOTER (duplicated 1:1 from index.html, only paths/anchors adjusted for the /pages/ location) ============ -->
 <footer class="footer">
   <div class="footer__container">
     <div class="footer__top">
@@ -471,7 +460,6 @@
   </div>
 </footer>
 
-<!-- ============ LIGHTBOX: click a certificate card to view it full-size ============ -->
 <div class="lightbox" data-lightbox aria-hidden="true">
   <div class="lightbox__backdrop" data-lightbox-close></div>
   <button class="lightbox__close" type="button" data-lightbox-close aria-label="Close">

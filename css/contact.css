@@ -1,12 +1,3 @@
-/* ==========================================================================
-   CONTACT — page-specific styles
-   Design source: Figma "Site LANOS" → Contact (node 2449:2207)
-   Loaded after style.css + production.css: reuses tokens, header/footer,
-   buttons, .page-hero, .contact-form, eyebrow/section-title and the
-   breadcrumb-bar 1:1 — only the light partnership block and the world map
-   are new here (the site's other .contact section is a dark navy variant
-   used elsewhere; this page needed its own light-bg treatment).
-   ========================================================================== */
 .partner-cta {
   position: relative;
   padding: 0 0 130px;
@@ -40,9 +31,6 @@
   margin-bottom: 0;
 }
 
-/* ==========================================================================
-   OUR LOCATIONS — centered intro + world map with agent pins
-   ========================================================================== */
 .locations {
   padding: 0 0 130px;
 }
@@ -171,9 +159,6 @@
   margin-bottom: 0!important;
 }
 
-/* ==========================================================================
-   RESPONSIVE — same breakpoint set as the rest of the site
-   ========================================================================== */
 @media (max-width:1200px) {
   .partner-cta__container {
     grid-template-columns: 1fr;

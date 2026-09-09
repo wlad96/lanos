@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview — LANOS</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body {
+    padding: 64px var(--pad) 96px;
+  }
+
+  .preview-header {
+    max-width: 1440px;
+    margin-inline: auto;
+    margin-bottom: 48px;
+  }
+
+  .preview-header__logo {
+    height: 40px;
+    width: auto;
+    margin-bottom: 24px;
+  }
+
+  .preview-header h1 {
+    font: 400 40px/1.15 var(--font-head);
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .preview-header p {
+    font: 400 16px/26px var(--font-body);
+    color: var(--gray);
+  }
+
+  .preview-grid {
+    max-width: 1440px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 32px;
+  }
+
+  .preview-card {
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(15, 37, 61, .06);
+    transition: transform .35s cubic-bezier(.22, .61, .36, 1), box-shadow .35s ease;
+    border: 1px solid var(--gray-light);
+  }
+
+  .preview-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px rgba(15, 37, 61, .16);
+  }
+
+  .preview-card__frame {
+    display: block;
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: var(--cream-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .preview-card__frame iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    transform-origin: top left;
+    pointer-events: none;
+  }
+
+  .preview-card__frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transition: background-color .3s ease;
+  }
+
+  .preview-card:hover .preview-card__frame::after {
+    background: rgba(15, 37, 61, .06);
+  }
+
+  .preview-card__body {
+    display: block;
+    padding: 18px 20px;
+  }
+
+  .preview-card__title {
+    display: block;
+    font: 500 17px/24px var(--font-body);
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .preview-card__path {
+    display: block;
+    font: 400 13px/20px var(--font-body);
+    color: var(--gray);
+  }
+
+  @media (max-width:576px) {
+    body {
+      padding: 40px var(--pad) 64px;
+    }
+
+    .preview-header h1 {
+      font-size: 30px;
+    }
+
+    .preview-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="preview-header">
+  <img class="preview-header__logo" src="assets/img/logo.png" alt="Lanos">
+  <h1>Site preview</h1>
+  <p>Every page in one place — click a card to open it.</p>
+</header>
+
+<main class="preview-grid">
+  <a class="preview-card" href="index.html">
+    <span class="preview-card__frame">
+      <iframe src="index.html" tabindex="-1" loading="lazy" title="Home preview"></iframe>
+    </span>
+    <span class="preview-card__body">
+      <span class="preview-card__title">Home</span>
+      <span class="preview-card__path">/index.html</span>
+    </span>
+  </a>
+
+  <a class="preview-card" href="pages/about-us.html">
+    <span class="preview-card__frame">
+      <iframe src="pages/about-us.html" tabindex="-1" loading="lazy" title="About us preview"></iframe>
+    </span>
+    <span class="preview-card__body">
+      <span class="preview-card__title">About us</span>
+      <span class="preview-card__path">/pages/about-us.html</span>
+    </span>
+  </a>
+
+  <a class="preview-card" href="pages/production-and-capabilities.html">
+    <span class="preview-card__frame">
+      <iframe src="pages/production-and-capabilities.html" tabindex="-1" loading="lazy" title="Production and capabilities preview"></iframe>
+    </span>
+    <span class="preview-card__body">
+      <span class="preview-card__title">Production and capabilities</span>
+      <span class="preview-card__path">/pages/production-and-capabilities.html</span>
+    </span>
+  </a>
+
+  <a class="preview-card" href="pages/certificates.html">
+    <span class="preview-card__frame">
+      <iframe src="pages/certificates.html" tabindex="-1" loading="lazy" title="Sertificats preview"></iframe>
+    </span>
+    <span class="preview-card__body">
+      <span class="preview-card__title">Sertificats</span>
+      <span class="preview-card__path">/pages/certificates.html</span>
+    </span>
+  </a>
+
+  <a class="preview-card" href="pages/gallery.html">
+    <span class="preview-card__frame">
+      <iframe src="pages/gallery.html" tabindex="-1" loading="lazy" title="Gallery preview"></iframe>
+    </span>
+    <span class="preview-card__body">
+      <span class="preview-card__title">Gallery</span>
+      <span class="preview-card__path">/pages/gallery.html</span>
+    </span>
+  </a>
+
+  <a class="preview-card" href="pages/contact.html">
+    <span class="preview-card__frame">
+      <iframe src="pages/contact.html" tabindex="-1" loading="lazy" title="Contact preview"></iframe>
+    </span>
+    <span class="preview-card__body">
+      <span class="preview-card__title">Contact</span>
+      <span class="preview-card__path">/pages/contact.html</span>
+    </span>
+  </a>
+</main>
+
+<script>
+  const SOURCE_WIDTH = 1440;
+
+  function scaleFrames() {
+    document.querySelectorAll('.preview-card__frame').forEach((frame) => {
+      const iframe = frame.querySelector('iframe');
+      const scale = frame.clientWidth / SOURCE_WIDTH;
+      iframe.style.width = SOURCE_WIDTH + 'px';
+      iframe.style.height = (frame.clientHeight / scale) + 'px';
+      iframe.style.transform = `scale(${scale})`;
+    });
+  }
+
+  window.addEventListener('load', scaleFrames);
+  window.addEventListener('resize', scaleFrames);
+  scaleFrames();
+</script>
+</body>
+</html>

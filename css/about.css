@@ -1,26 +1,10 @@
-/* ==========================================================================
-   ABOUT US — page-specific styles
-   Design source: Figma "Site LANOS" → About us (node 2450:2965)
-   Loaded after style.css + production.css: reuses tokens, header/footer,
-   buttons, eyebrow/section-title, .about__headline, .tech, .contact/
-   .contact-form, .partners__logos and the breadcrumb-bar/production-hero
-   layout 1:1 — only genuinely new components live here.
-   ========================================================================== */
 
-/* ---------- Hero: same two-column layout as the production page's hero,
-   just its own copy — .production-hero already covers all the layout/
-   responsive rules, this only swaps the background tone. ---------- */
 .about-hero {
   background: var(--cream);
-  /* Own stacking context above .about-stats, so the watermark bleeding up
-     from that section paints behind this hero's photo, not on top of it. */
   position: relative;
   z-index: 2;
 }
 
-/* ==========================================================================
-   HEADLINE + STATS
-   ========================================================================== */
 .about-stats {
   position: relative;
   padding: 130px 0;
@@ -34,9 +18,6 @@
   padding-inline: var(--pad);
 }
 
-/* Same watermark technique as the home page's .about__watermark (faint,
-   grayscale, bleeding toward the edge) — positioned for this section's own
-   proportions rather than forcing the home page's headline-relative math. */
 .about-stats__watermark {
   position: absolute;
   top: -260px;
@@ -64,9 +45,6 @@
 }
 
 .about-stats__card {
-  /* Grid items default to min-width:auto, so their track can't shrink past
-     the item's own content — without this, the four-digit/three-digit
-     numbers force uneven 1fr columns instead of a true equal split. */
   min-width: 0;
   padding: 40px;
   background: var(--cream-2);
@@ -95,9 +73,6 @@
   color: var(--ink);
 }
 
-/* ==========================================================================
-   VIDEO
-   ========================================================================== */
 .about-video {
   padding: 0 0 130px;
 }
@@ -124,9 +99,6 @@
   border: 0;
 }
 
-/* ==========================================================================
-   OUR TEAM
-   ========================================================================== */
 .team {
   padding: 130px 0;
 }
@@ -159,10 +131,6 @@
   gap: 16px;
 }
 
-/* Cutout PNGs (transparent background) sit on the tile's own flat colour —
-   cream at rest, navy on hover — so the colour swap reads as a real
-   background change behind the person, not a photo crossfade. The card
-   itself lifts slightly on hover for a bit of premium polish. */
 .team-card {
   transition: transform .4s var(--ease-out);
 }
@@ -203,9 +171,6 @@
   text-align: center;
 }
 
-/* Hover (and the one card shown "selected" by default in Figma, matching
-   the reference) turns the tile navy — role/name stay put, they sit on the
-   page background outside the tile, not inside it. */
 .team-card:hover .team-card__media,
 .team-card--active .team-card__media {
   background: var(--navy-2);
@@ -216,9 +181,6 @@
   transform: translateX(-50%) scale(1.05);
 }
 
-/* ==========================================================================
-   OUR PARTNERS
-   ========================================================================== */
 .about-partners {
   padding: 130px 0;
   background: var(--cream);
@@ -309,9 +271,6 @@
   align-self: flex-start;
 }
 
-/* ==========================================================================
-   RESPONSIVE — same breakpoint set as the rest of the site
-   ========================================================================== */
 @media (max-width:1200px) {
   .about-stats__watermark {
     display: none;
@@ -411,11 +370,6 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* A fixed aspect-ratio card can't fit this much text once it wraps to
-     6+ lines at phone widths — the logo and the tail of the paragraph get
-     clipped by the card's own overflow:hidden. Let the card grow with its
-     content instead, with the photo absolutely filling whatever height
-     that ends up being. */
   .spotlight-card {
     aspect-ratio: auto;
     min-height: 460px;

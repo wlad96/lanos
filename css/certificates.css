@@ -1,15 +1,4 @@
-/* ==========================================================================
-   CERTIFICATES — page-specific styles
-   Design source: Figma "Site LANOS" → Sertificats (node 2449:2645)
-   Loaded after style.css + production.css: reuses tokens, header/footer,
-   buttons, eyebrow/section-title typography, .hero__title/.hero__desc,
-   .page-hero, .pill-tabs, .lightbox and the breadcrumb-bar 1:1 — only
-   genuinely new components live here.
-   ========================================================================== */
 
-/* ==========================================================================
-   GALLERY — year tabs + 4-up paginated slider
-   ========================================================================== */
 .cert-gallery {
   padding-bottom: 130px;
 }
@@ -41,9 +30,6 @@
 }
 
 .cert-card {
-  /* Grid items default to min-width:auto — an <img> child's intrinsic
-     pixel size counts toward that even at width:100%, so without this the
-     card refuses to shrink below the certificate photo's native width. */
   min-width: 0;
   position: relative;
   display: block;
@@ -126,9 +112,6 @@
   background: var(--blue);
 }
 
-/* Progress strip for the mobile one-at-a-time swipe view — hidden by
-   default, switched on in the ≤576px block below where the dots (which
-   don't map to a single certificate any more) are hidden instead. */
 .cert-grid-slider__progress {
   display: none;
   height: 4px;
@@ -146,9 +129,6 @@
   transition: width .25s var(--ease-out);
 }
 
-/* ==========================================================================
-   TECHNOLOGY (icon list + single certificate photo)
-   ========================================================================== */
 .cert-tech {
   background: var(--navy);
   padding: 130px 0;
@@ -237,9 +217,6 @@
   object-fit: cover;
 }
 
-/* ==========================================================================
-   RESPONSIVE — same breakpoint set as the rest of the site
-   ========================================================================== */
 @media (max-width:1200px) {
   .cert-grid-slider__page {
     grid-template-columns: repeat(2, 1fr);
@@ -278,11 +255,6 @@
 }
 
 @media (max-width:576px) {
-  /* 4 stacked certificates per swipe-page (scroll down AND swipe sideways
-     to see everything) reads as broken on a phone. Flatten the page
-     grouping with display:contents and hand scrolling to the browser's
-     own horizontal snap — one certificate per screen, the next one
-     peeking in at the edge so it's obvious there's more to swipe to. */
   .cert-grid-slider__viewport {
     overflow-x: auto;
     overflow-y: visible;

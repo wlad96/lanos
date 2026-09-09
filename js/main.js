@@ -1,16 +1,11 @@
 (() => {
   'use strict';
 
-  /* ---------- Page loader ---------- */
   const loader = document.querySelector('.page-loader');
   window.addEventListener('load', () => {
-    // Long enough to let the logo fill-wipe finish and sit fully white for
-    // a beat (the animation reaches full white at ~45% of its 2.2s cycle)
-    // before the loader fades out, so the reveal is actually seen.
     setTimeout(() => loader && loader.classList.add('is-hidden'), 1000);
   });
 
-  /* ---------- Header: scroll state + mobile nav ---------- */
   const header = document.querySelector('[data-header]');
   const burger = document.querySelector('[data-burger]');
   const nav = document.querySelector('[data-nav]');
@@ -22,11 +17,6 @@
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* ---------- Mobile nav panels: drill-down with a "back" way out ----------
-     .header__nav-panels holds a stack of full-size screens (main list, plus
-     one per sub-menu/language) that slide left/right via .is-active/.is-back
-     — see the CSS. openPanel('main') is also the reset used whenever the
-     whole nav closes, so it always reopens fresh at the top level. */
   const panelsWrap = document.querySelector('[data-panels]');
   const panels = panelsWrap ? panelsWrap.querySelectorAll('.header__nav-panel') : [];
   const mainPanel = panelsWrap ? panelsWrap.querySelector('[data-panel="main"]') : null;
@@ -50,7 +40,6 @@
     btn.addEventListener('click', () => openPanel('main'));
   });
 
-  /* ---------- Header: scroll state + mobile nav open/close ---------- */
   const navClose = document.querySelector('[data-nav-close]');
 
   const setNavOpen = (open) => {
@@ -59,8 +48,6 @@
     header && header.classList.toggle('header--nav-open', open);
     document.body.style.overflow = open ? 'hidden' : '';
     if (!open) {
-      // Let the close slide finish before snapping the panel stack back to
-      // the top level, so a mid-drill-down close doesn't visibly reset.
       setTimeout(() => openPanel('main'), 500);
     }
   };
@@ -75,10 +62,6 @@
     });
   }
 
-  /* ---------- Nav dropdowns: click accordion (desktop-only fallback) ----------
-     The mobile breakpoint now drives Registration/Career via the panel
-     system above; this just keeps aria-expanded in sync for anyone
-     tabbing through the desktop hover flyout. */
   document.querySelectorAll('.header__nav-item--dropdown').forEach(item => {
     const trigger = item.querySelector('.header__nav-trigger');
     if (!trigger) return;
@@ -95,10 +78,6 @@
     });
   });
 
-  /* ---------- Language switcher ----------
-     Two instances live in the DOM (desktop header dropdown + the mobile
-     nav's own "lang" panel), so picking a language in either one has to
-     update every [data-lang-current] label and every menu's aria-selected. */
   document.querySelectorAll('[data-lang]').forEach(btn => {
     btn.addEventListener('click', () => {
       const lang = btn.getAttribute('data-lang');
@@ -106,13 +85,10 @@
       document.querySelectorAll('[data-lang]').forEach(b => {
         b.closest('li').setAttribute('aria-selected', String(b.getAttribute('data-lang') === lang));
       });
-      // Picking a language inside the mobile "lang" panel reads as done —
-      // step back to the main list instead of leaving it stranded there.
       if (btn.closest('.header__nav-panel')) openPanel('main');
     });
   });
 
-  /* ---------- Reveal on scroll ---------- */
   const revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && revealEls.length) {
     const io = new IntersectionObserver((entries) => {
@@ -128,7 +104,6 @@
     revealEls.forEach(el => el.classList.add('is-visible'));
   }
 
-  /* ---------- Count-up numbers on scroll into view ---------- */
   const countEls = document.querySelectorAll('[data-count-to]');
   if (countEls.length) {
     const formatCount = (n, plain) => plain || n < 1000 ? String(n) : n.toLocaleString('en-US').replace(/,/g, ' ');
@@ -160,10 +135,6 @@
     }
   }
 
-  /* ---------- Facilities: hover-driven category switcher ----------
-     Each category's `links` columns are plain [{ label, href }] arrays so
-     this block can later be swapped for a CMS feed (e.g. two columns of
-     related-page links per technology) without touching the render logic. */
   const FACILITIES_DATA = {
     checks: {
       image: 'assets/img/checks.png',
@@ -264,11 +235,6 @@
     };
 
     const applyData = (item) => {
-      // FACILITIES_DATA (rich: images + link columns + button) covers the
-      // home page's categories; any other page using this same component
-      // (e.g. Production and capabilities' Doors/Hatches/Storage) just
-      // needs data-image/data-alt/data-desc on the <li> itself — no JS
-      // changes required to wire up a new, simpler instance of it.
       const data = FACILITIES_DATA[item.dataset.category] || {
         image: item.dataset.image,
         alt: item.dataset.alt,
@@ -284,10 +250,21 @@
       if (btnEl && data.btn) btnEl.href = data.btn.href;
     };
 
+    const scrollChipIntoView = (item) => {
+      const container = item.closest('.checks');
+      if (!container || container.scrollWidth <= container.clientWidth) return;
+      const itemRect = item.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      if (itemRect.left >= containerRect.left && itemRect.right <= containerRect.right) return;
+      const offset = itemRect.left - containerRect.left - (containerRect.width - itemRect.width) / 2;
+      container.scrollBy({ left: offset, behavior: 'smooth' });
+    };
+
     const setActive = (item) => {
       if (!item || item.classList.contains('checks__item--active')) return;
       items.forEach(i => i.classList.remove('checks__item--active'));
       item.classList.add('checks__item--active');
+      scrollChipIntoView(item);
 
       clearTimeout(switchTimer);
       facilitiesCard.classList.add('is-switching');
@@ -300,10 +277,10 @@
     items.forEach(item => {
       item.addEventListener('mouseenter', () => setActive(item));
       item.addEventListener('focusin', () => setActive(item));
+      item.addEventListener('click', () => setActive(item));
     });
   }
 
-  /* ---------- Product cards: hover-driven accordion (sticky selection) ---------- */
   const cardsWrap = document.querySelector('[data-product-cards]');
   if (cardsWrap) {
     const cards = cardsWrap.querySelectorAll('[data-product-card]');
@@ -319,7 +296,6 @@
     });
   }
 
-  /* ---------- Certificate slider ---------- */
   const slider = document.querySelector('[data-slider]');
   if (slider) {
     const slides = slider.querySelectorAll('.cert-slider__slide');
@@ -341,12 +317,6 @@
     goTo(0);
     start();
 
-    /* Swipe/drag: an alternative way to switch slides alongside the dots
-       and auto-advance. Pointer Events cover touch, mouse and pen in one
-       code path, so a mouse-drag works too. The track follows the pointer
-       with resistance while dragging, then snaps back via CSS transition
-       once released — the actual slide change still runs through the same
-       goTo()/crossfade used everywhere else. */
     const track = slider.querySelector('.cert-slider__track');
     if (track) {
       const SWIPE_THRESHOLD = 50;
@@ -355,12 +325,6 @@
       let startX = 0;
       let deltaX = 0;
 
-      /* Deliberately no setPointerCapture here: capturing the pointer on
-         the track redirects the resulting pointerup/click to the track
-         itself instead of whatever was actually under the finger/cursor.
-         Listening on window while dragging tracks the pointer just as
-         reliably (even once it leaves the track's bounds) without
-         hijacking clicks on the slides underneath. */
       const onPointerDown = (e) => {
         if (e.pointerType === 'mouse' && e.button !== 0) return;
         dragging = true;
@@ -397,7 +361,6 @@
     }
   }
 
-  /* ---------- Partner logos: seamless marquee on small screens ---------- */
   const marquee = document.querySelector('[data-marquee]');
   if (marquee) {
     const setup = () => {
@@ -422,7 +385,6 @@
     });
   }
 
-  /* ---------- Contact form: lightweight submit feedback ---------- */
   const form = document.querySelector('[data-contact-form]');
   if (form) {
     form.addEventListener('submit', (e) => {
@@ -444,7 +406,6 @@
     });
   }
 
-  /* ---------- Certificates page: year tabs + 4-up paginated slider ---------- */
   const certGridSlider = document.querySelector('[data-cert-slider]');
   if (certGridSlider) {
     const gridTrack = certGridSlider.querySelector('.cert-grid-slider__track');
@@ -465,17 +426,10 @@
       gridPage = (index + gridPages.length) % gridPages.length;
       gridTrack.style.transform = `translateX(-${gridPage * 100}%)`;
       gridDots.forEach((d, i) => d.classList.toggle('cert-grid-slider__dot--active', i === gridPage));
-      /* Only meaningful for the mobile one-card-per-screen layout (desktop
-         keeps the viewport's overflow hidden, so this is a no-op there) —
-         switching tabs should land back on the first certificate. */
       if (gridViewport) gridViewport.scrollLeft = 0;
       setGridProgress(0);
     };
 
-    /* Mobile progress strip: the ≤576px layout hands scrolling to the
-       browser's native horizontal snap instead of the page/dot system
-       above, so the fill tracks scroll position directly instead of
-       gridPage. Harmless elsewhere — the viewport never scrolls there. */
     if (gridViewport && gridProgressFill && gridCards.length > 1) {
       const cardStep = () => gridCards[1].offsetLeft - gridCards[0].offsetLeft;
       gridViewport.addEventListener('scroll', () => {
@@ -504,21 +458,12 @@
       });
     }
 
-    /* Swipe/drag: same resistance-drag technique as the home page's
-       cert-slider, adapted to snap between grouped pages instead of
-       crossfading single slides. */
     const SWIPE_THRESHOLD = 50;
     const RESISTANCE = 0.35;
     let dragging = false;
     let startX = 0;
     let deltaX = 0;
 
-    /* Deliberately no setPointerCapture: capturing the pointer on the
-       track would redirect the resulting pointerup/click to the track
-       itself instead of the card actually tapped, silently swallowing
-       every click-to-open-lightbox interaction. Window-level listeners
-       during the drag track the pointer just as reliably without that
-       side effect. */
     const onGridPointerDown = (e) => {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       dragging = true;
@@ -552,12 +497,6 @@
     goToGridPage(0);
   }
 
-  /* ---------- Gallery: category tabs + "load more until it runs out" ----------
-     Each category has its own photo pool (real production photography,
-     reused across a couple of categories where the shots genuinely fit
-     more than one — that mirrors how a real stock library gets used, not
-     a bug). "View more" reveals the next batch of 8 and hides itself once
-     a category's pool is exhausted, rather than looping forever. */
   const galleryGrid = document.querySelector('[data-gallery-grid]');
   if (galleryGrid) {
     const GALLERY_PAGE_SIZE = 8;
@@ -662,11 +601,6 @@
     resetGallery();
   }
 
-  /* ---------- Lightbox: click any photo to view it full-size ----------
-     Triggers are looked up fresh on every open/next/prev instead of once
-     at init, so photos appended later (Gallery's "View more", a category
-     switch) work without any extra wiring — a plain click listener on
-     document, delegated via closest(), picks up new triggers for free. */
   const lightbox = document.querySelector('[data-lightbox]');
   if (lightbox) {
     const lbImg = lightbox.querySelector('.lightbox__img');
@@ -710,12 +644,6 @@
     });
   }
 
-  /* ---------- Contact page: world map pins + location card ----------
-     Only one real address exists (Libra-Lanos), so every pin surfaces the
-     same card — the point is "here's where our network reaches", not
-     distinct per-city data we don't have. The card repositions itself
-     next to whichever pin is active and flips side/edge as needed so it
-     never runs off the map. */
   const worldMap = document.querySelector('[data-world-map]');
   if (worldMap) {
     const pins = worldMap.querySelectorAll('[data-pin]');
@@ -756,9 +684,6 @@
       card.classList.remove('is-visible');
     };
 
-    /* Click-only, not hover: tapping a pin opens its card, tapping the
-       same pin again or anywhere outside the map closes it — the usual
-       popover contract, so it behaves the same on touch as on desktop. */
     pins.forEach((pin) => {
       pin.addEventListener('click', (e) => {
         e.preventDefault();
@@ -776,15 +701,9 @@
     });
 
     if (defaultPin) {
-      /* Wait a tick so layout (and any reveal-triggered sizing) has
-         settled before measuring the card for its initial placement. */
       requestAnimationFrame(() => openCard(defaultPin));
     }
 
-    /* The card's position is computed in pixels off the map's current
-       layout, so a viewport resize (or orientation change) needs a
-       recompute for whichever pin is currently active or it drifts out
-       of alignment with its pin. */
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
@@ -792,7 +711,6 @@
     });
   }
 
-  /* ---------- Hero background parallax ---------- */
   const parallax = document.querySelector('[data-parallax]');
   if (parallax && window.matchMedia('(hover:hover)').matches) {
     window.addEventListener('scroll', () => {

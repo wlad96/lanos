@@ -1,15 +1,4 @@
-/* ==========================================================================
-   PRODUCTION AND CAPABILITIES — page-specific styles
-   Design source: Figma "Site LANOS" → Production and capabilities (node 2458:2903)
-   Loaded after style.css: reuses its tokens, header/footer, buttons, eyebrow/
-   section-title typography and the .facilities/.checks/.card-cutting
-   components as-is — only genuinely new layout lives here.
-   ========================================================================== */
 
-/* ---------- Breadcrumb bar ----------
-   Its own section (not part of the sticky .header, which stays identical
-   to the home page's) — scrolls away with the rest of the page instead of
-   staying pinned. */
 .breadcrumb-bar {
   background: transparent;
 }
@@ -32,9 +21,6 @@
   color: var(--blue);
 }
 
-/* ==========================================================================
-   HERO
-   ========================================================================== */
 .production-hero {
   background: var(--cream);
   padding: 100px 0;
@@ -81,11 +67,6 @@
   object-fit: cover;
 }
 
-/* ---------- Production capabilities (facilities-style reuse) ------------- */
-/* Only genuinely page-specific tweaks: this list is 3 items, not 7, so the
-   generous gap tuned for the longer list is trimmed; the card here has no
-   overlay title, so the media scrim that exists purely to keep that title
-   legible is switched off. */
 .production-facilities .facilities__lead {
   margin-bottom: 40px;
 }
@@ -94,9 +75,6 @@
   display: none;
 }
 
-/* ==========================================================================
-   PRODUCTION CAPABILITIES — light 3-up card grid (own buttons, cream cards)
-   ========================================================================== */
 .capabilities-grid-section {
   padding: 130px 0;
 }
@@ -185,9 +163,6 @@
   width: 100%;
 }
 
-/* ==========================================================================
-   PRODUCTION HIGHLIGHTS — light 2-up cards (reuses .card-cutting, cream-2 bg)
-   ========================================================================== */
 .capabilities-duo {
   padding: 130px 0;
 }
@@ -206,9 +181,6 @@
   display: none;
 }
 
-/* ==========================================================================
-   TECHNOLOGY / MANUFACTURING CAPABILITIES
-   ========================================================================== */
 .tech {
   background: var(--navy);
   padding: 130px 0;
@@ -288,9 +260,6 @@
   color: var(--gray-light);
 }
 
-/* ==========================================================================
-   RESPONSIVE — same breakpoint set as the rest of the site
-   ========================================================================== */
 @media (max-width:1500px) {
   .tech-card__title {
     font-size: 22px;

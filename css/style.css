@@ -1,9 +1,4 @@
-/* ==========================================================================
-   LANOS — Main page
-   Design source: Figma "Site LANOS" → Main page (node 2422:2441)
-   ========================================================================== */
 
-/* ---------- Tokens ---------- */
 :root {
   --bg: #F2F1EF;
   --ink: #232824;
@@ -32,17 +27,12 @@
 
 }
 
-/* ---------- Reset ---------- */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* Without !important, [hidden]'s (0,1,0) specificity ties with any single
-   class (e.g. .btn's own `display: inline-flex`), and author order breaks
-   the tie in the class's favour — so `hidden` silently stops hiding
-   anything with a display-setting class on it. */
 [hidden] {
   display: none !important;
 }
@@ -165,7 +155,6 @@ body {
   }
 }
 
-/* ---------- Page loader ---------- */
 .page-loader {
   position: fixed;
   inset: 0;
@@ -177,9 +166,6 @@ body {
   transition: opacity .7s var(--ease), visibility .7s var(--ease);
 }
 
-/* Logo "fills in" left-to-right: a dim translucent-white copy sits
-   underneath, a fully-opaque white copy is wiped in on top of it via an
-   animated clip-path, so the mark reads as loading/painting itself in. */
 .page-loader__logo {
   position: relative;
   width: 200px;
@@ -189,8 +175,6 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  /* logo.png is navy on transparent — force it to pure white so it reads
-     against the navy loader background regardless of source color. */
   filter: brightness(0) invert(1);
 }
 
@@ -241,7 +225,6 @@ body {
   pointer-events: none;
 }
 
-/* ---------- Typography helpers (shared across blocks) ---------- */
 .eyebrow {
   font: 500 20px/30px var(--font-body);
   margin-bottom: 10px;
@@ -286,11 +269,6 @@ body {
   color: var(--gray-light);
 }
 
-/* ---------- Buttons ---------- */
-/* Button states match the Figma "btn" component set (node 2464:6847) exactly:
-   Type=Normal/White/Line × Action=Default/Hover/Focused/Pressed/Disabled.
-   Only background/border/text/icon colors change between states — no lift,
-   shadow or shine effects, matching the flat source design. */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -310,7 +288,6 @@ body {
   color: currentColor;
 }
 
-/* Type=Normal — primary filled navy */
 .btn--primary {
   background: var(--blue);
   color: #fff;
@@ -337,7 +314,6 @@ body {
   cursor: not-allowed;
 }
 
-/* Type=Line — outline, transparent bg (used on dark sections) */
 .btn--outline {
   background: transparent;
   color: #fff;
@@ -368,7 +344,6 @@ body {
   cursor: not-allowed;
 }
 
-/* Type=White — white filled, navy text (used on dark product cards) */
 .btn--white {
   background: #fff;
   color: var(--blue);
@@ -395,7 +370,6 @@ body {
   cursor: not-allowed;
 }
 
-/* ---------- Reveal-on-scroll ---------- */
 .reveal {
   opacity: 0;
   transform: translateY(36px);
@@ -407,9 +381,6 @@ body {
   transform: translateY(0);
 }
 
-/* ==========================================================================
-   HEADER
-   ========================================================================== */
 .header {
   position: sticky;
   top: 0;
@@ -426,11 +397,6 @@ body {
   box-shadow: 0 10px 30px -18px rgba(15, 37, 61, .25);
 }
 
-/* Subpages (any page whose hero/top section sits on --cream rather than
-   white) start the header in that same cream so it blends into the hero
-   instead of a visible seam — then it eases to white once the user scrolls
-   and .header--scrolled kicks in, matching the home page's header exactly
-   at that point. */
 .header--subpage {
   background: transparent;
 }
@@ -449,12 +415,6 @@ body {
   gap: 32px;
 }
 
-/* Needs to explicitly out-rank .header__nav (z-index:150, position:fixed):
-   as a fellow child of .header, it's compared against that sibling within
-   .header's own stacking context, where an unset z-index loses to any set
-   one regardless of .header's own z-index — the same reason .header__burger
-   already carries z-index:160. Without this the full-screen mobile overlay
-   paints over the logo. */
 .header__logo {
   position: relative;
   z-index: 160;
@@ -477,14 +437,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* Row icons/arrows, the CTA, the mobile-only language row and the bottom
-   photo strip only exist for the full-screen mobile nav — invisible (and
-   inert for the desktop flyout menus) above that breakpoint.
-   .header__nav-arrow excludes .header__caret: Registration/Career's chevron
-   does double duty (mobile row arrow + desktop's rotating dropdown caret,
-   same SVG carries both classes) and the caret still needs to show on
-   desktop — only the arrow that has no caret role (the mobile-only lang
-   trigger) should actually disappear there. */
 .header__nav-icon,
 .header__nav-arrow:not(.header__caret),
 .header__nav-cta,
@@ -493,15 +445,6 @@ body {
   display: none;
 }
 
-/* .header__nav-list is the SAME element for both desktop (plain horizontal
-   flyout menu) and mobile (full-screen drill-down) — only the wrappers
-   around it differ. At desktop, the mobile-only top row and every
-   non-main panel (Registration/Career/Language sub-screens) are hidden
-   outright, and the panel wrappers collapse with display:contents so
-   .header__nav-list bubbles back up to being a direct flex child of
-   .header__nav, exactly like before this drill-down system existed —
-   without this, each wrapper's default block display would stack every
-   panel's content visibly, one under another, over the whole page. */
 .header__nav-top,
 .header__nav-panel:not(.header__nav-panel--main) {
   display: none;
@@ -557,14 +500,6 @@ body {
   transform: rotate(180deg);
 }
 
-/* Dropdown submenu (Registration / Career)
-   The gap above the panel is bridged by ::before (transparent, but part of
-   the same hoverable box) so moving the mouse straight down from the trigger
-   never crosses "dead" space with no hoverable element under it. Closing is
-   additionally delayed (transition-delay on the closed state) so a slightly
-   diagonal path still has time to land on the panel before it disappears —
-   without that delay, pointer-events:none applies the instant :hover is
-   lost, which is what made the menu vanish before it could be reached. */
 .header__submenu {
   position: absolute;
   top: calc(100% + 12px);
@@ -639,7 +574,6 @@ body {
   gap: 24px;
 }
 
-/* Language switcher */
 .header__lang-wrap {
   position: relative;
   padding-right: 32px;
@@ -789,9 +723,6 @@ body {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ==========================================================================
-   HERO
-   ========================================================================== */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -919,15 +850,6 @@ body {
   }
 }
 
-/* ==========================================================================
-   ABOUT
-   ========================================================================== */
-/* Figma's "about us" group is 42px taller than the gap before the dark
-   facilities bg, and paints above it (later in the layer list) — the photo
-   deliberately overlaps onto the next section instead of stopping short of
-   it. Reproduced with a negative bottom margin + an explicit stacking
-   context so .about (and its photo) paints over .facilities in that 42px
-   band, rather than the old approach of just clipping/cropping it away. */
 .about {
   position: relative;
   z-index: 1;
@@ -936,17 +858,10 @@ body {
   overflow-x: clip;
 }
 
-/* Wraps the headline + grid. Deliberately NOT capped to --container-max
-   itself (that would kill the media/watermark bleed below) — only the
-   headline gets its own centered max-width; .about__grid stays full-bleed
-   width so .about__media/.about__watermark can reach the viewport edge. */
 .about__container {
   position: relative;
 }
 
-/* Figma node 2422:2501 "image 46": sits 48px below the headline's own top
-   (overlapping its lower half) and is 843px wide against the 1440px frame —
-   i.e. ~58.5% of the container, bleeding almost flush to the right edge. */
 .about__watermark {
   position: absolute;
   top: 48px;
@@ -1003,9 +918,6 @@ body {
   padding-right: calc(var(--pad) + max(0px, (100vw - var(--container-max))/2));
 }
 
-/* ==========================================================================
-   FACILITIES (dark technology section)
-   ========================================================================== */
 .facilities {
   background: var(--navy);
   color: #fff;
@@ -1023,9 +935,6 @@ body {
   max-width: 832px;
 }
 
-/* Grid tracks default to min-width:auto (content min-content), which lets a
-   wide descendant (e.g. the marquee) blow out the whole grid/page width.
-   Force every direct grid-item wrapper below to be shrinkable. */
 .facilities__side,
 .facilities__card-wrap,
 .products__intro,
@@ -1138,8 +1047,6 @@ body {
   aspect-ratio: 654/227;
 }
 
-/* Guarantees the white overlay title stays legible no matter which photo
-   is swapped in by the facilities category switcher (some are light). */
 .card-cutting__media::after {
   content: '';
   position: absolute;
@@ -1179,7 +1086,6 @@ body {
   transition: opacity .25s ease, transform .3s var(--ease-out);
 }
 
-/* Cross-fade the card content while a new category swaps in (see main.js) */
 .card-cutting.is-switching .card-cutting__media img,
 .card-cutting.is-switching .card-cutting__label,
 .card-cutting.is-switching .card-cutting__text,
@@ -1232,9 +1138,6 @@ body {
   transform: translate(0, 0);
 }
 
-/* ==========================================================================
-   OUR PRODUCT
-   ========================================================================== */
 .products {
   padding: 130px 0;
 }
@@ -1253,10 +1156,6 @@ body {
   align-self: center;
 }
 
-/* Horizontal accordion: the active card claims most of the row's width via
-   flex-grow (352:194:194, matching Figma's Hover/Default card weights) and
-   every card animates smoothly between the two states — see main.js for the
-   hover-driven, "last one stays selected" switching logic. */
 .products__cards {
   display: flex;
   gap: 16px;
@@ -1304,9 +1203,6 @@ body {
   max-width: 220px;
 }
 
-/* Sits behind the product image (explicit z-index, image is z-index:1) and
-   tracks the same peek/center + lift motion as the image above it, so the
-   shadow always reads as "cast by" the photo instead of sitting static. */
 .product-card__shadow {
   position: absolute;
   z-index: 0;
@@ -1350,9 +1246,6 @@ body {
   transform: translateX(0);
 }
 
-/* Collapsed cards let their product photo peek off the right edge (clipped
-   by .product-card's overflow:hidden); on activation it slides in to sit
-   centered, growing at the same time — the "выезжает на середину" motion. */
 .product-card:not(.product-card--active) .product-card__media img {
   transform: translateX(46px);
 }
@@ -1375,12 +1268,6 @@ body {
   align-items: stretch;
 }
 
-/* No transform of its own: .product-card__body is bottom-anchored via
-   margin-top:auto, so the title naturally rises as the desc/btn max-height
-   below it grows (see below) — that reflow is now animated smoothly, so
-   title moves in one continuous motion instead of a transitioned transform
-   fighting an instant, untransitioned flex reflow (that combo was the
-   "дёргается" jitter: two motions overlapping, one of them a hard jump). */
 .product-card__title {
   font: 400 24px/32px var(--font-head);
   color: var(--ink);
@@ -1396,17 +1283,6 @@ body {
   color: #fff;
 }
 
-/* max-height animates with a real duration (not an instant 0s snap) so the
-   space it reserves grows/shrinks smoothly frame by frame, which is what
-   lets the title's push-up reflow above it move continuously. Crucially,
-   on reveal all three properties (opacity/transform/max-height) share the
-   SAME delay equal to the card's own flex-grow duration: text is normal
-   flow content, so while the card is still changing width the description
-   can wrap onto a different number of lines mid-flight, which snaps its
-   own height independently of our max-height transition — that was the
-   real source of the "дёргается" jitter. Waiting until the card's width
-   has fully settled means the text only ever reflows once, before it
-   starts animating, so nothing jumps afterwards. */
 .product-card__desc,
 .product-card__body .btn {
   opacity: 0;
@@ -1426,9 +1302,6 @@ body {
   transition: opacity .4s ease .5s, transform .4s var(--ease-out) .5s, max-height .4s var(--ease-out) .5s;
 }
 
-/* ==========================================================================
-   PARTNERS & CERTIFICATES
-   ========================================================================== */
 .partners {
   background: var(--cream);
   padding: 130px 0;
@@ -1525,9 +1398,6 @@ body {
   background: var(--blue);
 }
 
-/* ==========================================================================
-   CONTACT
-   ========================================================================== */
 .contact {
   background: var(--navy);
   color: #fff;
@@ -1679,9 +1549,6 @@ body {
   outline-offset: 2px;
 }
 
-/* ==========================================================================
-   FOOTER
-   ========================================================================== */
 .footer {
   background: var(--bg);
   padding: 40px 0 20px;
@@ -1786,9 +1653,6 @@ body {
   transform: translateY(-3px);
 }
 
-/* Monochrome at rest, each icon's real brand color (Instagram's true
-   gradient included, since it's baked into the SVG itself) revealed on
-   hover — filter-based rather than currentColor so the gradient survives. */
 .footer__social img {
   filter: grayscale(1) opacity(.7);
   transition: filter .35s ease;
@@ -1823,9 +1687,6 @@ body {
   color: var(--blue);
 }
 
-/* ==========================================================================
-   Marquee (partner logos infinite scroll on small screens)
-   ========================================================================== */
 .partners__logos-viewport {
   overflow: hidden;
   width: 100%;
@@ -1853,12 +1714,6 @@ body {
   }
 }
 
-/* ==========================================================================
-   PAGE HERO — simple title + description hero (no photo), reused by any
-   subpage whose Figma hero is just a headline over the page background
-   (Sertificats, Gallery, ...). .hero__title/.hero__desc already carry the
-   typography; this only recolors/resizes them for a light-bg subpage.
-   ========================================================================== */
 .page-hero {
   padding: 40px 0;
   background: transparent;
@@ -1881,12 +1736,6 @@ body {
   margin-bottom: 0;
 }
 
-/* ==========================================================================
-   PILL TABS — Playfair text tabs where the active one grows and gets
-   underlined, instead of a boxed/pill button. Reused wherever a subpage
-   switches between a handful of categories (Sertificats year ranges,
-   Gallery categories, ...); the click behaviour is page-specific JS.
-   ========================================================================== */
 .pill-tabs {
   display: flex;
   align-items: baseline;
@@ -1912,11 +1761,6 @@ body {
   text-underline-offset: 6px;
 }
 
-/* ==========================================================================
-   LIGHTBOX — click-to-enlarge overlay, shared by any page that opens
-   full-size images (certificates, gallery, ...). Markup + open/close/prev/
-   next logic live in main.js, generic to any [data-lightbox-trigger].
-   ========================================================================== */
 body.no-scroll {
   overflow: hidden;
 }
@@ -1948,9 +1792,6 @@ body.no-scroll {
 .lightbox__figure {
   position: relative;
   z-index: 1;
-  /* Generous enough for landscape gallery photos to actually fill the
-     screen; a narrower portrait certificate is still capped sensibly by
-     max-height below, so one size serves both without a per-page tweak. */
   max-width: min(92vw, 1100px);
   max-height: 88vh;
   margin: 0;
@@ -2033,10 +1874,6 @@ body.no-scroll {
   transform: rotate(-90deg);
 }
 
-/* ==========================================================================
-   RESPONSIVE
-   ========================================================================== */
-
 @media (min-width:1400px) {
   .about__photo {
     border-radius: 16px;
@@ -2046,7 +1883,6 @@ body.no-scroll {
 
 }
 
-/* ---- ≤1500px : tighten outer rhythm ---- */
 @media (max-width:1500px) {
   :root {
     --pad: 56px;
@@ -2072,17 +1908,8 @@ body.no-scroll {
   }
 }
 
-/* ---- ≤1200px : collapse nav, simplify grids ---- */
 @media (max-width:1200px) {
 
-  /* Full-screen takeover, not an off-canvas drawer. It carries its own top
-     row (logo + close) so that row slides in/out together with everything
-     else — the persistent .header bar's own logo/burger just get hidden
-     while it's open (.header--nav-open below) rather than trying to
-     recolor in place, since descendants always paint above their own
-     ancestor's background anyway (this nav is nested in .header__inner,
-     same as before) — no z-index tug-of-war needed once the originals are
-     out of the way. */
   .header__nav {
     position: fixed;
     inset: 0;
@@ -2142,10 +1969,6 @@ body.no-scroll {
     transform: scale(.92);
   }
 
-  /* Drill-down "screens": exactly one .is-active at a time. The main list
-     defaults to visible (no class needed at rest); opening a sub-screen
-     adds .is-back to main (slides it out left) and .is-active to the
-     target (slides it in from the right); "back" reverses both. */
   .header__nav-panels {
     display: flex;
     position: relative;
@@ -2154,10 +1977,6 @@ body.no-scroll {
     overflow: hidden;
   }
 
-  /* Specificity has to match/beat the base ":not(.header__nav-panel--main)"
-     hide rule and the plain ".header__nav-panel--main" display:contents
-     rule (both live outside this media query, for desktop) — scoping to
-     ".header__nav" ties their specificity and wins on source order. */
   .header__nav .header__nav-panel {
     position: absolute;
     inset: 0;
@@ -2247,29 +2066,20 @@ body.no-scroll {
     display: flex;
   }
 
-  /* Desktop's lang switcher + Contact Us button move inside the overlay
-     (as .header__nav-cta and the "EN" list row) below this breakpoint, so
-     the persistent top bar stays down to just the logo + burger. */
   .header__actions {
     display: none;
   }
 
-  /* CTA sits below the list, full width, with breathing room above it. */
   .header__nav-cta {
     display: flex;
     width: 100%;
     margin-top: 16px;
   }
 
-  /* The desktop hover-flyout submenu markup is still there (for the
-     desktop CSS above this breakpoint) but unused on mobile — Registration
-     /Career now drill into their own .header__nav-panel instead. */
   .header__nav-item--dropdown .header__submenu {
     display: none;
   }
 
-  /* Sub-screens: a back row, a title, then a plain full-width link list —
-     visually consistent with the main list's rows but without icons. */
   .header__nav-back {
     display: inline-flex;
     align-items: center;
@@ -2337,10 +2147,6 @@ body.no-scroll {
     color: var(--gold);
   }
 
-  /* Decorative photo strip pinned to the bottom of the main panel, outside
-     the scrollable area — mobile-bg.png is a tall cutout with a soft
-     transparent top edge; a taller strip than a first pass keeps more of
-     that fade visible instead of cropping straight into the welder. */
   .header__nav-bg {
     display: block;
     position: absolute;
@@ -2369,10 +2175,6 @@ body.no-scroll {
     color: #fff;
   }
 
-  /* The persistent header's own logo/burger are hidden while the overlay
-     is open (it carries its own logo + close button now) — visibility,
-     not display, so nothing shifts and the burger stays in the a11y tree
-     at the same position for when it's toggled back. */
   .header--nav-open .header__logo,
   .header--nav-open .header__burger {
     visibility: hidden;
@@ -2413,11 +2215,6 @@ body.no-scroll {
     min-height: 420px;
   }
 
-  /* width:100% is load-bearing: a grid item with margin-inline:auto but no
-     explicit width falls back to shrink-to-fit sizing instead of stretching
-     (auto margins on a grid item cancel the default "stretch" alignment) —
-     without it, this column collapsed to the certificate's tiny intrinsic
-     content size instead of the intended 320px, capped-width card. */
   .partners__right {
     order: -1;
     width: 100%;
@@ -2434,7 +2231,6 @@ body.no-scroll {
   }
 }
 
-/* ---- ≤1024px : tablet ---- */
 @media (max-width:1024px) {
   .page-hero {
     padding: 48px 0 40px;
@@ -2491,7 +2287,6 @@ body.no-scroll {
   }
 }
 
-/* ---- ≤768px : mobile landscape / large phones ---- */
 @media (max-width:768px) {
   :root {
     --pad: 24px;
@@ -2551,15 +2346,49 @@ body.no-scroll {
     padding: 80px 0;
   }
 
-  .checks__btn {
-    font-size: 19px;
-    line-height: 28px;
+  .checks {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 10px;
+    margin-inline: calc(var(--pad) * -1);
+    padding-inline: var(--pad);
+    padding-bottom: 6px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
 
-  /* Below 768px there isn't room for a 3-up horizontal accordion, so the
-     same hover/selected logic (see main.js) drives a vertical one instead:
-     flex-grow can't distribute height without a bounded container here, so
-     each state gets an explicit min-height to transition between. */
+  .checks::-webkit-scrollbar {
+    display: none;
+  }
+
+  .checks__item {
+    flex: none;
+    max-width: none;
+    scroll-snap-align: start;
+  }
+
+  .checks__btn {
+    font-size: 15px;
+    line-height: 22px;
+    white-space: nowrap;
+    opacity: .7;
+  }
+
+  .checks__item:hover .checks__btn,
+  .checks__item--active .checks__btn {
+    padding: 10px 20px 10px 10px;
+  }
+
+  .checks__icon {
+    height: 20px;
+  }
+
+  .facilities__lead {
+    margin-bottom: 24px;
+  }
+
   .products__cards {
     flex-direction: column;
   }
@@ -2575,9 +2404,6 @@ body.no-scroll {
     padding-top: 24px;
   }
 
-  /* Collapsed cards become a compact horizontal row (small thumbnail +
-     name) instead of hiding the photo outright — Hatches/Storage stay
-     recognisable while collapsed rather than just a bare label. */
   .product-card:not(.product-card--active) {
     flex-direction: row;
     align-items: center;
@@ -2682,7 +2508,6 @@ body.no-scroll {
   }
 }
 
-/* ---- ≤576px : mobile ---- */
 @media (max-width:576px) {
   :root {
     --pad: 20px;
