@@ -710,6 +710,69 @@
     });
   }
 
+  /* ---------- Contact page: world map pins + location card ----------
+     Only one real address exists (Libra-Lanos), so every pin surfaces the
+     same card — the point is "here's where our network reaches", not
+     distinct per-city data we don't have. The card repositions itself
+     next to whichever pin is active and flips side/edge as needed so it
+     never runs off the map. */
+  const worldMap = document.querySelector('[data-world-map]');
+  if (worldMap) {
+    const pins = worldMap.querySelectorAll('[data-pin]');
+    const card = worldMap.querySelector('[data-location-card]');
+    const defaultPin = worldMap.querySelector('[data-pin-active]');
+    let activePin = defaultPin;
+
+    const showCardNear = (pin) => {
+      activePin = pin;
+      pins.forEach((p) => p.classList.toggle('world-map__pin--active', p === pin));
+      const mapRect = worldMap.getBoundingClientRect();
+      const pinRect = pin.getBoundingClientRect();
+      const tipX = pinRect.left + pinRect.width / 2 - mapRect.left;
+      const tipY = pinRect.top - mapRect.top;
+
+      card.classList.add('is-visible');
+      const cardWidth = card.offsetWidth;
+      const cardHeight = card.offsetHeight;
+
+      let left = tipX + 16;
+      if (left + cardWidth > mapRect.width - 8) left = tipX - cardWidth - 16;
+      if (left < 8) left = 8;
+
+      let top = tipY - cardHeight - 12;
+      if (top < 8) top = tipY + 12;
+
+      card.style.left = `${left}px`;
+      card.style.top = `${top}px`;
+    };
+
+    pins.forEach((pin) => {
+      pin.addEventListener('mouseenter', () => showCardNear(pin));
+      pin.addEventListener('focus', () => showCardNear(pin));
+      pin.addEventListener('click', (e) => {
+        e.preventDefault();
+        showCardNear(pin);
+      });
+    });
+
+    if (defaultPin) {
+      worldMap.addEventListener('mouseleave', () => showCardNear(defaultPin));
+      /* Wait a tick so layout (and any reveal-triggered sizing) has
+         settled before measuring the card for its initial placement. */
+      requestAnimationFrame(() => showCardNear(defaultPin));
+
+      /* The card's position is computed in pixels off the map's current
+         layout, so a viewport resize (or orientation change) needs a
+         recompute for whichever pin is currently active or it drifts out
+         of alignment with its pin. */
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => showCardNear(activePin), 150);
+      });
+    }
+  }
+
   /* ---------- Hero background parallax ---------- */
   const parallax = document.querySelector('[data-parallax]');
   if (parallax && window.matchMedia('(hover:hover)').matches) {

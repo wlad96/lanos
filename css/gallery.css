@@ -1,12 +1,13 @@
 /* ==========================================================================
-   GALLERY — page-specific styles
-   Design source: Figma "Site LANOS" → Gallery (node 2455:2567)
+   GALLERY â€” page-specific styles
+   Design source: Figma "Site LANOS" â†’ Gallery (node 2455:2567)
    Loaded after style.css + production.css: reuses tokens, header/footer,
-   buttons, .page-hero, .pill-tabs, .lightbox and the breadcrumb-bar 1:1 —
+   buttons, .page-hero, .pill-tabs, .lightbox and the breadcrumb-bar 1:1 â€”
    only the bento photo grid + load-more wiring live here.
    ========================================================================== */
 .gallery-section {
   padding-bottom: 130px;
+  background-color: var(--cream);
 }
 
 .gallery-section__container {
@@ -109,7 +110,7 @@
 }
 
 /* ==========================================================================
-   RESPONSIVE — same breakpoint set as the rest of the site
+   RESPONSIVE â€” same breakpoint set as the rest of the site
    ========================================================================== */
 @media (max-width:1200px) {
   .gallery-grid {
